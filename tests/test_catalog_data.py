@@ -40,11 +40,11 @@ BASE_VERIFICATION_FIELDS = {
     "exposure",
     "visit_minutes",
     "opening_hours",
-    "last_entry_offset_minutes",
+    "last_entry_before_close_min",
     "child_friendly",
     "step_free",
     "heat_exposure",
-    "price",
+    "price_eur",
     "safety_tier",
 }
 
@@ -75,23 +75,49 @@ def test_coordinates_are_rounded_and_all_require_map_verification() -> None:
         assert poi["needs_verification"]["coordinates"] is True
 
 
-def test_archaeological_museum_keeps_supplied_seasons_and_conflict() -> None:
+def test_archaeological_museum_uses_corrected_official_operational_data() -> None:
     museum = by_id()["archaeological_museum"]
     assert museum["opening_hours"] == [
         {
-            "valid_from": "04-15",
-            "valid_to": "11-14",
-            "expression": "Mo-Su 08:00-20:00",
+            "valid_from": "04-01",
+            "valid_to": "10-31",
+            "expression": "Mo-Su 09:00-17:00",
         },
         {
-            "valid_from": "11-15",
-            "valid_to": "04-14",
-            "expression": "Mo-Su 09:00-16:00",
+            "valid_from": "11-01",
+            "valid_to": "03-31",
+            "expression": "Mo,We-Su 09:00-17:00; Tu off",
         },
     ]
-    assert museum["last_entry_offset_minutes"] == 30
+    assert museum["last_entry_before_close_min"] == 20
+    assert museum["price_eur"] == {"standard": 10, "reduced": 5}
     assert museum["needs_verification"]["opening_hours"] is False
-    assert museum["conflicts"][0]["source"]["kind"] == "third_party"
+    assert museum["source"] == {
+        "url": "https://www.amth.gr/en/visit/hours-and-tickets",
+        "kind": "official",
+        "verified_at": date(2026, 9, 20),
+    }
+    assert len(museum["conflicts"]) == 2
+    assert {item["source"]["kind"] for item in museum["conflicts"]} == {"third_party"}
+
+
+def test_white_tower_and_byzantine_museum_corrections_are_explicit() -> None:
+    pois = by_id()
+    tower = pois["white_tower"]
+    assert tower["temporary_closures"] == [
+        {
+            "from": date(2026, 10, 12),
+            "to": date(2026, 10, 15),
+            "reason": "construction works",
+        }
+    ]
+    assert tower["needs_verification"]["opening_hours"] is False
+
+    museum = pois["museum_of_byzantine_culture"]
+    assert museum["opening_hours"][0]["valid_from"] == "05-08"
+    assert museum["needs_verification"]["opening_hours"] is True
+    assert museum["last_entry_before_close_min"] == 20
+    assert museum["needs_verification"]["last_entry_before_close_min"] is True
 
 
 def test_required_public_spaces_have_explicit_24_7_periods() -> None:
@@ -120,6 +146,7 @@ def test_seich_sou_has_required_safety_classification() -> None:
 def test_holidays_are_explicit_and_unverified() -> None:
     holidays = load_yaml("holidays.yaml")["holidays"]
     assert all(item["needs_verification"] is True for item in holidays)
+    assert len({item["id"] for item in holidays}) == len(holidays)
     assert {item["date"] for item in holidays if item.get("easter_dependent")} == {
         date(2026, 2, 23),
         date(2026, 4, 10),

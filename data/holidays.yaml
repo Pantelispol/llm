@@ -16,83 +16,98 @@ sources_to_verify:
     kind: municipality
 
 holidays:
-  - date: 2026-01-01
+  - id: new_years_day
+    date: 2026-01-01
     name_en: New Year's Day
     name_el: Πρωτοχρονιά
     scope: national
     needs_verification: true
-  - date: 2026-01-06
+  - id: epiphany
+    date: 2026-01-06
     name_en: Epiphany
     name_el: Θεοφάνεια
     scope: national
     needs_verification: true
-  - date: 2026-02-23
+  - id: clean_monday
+    date: 2026-02-23
     name_en: Clean Monday
     name_el: Καθαρά Δευτέρα
     scope: national
     easter_dependent: true
     needs_verification: true
-  - date: 2026-03-25
+  - id: greek_independence_day
+    date: 2026-03-25
     name_en: Greek Independence Day and Annunciation
     name_el: Ευαγγελισμός της Θεοτόκου και Εθνική Εορτή
     scope: national
     needs_verification: true
-  - date: 2026-04-10
+  - id: orthodox_good_friday
+    date: 2026-04-10
     name_en: Orthodox Good Friday
     name_el: Μεγάλη Παρασκευή
     scope: national
     easter_dependent: true
     needs_verification: true
-  - date: 2026-04-12
+  - id: orthodox_easter_sunday
+    date: 2026-04-12
     name_en: Orthodox Easter Sunday
     name_el: Κυριακή του Πάσχα
     scope: national
     easter_dependent: true
     needs_verification: true
-  - date: 2026-04-13
+  - id: orthodox_easter_monday
+    date: 2026-04-13
     name_en: Orthodox Easter Monday
     name_el: Δευτέρα του Πάσχα
     scope: national
     easter_dependent: true
     needs_verification: true
-  - date: 2026-05-01
+  - id: labour_day
+    date: 2026-05-01
     name_en: Labour Day
     name_el: Εργατική Πρωτομαγιά
     scope: national
     needs_verification: true
-  - date: 2026-05-31
+  - id: orthodox_pentecost_sunday
+    date: 2026-05-31
     name_en: Orthodox Pentecost Sunday
     name_el: Κυριακή της Πεντηκοστής
     scope: national
     easter_dependent: true
     needs_verification: true
-  - date: 2026-06-01
+  - id: holy_spirit_monday
+    date: 2026-06-01
     name_en: Holy Spirit Monday
     name_el: Αγίου Πνεύματος
     scope: national
     easter_dependent: true
     needs_verification: true
-  - date: 2026-08-15
+  - id: dormition
+    date: 2026-08-15
     name_en: Dormition of the Mother of God
     name_el: Κοίμηση της Θεοτόκου
     scope: national
     needs_verification: true
-  - date: 2026-10-28
+  - id: ohi_day
+    date: 2026-10-28
     name_en: Ohi Day
     name_el: Επέτειος του Όχι
     scope: national
     needs_verification: true
-  - date: 2026-12-25
+  - id: christmas_day
+    date: 2026-12-25
     name_en: Christmas Day
     name_el: Χριστούγεννα
     scope: national
     needs_verification: true
-  - date: 2026-12-26
+  - id: synaxis_mother_of_god
+    date: 2026-12-26
     name_en: Synaxis of the Mother of God
     name_el: Σύναξη της Θεοτόκου
     scope: national
     needs_verification: true
-  - date: 2026-10-26
+  - id: saint_demetrius_thessaloniki_liberation
+    date: 2026-10-26
     name_en: Saint Demetrius and Thessaloniki Liberation Day
     name_el: Αγίου Δημητρίου και Απελευθέρωση της Θεσσαλονίκης
     scope: thessaloniki_local

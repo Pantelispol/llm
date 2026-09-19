@@ -171,3 +171,38 @@ the main alternative, and the reason for the choice.
 - **Alternative:** Delegate public holidays to `opening-hours-py` immediately.
 - **Why:** Venue closure behavior differs by holiday and library databases can
   be incomplete. Phase 2b will test the explicit file before any integration.
+
+## Phase 2a correction — official museum data
+
+### Replace stale tourism hours with the venue's official schedule
+
+- **Decision:** The Archaeological Museum's official hours page, verified on
+  2026-09-20, replaces both Discover Greece and travel-blog schedules. Both
+  stale values remain in `conflicts` as third-party incident evidence.
+- **Alternative:** Preserve the earlier assignment-provided schedule because it
+  had already been encoded and tested.
+- **Why:** Source precedence must change behavior, not merely documentation. The
+  stale `08:00-20:00` value would send a visitor at 18:00 after the official
+  17:00 close—the exact failure this architecture is intended to prevent.
+
+### Model exceptional dates above seasonal schedules
+
+- **Decision:** Add `temporary_closures` and `date_overrides`; per-POI closure
+  rules refer to stable holiday ids. Resolution order is temporary closure,
+  date override, per-POI holiday closure, then seasonal expression.
+- **Alternative:** Encode every exception inside one large OSM expression or
+  apply a global holiday-closed rule.
+- **Why:** Explicit layers are easier to inspect and test. They also allow the
+  Archaeological Museum to remain open with free admission on October 28 while
+  still closing on its own listed holidays.
+
+### Keep partial verification visible
+
+- **Decision:** Store the Museum of Byzantine Culture's verified summer and
+  winter periods but keep `opening_hours` flagged because April 1–May 7 is
+  unknown; last entry remains separately flagged despite an official-directory
+  source.
+- **Alternative:** Fill the spring gap from a different current page or mark the
+  entire schedule verified.
+- **Why:** A partially sourced schedule must not become a complete operational
+  claim through inference.

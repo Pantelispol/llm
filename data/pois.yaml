@@ -17,19 +17,26 @@ pois:
     tags: [history, city_views, landmark]
     exposure: mixed
     visit_minutes: {min: 45, typical: 60, max: 90}
-    opening_hours: []
-    last_entry_offset_minutes: null
+    opening_hours:
+      - {valid_from: "04-01", valid_to: "10-31", expression: "Mo-Su 08:00-21:00"}
+      - {valid_from: "11-01", valid_to: "03-31", expression: "Mo-Su 08:30-15:30"}
+    last_entry_before_close_min: 20
+    temporary_closures:
+      - from: 2026-10-12
+        to: 2026-10-15
+        reason: construction works
+    date_overrides: []
     child_friendly: medium
     step_free: null
     heat_exposure: medium
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: null
     conflicts: []
     source:
       url: https://www.mbp.gr/en/
-      kind: official_museum_candidate
-      verified_at: null
+      kind: official
+      verified_at: 2026-09-20
     needs_verification:
       names.en: false
       names.el: true
@@ -39,14 +46,15 @@ pois:
       tags: true
       exposure: true
       visit_minutes: true
-      opening_hours: true
-      last_entry_offset_minutes: true
+      opening_hours: false
+      last_entry_before_close_min: true
+      temporary_closures: false
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
-      source: true
+      source: false
 
   - id: rotunda
     names:
@@ -59,11 +67,11 @@ pois:
     exposure: indoor
     visit_minutes: {min: 20, typical: 35, max: 60}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     heat_exposure: low
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: null
     conflicts: []
@@ -81,11 +89,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       source: true
 
@@ -101,11 +109,11 @@ pois:
     visit_minutes: {min: 10, typical: 20, max: 30}
     opening_hours:
       - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
-    last_entry_offset_minutes: 0
+    last_entry_before_close_min: 0
     child_friendly: medium
     step_free: null
     heat_exposure: high
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: >-
       24/7 describes access to the exterior public monument, not guaranteed
@@ -125,11 +133,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -145,11 +153,11 @@ pois:
     exposure: mixed
     visit_minutes: {min: 45, typical: 75, max: 120}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     heat_exposure: high
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: null
     conflicts: []
@@ -167,11 +175,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       source: true
 
@@ -186,11 +194,11 @@ pois:
     exposure: indoor
     visit_minutes: {min: 25, typical: 45, max: 75}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     heat_exposure: low
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: Worship and services may affect tourist access.
     conflicts: []
@@ -208,11 +216,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -228,11 +236,11 @@ pois:
     exposure: indoor
     visit_minutes: {min: 20, typical: 35, max: 60}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     heat_exposure: low
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: Worship and services may affect tourist access.
     conflicts: []
@@ -250,11 +258,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -270,11 +278,11 @@ pois:
     exposure: indoor
     visit_minutes: {min: 20, typical: 35, max: 60}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     heat_exposure: low
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: Worship and services may affect tourist access.
     conflicts: []
@@ -292,11 +300,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -312,12 +320,12 @@ pois:
     exposure: mixed
     visit_minutes: {min: 35, typical: 60, max: 90}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     hilly: true
     heat_exposure: high
-    price: null
+    price_eur: null
     safety_tier: caution
     notes: Steep approaches and uneven surfaces may affect access.
     conflicts: []
@@ -335,12 +343,12 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       hilly: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -356,12 +364,12 @@ pois:
     exposure: outdoor
     visit_minutes: {min: 25, typical: 45, max: 75}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     hilly: true
     heat_exposure: high
-    price: null
+    price_eur: null
     safety_tier: caution
     notes: >-
       Public exterior viewpoints and paths may differ from managed monument
@@ -381,12 +389,12 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       hilly: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -402,32 +410,58 @@ pois:
     exposure: indoor
     visit_minutes: {min: 60, typical: 105, max: 180}
     opening_hours:
-      - {valid_from: "04-15", valid_to: "11-14", expression: "Mo-Su 08:00-20:00"}
-      - {valid_from: "11-15", valid_to: "04-14", expression: "Mo-Su 09:00-16:00"}
-    last_entry_offset_minutes: 30
+      - {valid_from: "04-01", valid_to: "10-31", expression: "Mo-Su 09:00-17:00"}
+      - {valid_from: "11-01", valid_to: "03-31", expression: "Mo,We-Su 09:00-17:00; Tu off"}
+    last_entry_before_close_min: 20
+    temporary_closures: []
+    date_overrides:
+      - date: 2026-04-10
+        expression: "12:00-17:00"
+        reason: Orthodox Good Friday
+      - date: 2026-04-11
+        expression: "08:30-15:30"
+        reason: Orthodox Holy Saturday
+      - date: 2026-04-12
+        expression: "off"
+        reason: Orthodox Easter Sunday
+      - date: 2026-10-28
+        expression: "09:00-17:00"
+        admission_eur: 0
+        reason: Ohi Day, open with free entry
+    closed:
+      - {annual_date: "01-01", reason: New Year's Day}
+      - {annual_date: "03-25", reason: Greek Independence Day}
+      - {holiday_id: orthodox_easter_sunday, reason: Orthodox Easter Sunday}
+      - {annual_date: "05-01", reason: Labour Day}
+      - {annual_date: "12-25", reason: Christmas Day}
+      - {annual_date: "12-26", reason: Synaxis of the Mother of God}
     child_friendly: high
     step_free: true
     heat_exposure: low
-    price: null
+    price_eur: {standard: 10, reduced: 5}
     safety_tier: standard
     notes: >-
-      Assignment-supplied hours take precedence for the prototype. Confirm live
-      before production because current official pages may differ.
+      Corrected after comparing stale tourism material with the museum's official
+      hours page. The 18:00 incident is prevented by the 17:00 official close.
     conflicts:
       - field: opening_hours
-        preferred_value: "Apr 15-Nov 14 08:00-20:00; Nov 15-Apr 14 09:00-16:00"
-        conflicting_value: "April-October summer season"
-        resolution: >-
-          Keep the assignment-supplied official-tourism schedule for the demo;
-          flag the discrepancy and advise confirmation for real visits.
+        stale_value: "Apr 15-Nov 14 08:00-20:00; Nov 15-Apr 14 09:00-16:00"
+        risk: Would incorrectly recommend an 18:00 visit after the official close.
+        source:
+          url: https://www.discovergreece.com/experiences/tour-archaeological-museum-thessaloniki
+          kind: third_party
+          verified_at: null
+      - field: opening_hours
+        stale_value: "Apr-Oct 08:00-20:00"
+        risk: Would incorrectly recommend an 18:00 visit after the official close.
         source:
           url: https://bucketlisttraveltrips.com/wp-content/uploads/2023/06/Thessaloniki-Downloadable-Guide.pdf
           kind: third_party
           verified_at: null
     source:
-      url: https://www.discovergreece.com/experiences/tour-archaeological-museum-thessaloniki
-      kind: official_tourism
-      verified_at: 2026-09-19
+      url: https://www.amth.gr/en/visit/hours-and-tickets
+      kind: official
+      verified_at: 2026-09-20
     needs_verification:
       names.en: false
       names.el: true
@@ -438,17 +472,18 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: false
-      last_entry_offset_minutes: false
+      last_entry_before_close_min: false
+      temporary_closures: true
+      date_overrides: false
+      closed: false
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: false
       safety_tier: true
       notes: true
-      conflicts.source: true
-      source.url: true
-      source.kind: false
-      source.verified_at: false
+      conflicts: false
+      source: false
 
   - id: museum_of_byzantine_culture
     names:
@@ -460,19 +495,28 @@ pois:
     tags: [byzantine, art, history, indoor]
     exposure: indoor
     visit_minutes: {min: 60, typical: 105, max: 180}
-    opening_hours: []
-    last_entry_offset_minutes: null
+    opening_hours:
+      - {valid_from: "05-08", valid_to: "10-31", expression: "Mo-Su 08:00-20:00"}
+      - {valid_from: "11-01", valid_to: "03-31", expression: "Mo,We-Su 08:30-15:30; Tu off"}
+    last_entry_before_close_min: 20
+    temporary_closures: []
+    date_overrides: []
     child_friendly: high
     step_free: null
     heat_exposure: low
-    price: null
+    price_eur: null
     safety_tier: standard
-    notes: null
+    notes: Opening hours from April 1 through May 7 remain unknown.
     conflicts: []
     source:
-      url: https://www.mbp.gr/en/visit/
-      kind: official_museum_candidate
-      verified_at: null
+      url: https://www.mbp.gr/en/
+      kind: official
+      verified_at: 2026-09-20
+    field_sources:
+      last_entry_before_close_min:
+        url: https://archaeologicalmuseums.culture.gov.gr/en/museum/5df34af3deca5e2d79e8c154/museum-of-byzantine-culture
+        kind: official
+        verified_at: null
     needs_verification:
       names.en: false
       names.el: true
@@ -483,13 +527,16 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
+      temporary_closures: true
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
-      source: true
+      notes: false
+      source: false
+      field_sources.last_entry_before_close_min: true
 
   - id: jewish_museum
     names:
@@ -502,11 +549,11 @@ pois:
     exposure: indoor
     visit_minutes: {min: 45, typical: 75, max: 120}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     heat_exposure: low
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: null
     conflicts: []
@@ -524,11 +571,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       source: true
 
@@ -543,11 +590,11 @@ pois:
     exposure: indoor
     visit_minutes: {min: 20, typical: 35, max: 60}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     heat_exposure: low
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: Interior access may be limited or event-dependent.
     conflicts: []
@@ -565,11 +612,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -586,11 +633,11 @@ pois:
     visit_minutes: {min: 15, typical: 30, max: 60}
     opening_hours:
       - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
-    last_entry_offset_minutes: 0
+    last_entry_before_close_min: 0
     child_friendly: high
     step_free: null
     heat_exposure: high
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: >-
       Public access does not guarantee uniform lighting, staffing, or quiet
@@ -610,11 +657,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: false
-      last_entry_offset_minutes: false
+      last_entry_before_close_min: false
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -631,11 +678,11 @@ pois:
     visit_minutes: {min: 30, typical: 60, max: 120}
     opening_hours:
       - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
-    last_entry_offset_minutes: 0
+    last_entry_before_close_min: 0
     child_friendly: medium
     step_free: null
     heat_exposure: medium
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: >-
       The district is physically accessible at all hours, but individual venues
@@ -655,11 +702,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: false
-      last_entry_offset_minutes: false
+      last_entry_before_close_min: false
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -675,11 +722,11 @@ pois:
     exposure: mixed
     visit_minutes: {min: 30, typical: 60, max: 90}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     heat_exposure: medium
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: Individual stalls may keep different hours.
     conflicts: []
@@ -697,11 +744,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -717,11 +764,11 @@ pois:
     exposure: indoor
     visit_minutes: {min: 30, typical: 60, max: 90}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: high
     step_free: null
     heat_exposure: low
-    price: null
+    price_eur: null
     safety_tier: standard
     notes: Individual businesses may keep different hours from the market hall.
     conflicts: []
@@ -739,11 +786,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -760,11 +807,11 @@ pois:
     visit_minutes: {min: 15, typical: 30, max: 45}
     opening_hours:
       - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
-    last_entry_offset_minutes: 0
+    last_entry_before_close_min: 0
     child_friendly: high
     step_free: null
     heat_exposure: high
-    price: null
+    price_eur: null
     safety_tier: caution
     notes: >-
       Public access is continuous, but waterfront wind, rain, slippery surfaces,
@@ -784,11 +831,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: false
-      last_entry_offset_minutes: false
+      last_entry_before_close_min: false
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -805,11 +852,11 @@ pois:
     visit_minutes: {min: 45, typical: 90, max: 180}
     opening_hours:
       - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
-    last_entry_offset_minutes: 0
+    last_entry_before_close_min: 0
     child_friendly: high
     step_free: null
     heat_exposure: high
-    price: null
+    price_eur: null
     safety_tier: caution
     notes: >-
       24/7 denotes public access. Lighting, facilities, playground availability,
@@ -829,11 +876,11 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: false
-      last_entry_offset_minutes: false
+      last_entry_before_close_min: false
       child_friendly: true
       step_free: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -849,11 +896,11 @@ pois:
     exposure: outdoor
     visit_minutes: {min: 60, typical: 120, max: 240}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: low
     step_free: false
     heat_exposure: high
-    price: null
+    price_eur: null
     safety_tier: critical
     notes: >-
       Physical access does not mean the forest is safe at all times. Deterministic
@@ -874,11 +921,11 @@ pois:
       exposure: false
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: false
-      price: true
+      price_eur: true
       safety_tier: false
       notes: true
       source: true
@@ -895,12 +942,12 @@ pois:
     visit_minutes: {min: 30, typical: 60, max: 90}
     opening_hours:
       - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
-    last_entry_offset_minutes: 0
+    last_entry_before_close_min: 0
     child_friendly: medium
     step_free: false
     hilly: true
     heat_exposure: high
-    price: null
+    price_eur: null
     safety_tier: caution
     notes: >-
       The area is public, while individual venues have separate hours. Steep or
@@ -920,12 +967,12 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: false
-      last_entry_offset_minutes: false
+      last_entry_before_close_min: false
       child_friendly: true
       step_free: true
       hilly: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
@@ -941,12 +988,12 @@ pois:
     exposure: mixed
     visit_minutes: {min: 25, typical: 45, max: 75}
     opening_hours: []
-    last_entry_offset_minutes: null
+    last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     hilly: true
     heat_exposure: medium
-    price: null
+    price_eur: null
     safety_tier: caution
     notes: Worship, services, dress expectations, and steep approaches may affect visits.
     conflicts: []
@@ -964,12 +1011,12 @@ pois:
       exposure: true
       visit_minutes: true
       opening_hours: true
-      last_entry_offset_minutes: true
+      last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       hilly: true
       heat_exposure: true
-      price: true
+      price_eur: true
       safety_tier: true
       notes: true
       source: true
