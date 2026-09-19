@@ -126,3 +126,48 @@ the main alternative, and the reason for the choice.
   maintained grammar implementation is smaller and less error-prone than a
   take-home-specific parser; our code will still own conservative visit-fit and
   last-entry decisions.
+
+## Phase 2a — catalog draft
+
+### Keep runtime values separate from verification metadata
+
+- **Decision:** POI fields stay simple YAML values, with a parallel
+  `needs_verification` map keyed by field path.
+- **Alternative:** Wrap every value in `{value, needs_verification}`.
+- **Why:** The planner and catalog loader should not need to unwrap every field,
+  while reviewers still get explicit field-level provenance status.
+
+### Represent unknown hours as empty, never as closed
+
+- **Decision:** Managed venues without assignment-supplied hours use an empty
+  `opening_hours` list and a verification flag. Requirement-designated public
+  spaces use explicit year-round `24/7` periods with night-safety notes.
+- **Alternative:** Insert plausible schedules or interpret missing hours as
+  closed.
+- **Why:** Both alternatives create false operational claims. Unknown data must
+  prevent a definitive plan until verified or obtained live.
+
+### Preserve the archaeological-museum conflict
+
+- **Decision:** Keep the assignment-supplied Discover Greece seasonal split as
+  the preferred demo value and store the April–October third-party statement in
+  `conflicts`.
+- **Alternative:** Silently replace it with the newest page found during research.
+- **Why:** The requested case demonstrates source precedence and conservative
+  conflict disclosure. Production behavior should prompt confirmation when the
+  stakes are real.
+
+### Treat coordinates as reviewable routing inputs
+
+- **Decision:** Store four-decimal representative points and flag all of them.
+- **Alternative:** Present them as verified entrances or omit coordinates.
+- **Why:** Approximate points allow schema and matrix work to proceed, but large
+  areas and monuments need actual pedestrian entrances before route generation.
+
+### Own the holiday calendar explicitly
+
+- **Decision:** Store 2026 national observances and the October 26 Thessaloniki
+  holiday in `data/holidays.yaml`, all marked for verification.
+- **Alternative:** Delegate public holidays to `opening-hours-py` immediately.
+- **Why:** Venue closure behavior differs by holiday and library databases can
+  be incomplete. Phase 2b will test the explicit file before any integration.

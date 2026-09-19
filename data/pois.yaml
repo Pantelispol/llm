@@ -1,0 +1,975 @@
+schema_version: 1
+city: Thessaloniki
+timezone: Europe/Athens
+verification_policy: >-
+  A true value under needs_verification means the current value is a planning
+  draft and must not be treated as verified operational data. Empty opening
+  hours and null prices are unknown, not closed or free.
+
+pois:
+  - id: white_tower
+    names:
+      en: White Tower
+      el: Λευκός Πύργος
+    aliases: [White Tower Museum, Lefkos Pyrgos]
+    coordinates: {latitude: 40.6264, longitude: 22.9484}
+    category: museum
+    tags: [history, city_views, landmark]
+    exposure: mixed
+    visit_minutes: {min: 45, typical: 60, max: 90}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: medium
+    step_free: null
+    heat_exposure: medium
+    price: null
+    safety_tier: standard
+    notes: null
+    conflicts: []
+    source:
+      url: https://www.mbp.gr/en/
+      kind: official_museum_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      source: true
+
+  - id: rotunda
+    names:
+      en: Rotunda
+      el: Ροτόντα
+    aliases: [Rotunda of Galerius, Agios Georgios Rotunda]
+    coordinates: {latitude: 40.6321, longitude: 22.9529}
+    category: archaeological_monument
+    tags: [roman, byzantine, unesco, mosaics]
+    exposure: indoor
+    visit_minutes: {min: 20, typical: 35, max: 60}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: medium
+    step_free: null
+    heat_exposure: low
+    price: null
+    safety_tier: standard
+    notes: null
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/exploring-the-city/religion/greek-orthodox-churches/rotunda-unesco-monument/
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      source: true
+
+  - id: arch_of_galerius
+    names:
+      en: Arch of Galerius
+      el: Αψίδα του Γαλερίου
+    aliases: [Kamara, Galerius Arch]
+    coordinates: {latitude: 40.6327, longitude: 22.9518}
+    category: archaeological_monument
+    tags: [roman, architecture, landmark]
+    exposure: outdoor
+    visit_minutes: {min: 10, typical: 20, max: 30}
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
+    last_entry_offset_minutes: 0
+    child_friendly: medium
+    step_free: null
+    heat_exposure: high
+    price: null
+    safety_tier: standard
+    notes: >-
+      24/7 describes access to the exterior public monument, not guaranteed
+      lighting, staffing, or suitability late at night.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/pdf/Thessaloniki_EN.pdf
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: roman_forum
+    names:
+      en: Roman Forum
+      el: Ρωμαϊκή Αγορά Θεσσαλονίκης
+    aliases: [Ancient Agora, Roman Agora]
+    coordinates: {latitude: 40.6378, longitude: 22.9455}
+    category: archaeological_site
+    tags: [roman, archaeology, history]
+    exposure: mixed
+    visit_minutes: {min: 45, typical: 75, max: 120}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: medium
+    step_free: null
+    heat_exposure: high
+    price: null
+    safety_tier: standard
+    notes: null
+    conflicts: []
+    source:
+      url: https://efapoth.gr/
+      kind: official_culture_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      source: true
+
+  - id: hagios_demetrios
+    names:
+      en: Hagios Demetrios
+      el: Ιερός Ναός Αγίου Δημητρίου
+    aliases: [Agios Dimitrios, Saint Demetrius Church]
+    coordinates: {latitude: 40.6388, longitude: 22.9472}
+    category: church
+    tags: [byzantine, unesco, religious, mosaics]
+    exposure: indoor
+    visit_minutes: {min: 25, typical: 45, max: 75}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: medium
+    step_free: null
+    heat_exposure: low
+    price: null
+    safety_tier: standard
+    notes: Worship and services may affect tourist access.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/pdf/Thessaloniki_EN.pdf
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: acheiropoietos
+    names:
+      en: Acheiropoietos
+      el: Ιερός Ναός Παναγίας Αχειροποιήτου
+    aliases: [Church of the Acheiropoietos, Panagia Acheiropoietos]
+    coordinates: {latitude: 40.6345, longitude: 22.9475}
+    category: church
+    tags: [early_christian, byzantine, unesco, religious]
+    exposure: indoor
+    visit_minutes: {min: 20, typical: 35, max: 60}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: medium
+    step_free: null
+    heat_exposure: low
+    price: null
+    safety_tier: standard
+    notes: Worship and services may affect tourist access.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/pdf/Thessaloniki_EN.pdf
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: hagia_sophia
+    names:
+      en: Hagia Sophia
+      el: Ιερός Ναός Αγίας Σοφίας
+    aliases: [Agia Sofia, Church of Holy Wisdom]
+    coordinates: {latitude: 40.6328, longitude: 22.9471}
+    category: church
+    tags: [byzantine, unesco, religious, mosaics]
+    exposure: indoor
+    visit_minutes: {min: 20, typical: 35, max: 60}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: medium
+    step_free: null
+    heat_exposure: low
+    price: null
+    safety_tier: standard
+    notes: Worship and services may affect tourist access.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/pdf/Thessaloniki_EN.pdf
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: heptapyrgio
+    names:
+      en: Heptapyrgio
+      el: Επταπύργιο
+    aliases: [Eptapyrgio, Yedi Kule]
+    coordinates: {latitude: 40.6444, longitude: 22.9633}
+    category: fortress
+    tags: [byzantine, ottoman, history, city_views]
+    exposure: mixed
+    visit_minutes: {min: 35, typical: 60, max: 90}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: medium
+    step_free: null
+    hilly: true
+    heat_exposure: high
+    price: null
+    safety_tier: caution
+    notes: Steep approaches and uneven surfaces may affect access.
+    conflicts: []
+    source:
+      url: https://efapoth.gr/
+      kind: official_culture_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      hilly: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: ano_poli_walls
+    names:
+      en: Ano Poli Walls
+      el: Τείχη Άνω Πόλης
+    aliases: [Upper Town Walls, Thessaloniki City Walls]
+    coordinates: {latitude: 40.6439, longitude: 22.9605}
+    category: public_space
+    tags: [byzantine, fortifications, city_views, walking]
+    exposure: outdoor
+    visit_minutes: {min: 25, typical: 45, max: 75}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: medium
+    step_free: null
+    hilly: true
+    heat_exposure: high
+    price: null
+    safety_tier: caution
+    notes: >-
+      Public exterior viewpoints and paths may differ from managed monument
+      access. Slopes, uneven ground, and lighting after dark require confirmation.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/pdf/Thessaloniki_EN.pdf
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: false
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      hilly: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: archaeological_museum
+    names:
+      en: Archaeological Museum of Thessaloniki
+      el: Αρχαιολογικό Μουσείο Θεσσαλονίκης
+    aliases: [AMTh, Archaeological Museum]
+    coordinates: {latitude: 40.6258, longitude: 22.9540}
+    category: museum
+    tags: [archaeology, ancient_macedonia, history, indoor]
+    exposure: indoor
+    visit_minutes: {min: 60, typical: 105, max: 180}
+    opening_hours:
+      - {valid_from: "04-15", valid_to: "11-14", expression: "Mo-Su 08:00-20:00"}
+      - {valid_from: "11-15", valid_to: "04-14", expression: "Mo-Su 09:00-16:00"}
+    last_entry_offset_minutes: 30
+    child_friendly: high
+    step_free: true
+    heat_exposure: low
+    price: null
+    safety_tier: standard
+    notes: >-
+      Assignment-supplied hours take precedence for the prototype. Confirm live
+      before production because current official pages may differ.
+    conflicts:
+      - field: opening_hours
+        preferred_value: "Apr 15-Nov 14 08:00-20:00; Nov 15-Apr 14 09:00-16:00"
+        conflicting_value: "April-October summer season"
+        resolution: >-
+          Keep the assignment-supplied official-tourism schedule for the demo;
+          flag the discrepancy and advise confirmation for real visits.
+        source:
+          url: https://bucketlisttraveltrips.com/wp-content/uploads/2023/06/Thessaloniki-Downloadable-Guide.pdf
+          kind: third_party
+          verified_at: null
+    source:
+      url: https://www.discovergreece.com/experiences/tour-archaeological-museum-thessaloniki
+      kind: official_tourism
+      verified_at: 2026-09-19
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: false
+      last_entry_offset_minutes: false
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      conflicts.source: true
+      source.url: true
+      source.kind: false
+      source.verified_at: false
+
+  - id: museum_of_byzantine_culture
+    names:
+      en: Museum of Byzantine Culture
+      el: Μουσείο Βυζαντινού Πολιτισμού
+    aliases: [Byzantine Museum, MBP]
+    coordinates: {latitude: 40.6238, longitude: 22.9543}
+    category: museum
+    tags: [byzantine, art, history, indoor]
+    exposure: indoor
+    visit_minutes: {min: 60, typical: 105, max: 180}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: high
+    step_free: null
+    heat_exposure: low
+    price: null
+    safety_tier: standard
+    notes: null
+    conflicts: []
+    source:
+      url: https://www.mbp.gr/en/visit/
+      kind: official_museum_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      source: true
+
+  - id: jewish_museum
+    names:
+      en: Jewish Museum of Thessaloniki
+      el: Εβραϊκό Μουσείο Θεσσαλονίκης
+    aliases: [Jewish Museum, JMTh]
+    coordinates: {latitude: 40.6351, longitude: 22.9410}
+    category: museum
+    tags: [jewish_history, holocaust_history, culture, indoor]
+    exposure: indoor
+    visit_minutes: {min: 45, typical: 75, max: 120}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: medium
+    step_free: null
+    heat_exposure: low
+    price: null
+    safety_tier: standard
+    notes: null
+    conflicts: []
+    source:
+      url: https://www.jmth.gr/
+      kind: official_museum_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      source: true
+
+  - id: bey_hamam
+    names:
+      en: Bey Hamam
+      el: Μπέη Χαμάμ
+    aliases: [Baths of Paradise, Paradise Baths]
+    coordinates: {latitude: 40.6361, longitude: 22.9446}
+    category: ottoman_monument
+    tags: [ottoman, architecture, history]
+    exposure: indoor
+    visit_minutes: {min: 20, typical: 35, max: 60}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: medium
+    step_free: null
+    heat_exposure: low
+    price: null
+    safety_tier: standard
+    notes: Interior access may be limited or event-dependent.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/pdf/Thessaloniki_EN.pdf
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: aristotelous_square
+    names:
+      en: Aristotelous Square
+      el: Πλατεία Αριστοτέλους
+    aliases: [Aristotle Square]
+    coordinates: {latitude: 40.6323, longitude: 22.9409}
+    category: public_space
+    tags: [architecture, city_center, people_watching]
+    exposure: outdoor
+    visit_minutes: {min: 15, typical: 30, max: 60}
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
+    last_entry_offset_minutes: 0
+    child_friendly: high
+    step_free: null
+    heat_exposure: high
+    price: null
+    safety_tier: standard
+    notes: >-
+      Public access does not guarantee uniform lighting, staffing, or quiet
+      conditions late at night; use normal city-center precautions.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/pdf/Thessaloniki_EN.pdf
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: false
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: false
+      last_entry_offset_minutes: false
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: ladadika
+    names:
+      en: Ladadika
+      el: Λαδάδικα
+    aliases: [Ladadika District]
+    coordinates: {latitude: 40.6350, longitude: 22.9365}
+    category: public_space
+    tags: [historic_district, food, nightlife, architecture]
+    exposure: outdoor
+    visit_minutes: {min: 30, typical: 60, max: 120}
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
+    last_entry_offset_minutes: 0
+    child_friendly: medium
+    step_free: null
+    heat_exposure: medium
+    price: null
+    safety_tier: standard
+    notes: >-
+      The district is physically accessible at all hours, but individual venues
+      keep their own hours and nightlife conditions change after dark.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/exploring-the-city/day-trips/day-1/
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: false
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: false
+      last_entry_offset_minutes: false
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: kapani_market
+    names:
+      en: Kapani Market
+      el: Αγορά Καπάνι
+    aliases: [Kapani, Vlali Market]
+    coordinates: {latitude: 40.6361, longitude: 22.9430}
+    category: market
+    tags: [food, local_life, shopping, historic_market]
+    exposure: mixed
+    visit_minutes: {min: 30, typical: 60, max: 90}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: medium
+    step_free: null
+    heat_exposure: medium
+    price: null
+    safety_tier: standard
+    notes: Individual stalls may keep different hours.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: modiano_market
+    names:
+      en: Modiano Market
+      el: Αγορά Μοδιάνο
+    aliases: [Agora Modiano, Modiano]
+    coordinates: {latitude: 40.6349, longitude: 22.9419}
+    category: market
+    tags: [food, architecture, shopping, indoor_market]
+    exposure: indoor
+    visit_minutes: {min: 30, typical: 60, max: 90}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: high
+    step_free: null
+    heat_exposure: low
+    price: null
+    safety_tier: standard
+    notes: Individual businesses may keep different hours from the market hall.
+    conflicts: []
+    source:
+      url: https://www.agoramodiano.com/
+      kind: official_venue_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: new_waterfront_umbrellas
+    names:
+      en: New Waterfront Umbrellas
+      el: Ομπρέλες Ζογγολόπουλου
+    aliases: [Umbrellas of Thessaloniki, Zongolopoulos Umbrellas]
+    coordinates: {latitude: 40.6200, longitude: 22.9517}
+    category: public_space
+    tags: [public_art, waterfront, photography, sunset]
+    exposure: outdoor
+    visit_minutes: {min: 15, typical: 30, max: 45}
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
+    last_entry_offset_minutes: 0
+    child_friendly: high
+    step_free: null
+    heat_exposure: high
+    price: null
+    safety_tier: caution
+    notes: >-
+      Public access is continuous, but waterfront wind, rain, slippery surfaces,
+      crowd levels, and after-dark lighting should be considered.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/exploring-the-city/interesting-districts/seafront-of-thessaloniki/
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: false
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: false
+      last_entry_offset_minutes: false
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: nea_paralia_parks
+    names:
+      en: Nea Paralia Parks
+      el: Πάρκα Νέας Παραλίας
+    aliases: [New Waterfront Parks, Nea Paralia Gardens]
+    coordinates: {latitude: 40.6119, longitude: 22.9537}
+    category: public_space
+    tags: [parks, waterfront, playgrounds, walking, cycling]
+    exposure: outdoor
+    visit_minutes: {min: 45, typical: 90, max: 180}
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
+    last_entry_offset_minutes: 0
+    child_friendly: high
+    step_free: null
+    heat_exposure: high
+    price: null
+    safety_tier: caution
+    notes: >-
+      24/7 denotes public access. Lighting, facilities, playground availability,
+      wind exposure, and quieter sections after dark require confirmation.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/exploring-the-city/interesting-districts/seafront-of-thessaloniki/
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: false
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: false
+      last_entry_offset_minutes: false
+      child_friendly: true
+      step_free: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: seich_sou_forest
+    names:
+      en: Seich Sou Forest
+      el: Δάσος Σέιχ Σου
+    aliases: [Sheikh Sou, Kedrinos Lofos]
+    coordinates: {latitude: 40.6477, longitude: 23.0054}
+    category: trail_forest
+    tags: [nature, hiking, viewpoints, trail]
+    exposure: outdoor
+    visit_minutes: {min: 60, typical: 120, max: 240}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: low
+    step_free: false
+    heat_exposure: high
+    price: null
+    safety_tier: critical
+    notes: >-
+      Physical access does not mean the forest is safe at all times. Deterministic
+      policy must reject visits during storms, at night, or on fire-risk closure
+      days and should use current civil-protection guidance.
+    conflicts: []
+    source:
+      url: https://thessaloniki.gr/
+      kind: municipal_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: false
+      tags: true
+      exposure: false
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      heat_exposure: false
+      price: true
+      safety_tier: false
+      notes: true
+      source: true
+
+  - id: tsinari_ano_poli
+    names:
+      en: Tsinari, Ano Poli
+      el: Τσινάρι Άνω Πόλης
+    aliases: [Tsinari, Çınarli]
+    coordinates: {latitude: 40.6416, longitude: 22.9509}
+    category: public_space
+    tags: [historic_district, architecture, food, walking]
+    exposure: outdoor
+    visit_minutes: {min: 30, typical: 60, max: 90}
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
+    last_entry_offset_minutes: 0
+    child_friendly: medium
+    step_free: false
+    hilly: true
+    heat_exposure: high
+    price: null
+    safety_tier: caution
+    notes: >-
+      The area is public, while individual venues have separate hours. Steep or
+      uneven streets and variable lighting after dark require confirmation.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: false
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: false
+      last_entry_offset_minutes: false
+      child_friendly: true
+      step_free: true
+      hilly: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
+
+  - id: vlatadon_monastery
+    names:
+      en: Vlatadon Monastery
+      el: Μονή Βλατάδων
+    aliases: [Vlatades Monastery, Moni Vlatadon]
+    coordinates: {latitude: 40.6419, longitude: 22.9527}
+    category: monastery
+    tags: [byzantine, unesco, religious, city_views]
+    exposure: mixed
+    visit_minutes: {min: 25, typical: 45, max: 75}
+    opening_hours: []
+    last_entry_offset_minutes: null
+    child_friendly: medium
+    step_free: null
+    hilly: true
+    heat_exposure: medium
+    price: null
+    safety_tier: caution
+    notes: Worship, services, dress expectations, and steep approaches may affect visits.
+    conflicts: []
+    source:
+      url: https://thessaloniki.travel/pdf/Thessaloniki_EN.pdf
+      kind: official_tourism_candidate
+      verified_at: null
+    needs_verification:
+      names.en: false
+      names.el: true
+      aliases: true
+      coordinates: true
+      category: true
+      tags: true
+      exposure: true
+      visit_minutes: true
+      opening_hours: true
+      last_entry_offset_minutes: true
+      child_friendly: true
+      step_free: true
+      hilly: true
+      heat_exposure: true
+      price: true
+      safety_tier: true
+      notes: true
+      source: true
