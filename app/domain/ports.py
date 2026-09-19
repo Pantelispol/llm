@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Protocol, TypeVar
 
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
 
 from app.domain.models import Exposure, GeoPoint, Itinerary, TripState, ValidationResult
 
@@ -44,17 +45,38 @@ class OpeningHoursRequest(PortModel):
     visit_start: AwareDatetime
     visit_end: AwareDatetime
 
+    @model_validator(mode="after")
+    def valid_visit(self) -> OpeningHoursRequest:
+        if self.visit_end <= self.visit_start:
+            raise ValueError("visit_end must be after visit_start")
+        return self
+
 
 class OpeningHoursResult(PortModel):
     can_visit: bool
     reason: str
+    opens_at: AwareDatetime | None = None
     closes_at: AwareDatetime | None = None
     last_entry_at: AwareDatetime | None = None
+    source_rule: str | None = None
+    admission_eur: float | None = Field(default=None, ge=0)
+    needs_verification: bool = False
+
+
+class OpenInterval(PortModel):
+    opens_at: AwareDatetime
+    closes_at: AwareDatetime
+    last_entry_at: AwareDatetime
+    source_rule: str
     needs_verification: bool = False
 
 
 class OpeningHoursChecker(Protocol):
     def check(self, request: OpeningHoursRequest) -> OpeningHoursResult: ...
+
+    def next_open_interval(
+        self, poi_id: str, after: datetime, *, search_days: int = 370
+    ) -> OpenInterval | None: ...
 
 
 class TravelMatrixRequest(PortModel):

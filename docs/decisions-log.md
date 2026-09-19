@@ -206,3 +206,49 @@ the main alternative, and the reason for the choice.
   entire schedule verified.
 - **Why:** A partially sourced schedule must not become a complete operational
   claim through inference.
+
+## Phase 2b — operational facts
+
+### Resolve opening rules in explicit precedence order
+
+- **Decision:** Evaluate temporary closures, exact-date overrides, per-POI
+  holiday closures, then seasonal expressions.
+- **Alternative:** Merge all rules into a single generated OSM expression.
+- **Why:** Separate layers produce clear reasons, make incident cases directly
+  testable, and prevent a general holiday calendar from closing venues such as
+  the Archaeological Museum on October 28 when it is explicitly open.
+
+### Use the parser for syntax, not policy
+
+- **Decision:** `opening-hours-py` evaluates the selected day's OSM expression;
+  our code selects the source rule and checks last entry and full visit fit.
+- **Alternative:** Pass all catalog facts to the library and trust its holiday
+  database and next-change behavior.
+- **Why:** The application must own provenance, exception precedence, and
+  conservative unknown handling. Those are product rules, not parsing tasks.
+
+### Reject unknown operational periods conservatively
+
+- **Decision:** A date with no matching seasonal period returns “opening hours
+  unknown” with `needs_verification=true` and cannot be scheduled.
+- **Alternative:** Extend the nearest known season across the gap.
+- **Why:** Extending May or winter hours into the Byzantine Museum's unknown
+  April 1–May 7 gap would invent a time-sensitive fact.
+
+### Round fallback walking times up
+
+- **Decision:** When ORS is unavailable, calculate haversine distance × 1.3 at
+  4.5 km/h and round up to whole minutes; every non-diagonal leg is marked
+  approximate.
+- **Alternative:** Round to nearest or truncate.
+- **Why:** Underestimating travel harms feasibility. Upward rounding is a small,
+  explicit conservative bias that the planner can explain.
+
+### Commit the fallback matrix when no ORS key is present
+
+- **Decision:** The Phase 2b artifact was generated without an `ORS_API_KEY`, so
+  its source is `haversine_fallback`. The same command switches to one ORS
+  foot-walking matrix request when a key is configured.
+- **Alternative:** Block the phase until an external key is supplied.
+- **Why:** The assignment explicitly permits the approximation, and its metadata
+  makes the loss of routing accuracy visible rather than hidden.
