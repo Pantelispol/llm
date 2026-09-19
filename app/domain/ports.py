@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-from datetime import date
-from typing import Any, Literal, Protocol, TypeVar
+from typing import Protocol, TypeVar
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
 
-from app.domain.models import GeoPoint, Itinerary, TripState, ValidationResult
+from app.domain.models import Exposure, GeoPoint, Itinerary, TripState, ValidationResult
 
 
 class PortModel(BaseModel):
@@ -16,7 +15,6 @@ class WeatherRequest(PortModel):
     location: GeoPoint
     start: AwareDatetime
     end: AwareDatetime
-    timezone: Literal["auto"] = "auto"
 
 
 class HourlyWeather(PortModel):
@@ -61,7 +59,6 @@ class OpeningHoursChecker(Protocol):
 
 class TravelMatrixRequest(PortModel):
     locations: dict[str, GeoPoint] = Field(min_length=2)
-    travel_date: date
 
 
 class TravelLeg(PortModel):
@@ -77,7 +74,36 @@ class TravelMatrixResult(PortModel):
 
 
 class TravelTimeProvider(Protocol):
-    async def matrix(self, request: TravelMatrixRequest) -> TravelMatrixResult: ...
+    def matrix(self, request: TravelMatrixRequest) -> TravelMatrixResult: ...
+
+
+class PlanningCandidate(PortModel):
+    poi_id: str
+    visit_minutes: int = Field(gt=0)
+    exposure: Exposure
+    tags: list[str] = Field(default_factory=list)
+    utility_score: float = 0.0
+
+
+class HourlyWeatherFlags(PortModel):
+    at: AwareDatetime
+    rain_risk: bool = False
+    heat_risk: bool = False
+    storm: bool = False
+    uv_high: bool = False
+
+
+class PaceFactors(PortModel):
+    travel_time_multiplier: float = Field(default=1.0, gt=0)
+    visit_time_multiplier: float = Field(default=1.0, gt=0)
+
+
+class PlanningContext(PortModel):
+    now: AwareDatetime
+    candidates: list[PlanningCandidate]
+    hourly_weather_flags: list[HourlyWeatherFlags]
+    travel_matrix: TravelMatrixResult
+    pace_factors: PaceFactors
 
 
 class RetrievalHit(PortModel):
@@ -93,16 +119,28 @@ class Retriever(Protocol):
 
 
 class Planner(Protocol):
-    def create_or_repair(self, state: TripState, gathered: Any) -> Itinerary: ...
+    def create_or_repair(self, state: TripState, context: PlanningContext) -> Itinerary: ...
 
 
 class ItineraryValidator(Protocol):
     def validate(
-        self, itinerary: Itinerary, state: TripState, gathered: Any
+        self, itinerary: Itinerary, state: TripState, context: PlanningContext
     ) -> ValidationResult: ...
 
 
 StructuredOutput = TypeVar("StructuredOutput", bound=BaseModel)
+
+
+class LLMUsage(PortModel):
+    model_id: str
+    input_tokens: int = Field(ge=0)
+    output_tokens: int = Field(ge=0)
+    latency_ms: float = Field(ge=0)
+
+
+class LLMResult[Output](PortModel):
+    output: Output
+    usage: LLMUsage
 
 
 class LLMProvider(Protocol):
@@ -112,6 +150,6 @@ class LLMProvider(Protocol):
         system_prompt: str,
         user_prompt: str,
         output_type: type[StructuredOutput],
-    ) -> StructuredOutput: ...
+    ) -> LLMResult[StructuredOutput]: ...
 
-    async def text(self, *, system_prompt: str, user_prompt: str) -> str: ...
+    async def text(self, *, system_prompt: str, user_prompt: str) -> LLMResult[str]: ...

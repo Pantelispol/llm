@@ -59,3 +59,70 @@ the main alternative, and the reason for the choice.
 - **Why:** Postgres can support metadata, full-text search, and vectors. Extra
   infrastructure does not demonstrate the core thesis within the time budget.
 
+## Phase 1 contract corrections
+
+### Keep provider-specific weather parameters in the adapter
+
+- **Decision:** The domain `WeatherRequest` contains only coordinates and aware
+  datetimes. The Open-Meteo adapter will always add `timezone=auto` and convert
+  its response into the domain result.
+- **Alternative:** Expose the Open-Meteo timezone query parameter in the domain
+  port.
+- **Why:** Domain callers should express what forecast they need, not how a
+  particular vendor encodes it. This also prevents provider details leaking
+  into fixtures or future adapters.
+
+### Separate mobility, transport, and pace
+
+- **Decision:** Store physical accessibility needs, selected transport mode,
+  and pace as independent fields.
+- **Alternative:** Infer transport from mobility or pace.
+- **Why:** "Limited walking," "I don't have a car," and "take it slowly" are
+  independent constraints and may all apply to one trip.
+
+### Use a typed planning boundary
+
+- **Decision:** Planner and validator receive a `PlanningContext` containing
+  candidate summaries, weather flags, a travel matrix, pace factors, and the
+  server-injected current time.
+- **Alternative:** Pass an untyped gathered-data dictionary.
+- **Why:** Both components must consume the same verified inputs, and missing or
+  misspelled data should fail at the boundary rather than inside search logic.
+
+### Normalize recoverable LLM output
+
+- **Decision:** LLM-facing schemas deduplicate repeated values, discard a stray
+  clarification question when its flag is false, and promote exposure words
+  from tags into `required_exposure`. Contradictory or semantically incomplete
+  output is still rejected.
+- **Alternative:** Reject every schema inconsistency immediately.
+- **Why:** Harmless model variance should not create avoidable failures. The
+  orchestration policy is: on invalid LLM output, retry once with the validation
+  error, then use a deterministic fallback.
+
+### Return model usage with every LLM result
+
+- **Decision:** Text and structured calls return an output plus model id, token
+  counts, and latency.
+- **Alternative:** Return the output directly and collect metrics only inside a
+  provider adapter.
+- **Why:** Usage belongs to the observable call result and must remain available
+  to orchestration logs and evaluations without provider-specific access.
+
+### Keep the precomputed travel matrix synchronous
+
+- **Decision:** `TravelTimeProvider.matrix` is synchronous and has no travel
+  date parameter.
+- **Alternative:** Model it as a live, date-dependent network call.
+- **Why:** The scoped implementation reads a precomputed walking matrix. A
+  synchronous contract accurately represents its behavior and stays testable.
+
+### Reuse the OSM opening-hours grammar
+
+- **Decision:** Depend on `opening-hours-py` and `tzdata` for OSM expression
+  parsing, holiday support, timezone rules, and DST behavior.
+- **Alternative:** Implement a partial parser for the catalog's expressions.
+- **Why:** Opening-hours edge cases are safety- and feasibility-relevant. A
+  maintained grammar implementation is smaller and less error-prone than a
+  take-home-specific parser; our code will still own conservative visit-fit and
+  last-entry decisions.

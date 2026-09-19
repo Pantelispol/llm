@@ -3,7 +3,14 @@ from __future__ import annotations
 from enum import StrEnum
 from typing import Annotated, Literal, Self
 
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
+from pydantic import (
+    AwareDatetime,
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_validator,
+)
 
 
 class DomainModel(BaseModel):
@@ -16,8 +23,10 @@ class Intent(StrEnum):
     CREATE_PLAN = "create_plan"
     EDIT_PLAN = "edit_plan"
     FEASIBILITY_CHECK = "feasibility_check"
+    WEATHER_QUESTION = "weather_question"
     SAFETY = "safety"
     UNSUPPORTED_LIVE_INFO = "unsupported_live_info"
+    OUT_OF_SCOPE = "out_of_scope"
     SMALL_TALK = "small_talk"
 
 
@@ -33,10 +42,22 @@ class Mobility(StrEnum):
     STEP_FREE = "step_free"
 
 
+class Transport(StrEnum):
+    WALK = "walk"
+    PUBLIC_TRANSPORT = "public_transport"
+    CAR = "car"
+
+
 class Exposure(StrEnum):
     INDOOR = "indoor"
     OUTDOOR = "outdoor"
     MIXED = "mixed"
+
+
+class ActivityKind(StrEnum):
+    VISIT = "visit"
+    MEAL = "meal"
+    BREAK = "break"
 
 
 class GeoPoint(DomainModel):
@@ -73,7 +94,9 @@ class Party(DomainModel):
 
 
 class Activity(DomainModel):
-    poi_id: str = Field(min_length=1)
+    kind: ActivityKind = ActivityKind.VISIT
+    poi_id: str | None = Field(default=None, min_length=1)
+    area_label: str | None = Field(default=None, min_length=1, max_length=120)
     start: AwareDatetime
     end: AwareDatetime
     visit_minutes: int = Field(gt=0, le=480)
@@ -84,6 +107,8 @@ class Activity(DomainModel):
 
     @model_validator(mode="after")
     def duration_must_match_schedule(self) -> Self:
+        if self.kind == ActivityKind.VISIT and self.poi_id is None:
+            raise ValueError("visit activities require poi_id")
         elapsed_seconds = (self.end - self.start).total_seconds()
         if elapsed_seconds <= 0:
             raise ValueError("activity end must be after start")
@@ -104,6 +129,7 @@ class TripState(DomainModel):
     start_location: LocationRef | None = None
     party: Party = Field(default_factory=Party)
     mobility: Mobility = Mobility.STANDARD
+    transport: Transport = Transport.WALK
     pace: Pace = Pace.NORMAL
     interests: list[str] = Field(default_factory=list)
     exclude_categories: list[str] = Field(default_factory=list)
@@ -124,9 +150,12 @@ class TripState(DomainModel):
 
 class ConstraintUpdates(DomainModel):
     time_window: TimeWindow | None = None
+    clear_time_window: bool = False
     start_location: LocationRef | None = None
+    clear_start_location: bool = False
     party: Party | None = None
     mobility: Mobility | None = None
+    transport: Transport | None = None
     pace: Pace | None = None
     add_interests: list[str] = Field(default_factory=list)
     remove_interests: list[str] = Field(default_factory=list)
@@ -136,13 +165,69 @@ class ConstraintUpdates(DomainModel):
     remove_exclude_poi_ids: list[str] = Field(default_factory=list)
     add_visited: list[str] = Field(default_factory=list)
 
+    @field_validator(
+        "add_interests",
+        "remove_interests",
+        "add_exclude_categories",
+        "remove_exclude_categories",
+        "add_exclude_poi_ids",
+        "remove_exclude_poi_ids",
+        "add_visited",
+    )
+    @classmethod
+    def deduplicate_lists(cls, values: list[str]) -> list[str]:
+        return list(dict.fromkeys(values))
+
+    @model_validator(mode="after")
+    def clear_and_set_are_mutually_exclusive(self) -> Self:
+        if self.clear_time_window and self.time_window is not None:
+            raise ValueError("cannot set and clear time_window in the same update")
+        if self.clear_start_location and self.start_location is not None:
+            raise ValueError("cannot set and clear start_location in the same update")
+        return self
+
+
+def _normalize_exposure_selector(value: object) -> object:
+    if not isinstance(value, dict):
+        return value
+
+    normalized = value.copy()
+    tags = normalized.get("required_tags", [])
+    if not isinstance(tags, list) or not all(isinstance(tag, str) for tag in tags):
+        return normalized
+
+    normalized_tags = list(dict.fromkeys(tag.strip().lower() for tag in tags if tag.strip()))
+    exposure_values = {item.value for item in Exposure}
+    exposure_tags = [tag for tag in normalized_tags if tag in exposure_values]
+    if len(exposure_tags) > 1:
+        raise ValueError("required_tags contain conflicting exposure values")
+
+    if exposure_tags:
+        tag_exposure = exposure_tags[0]
+        explicit_exposure = normalized.get("required_exposure")
+        if isinstance(explicit_exposure, Exposure):
+            explicit_exposure = explicit_exposure.value
+        if explicit_exposure is not None and explicit_exposure != tag_exposure:
+            raise ValueError("required_exposure conflicts with exposure in required_tags")
+        normalized["required_exposure"] = tag_exposure
+
+    normalized["required_tags"] = [
+        tag for tag in normalized_tags if tag not in exposure_values
+    ]
+    return normalized
+
 
 class ReplaceActivity(DomainModel):
     op: Literal["replace_activity"] = "replace_activity"
     position: int = Field(ge=1)
     preferred_poi_id: str | None = None
     required_tags: list[str] = Field(default_factory=list)
-    indoor_only: bool = False
+    required_exposure: Exposure | None = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_exposure_tag(cls, value: object) -> object:
+        return _normalize_exposure_selector(value)
 
 
 class RemoveActivity(DomainModel):
@@ -161,12 +246,22 @@ class AddActivity(DomainModel):
     op: Literal["add_activity"] = "add_activity"
     preferred_poi_id: str | None = None
     required_tags: list[str] = Field(default_factory=list)
+    required_exposure: Exposure | None = None
     after_position: int | None = Field(default=None, ge=0)
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_exposure_tag(cls, value: object) -> object:
+        return _normalize_exposure_selector(value)
 
     @model_validator(mode="after")
     def selector_is_required(self) -> Self:
-        if self.preferred_poi_id is None and not self.required_tags:
-            raise ValueError("add_activity requires a POI id or at least one tag")
+        if (
+            self.preferred_poi_id is None
+            and not self.required_tags
+            and self.required_exposure is None
+        ):
+            raise ValueError("add_activity requires a POI id, tag, or exposure")
         return self
 
 
@@ -187,6 +282,11 @@ class ExtractedEntities(DomainModel):
     unresolved_place_names: list[str] = Field(default_factory=list)
     requested_date_text: str | None = None
 
+    @field_validator("mentioned_poi_ids", "unresolved_place_names")
+    @classmethod
+    def deduplicate_lists(cls, values: list[str]) -> list[str]:
+        return list(dict.fromkeys(values))
+
 
 class TurnAnalysis(DomainModel):
     intents: list[Intent] = Field(min_length=1)
@@ -196,14 +296,17 @@ class TurnAnalysis(DomainModel):
     needs_clarification: bool = False
     clarifying_question: str | None = None
 
+    @field_validator("intents")
+    @classmethod
+    def deduplicate_intents(cls, values: list[Intent]) -> list[Intent]:
+        return list(dict.fromkeys(values))
+
     @model_validator(mode="after")
     def clarification_fields_are_consistent(self) -> Self:
-        if len(set(self.intents)) != len(self.intents):
-            raise ValueError("intents must not contain duplicates")
         if self.needs_clarification and not self.clarifying_question:
             raise ValueError("clarifying_question is required when clarification is needed")
         if not self.needs_clarification and self.clarifying_question:
-            raise ValueError("clarifying_question must be absent when clarification is not needed")
+            self.clarifying_question = None
         return self
 
 
