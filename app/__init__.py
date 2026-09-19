@@ -1,0 +1,2 @@
+"""Thessaloniki tourist assistant application."""
+
