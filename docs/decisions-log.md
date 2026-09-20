@@ -511,3 +511,42 @@ the main alternative, and the reason for the choice.
   unaffected user choices. Stronger removal cost keeps the search focused on
   continuity, while the compatibility pass avoids requiring an impossible stop
   such as a hilly POI after child walking constraints are introduced.
+
+## Phase 5b — lexical tourism RAG baseline
+
+### Keep BM25 explicit and dependency-free
+
+- **Decision:** Implement the standard BM25 formula directly with `k1=1.5` and
+  `b=0.75`, backed by literal, hand-computed toy-corpus scores.
+- **Alternative:** Add `rank_bm25` or a retrieval framework.
+- **Why:** The implementation is small enough to explain line by line, avoids a
+  dependency for one formula, and makes IDF and length normalization directly
+  testable.
+
+### Index one alias chunk per POI
+
+- **Decision:** Add one non-narrative alias chunk containing the English and
+  Greek catalog names plus catalog and content-frontmatter aliases.
+- **Alternative:** Repeat aliases inside every descriptive section or depend on
+  multilingual embeddings for all name resolution.
+- **Why:** A dedicated chunk gives lexical retrieval a deterministic path for
+  local names without polluting prose or duplicating terms across every chunk.
+
+### Normalize accents and Greek sigma without language-specific stemming
+
+- **Decision:** Apply Unicode NFD, remove combining marks, map final sigma to
+  ordinary sigma, lowercase, replace punctuation with spaces, and collapse
+  whitespace.
+- **Alternative:** Use separate Greek and English analyzers with stemming.
+- **Why:** The small bilingual corpus mainly needs spelling-equivalent names to
+  match. This transparent normalization handles those cases without opaque
+  linguistic dependencies or aggressive changes to proper nouns.
+
+### Retain an unused long-section splitting path
+
+- **Decision:** Split sections above 220 words only at paragraph boundaries,
+  even though the current short content sections never trigger the path.
+- **Alternative:** Omit splitting until a document exceeds the limit.
+- **Why:** Future content can grow without silently producing oversized prompt
+  chunks. A synthetic test proves the otherwise dormant branch and guarantees
+  that it never cuts a paragraph or sentence in the current input model.

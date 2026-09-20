@@ -1,0 +1,17 @@
+mode | recall@5 | recall@5 (POI-deduped) | MRR   | abstain precision | abstain recall | mean latency (ms)
+-----+----------+------------------------+-------+-------------------+----------------+------------------
+bm25 | 0.907    | 0.944                  | 0.909 | n/a               | n/a            | 0.075            
+
+Failing gold cases:
+- multi_roman_monuments: Which Roman monuments can I visit in the city center?
+  top-5: acheiropoietos#practical-tips, aristotelous_square#history, heptapyrgio#practical-tips, museum_of_byzantine_culture#what-to-see, vlatadon_monastery#practical-tips
+- multi_byzantine_churches: Which Byzantine churches have mosaics?
+  top-5: museum_of_byzantine_culture#what-to-see, museum_of_byzantine_culture#practical-tips, museum_of_byzantine_culture#history, acheiropoietos#history, hagios_demetrios#history
+- abstain_other_city: Acropolis Athens tips
+  top-5: (no results)
+- abstain_events: events tonight concerts
+  top-5: (no results)
+- abstain_restaurant: best restaurant recommendation
+  top-5: nea_paralia_parks#what-to-see, aristotelous_square#history, ano_poli_walls#what-to-see, kapani_market#practical-tips
+- abstain_opening_hours: What are the White Tower opening hours?
+  top-5: tsinari_ano_poli#what-to-see, white_tower#aliases, museum_of_byzantine_culture#practical-tips, new_waterfront_umbrellas#history, nea_paralia_parks#history

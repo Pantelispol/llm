@@ -1,4 +1,4 @@
-.PHONY: test lint run matrix db-up db-down
+.PHONY: test lint run matrix rag-eval db-up db-down
 
 test:
 	pytest
@@ -11,6 +11,9 @@ run:
 
 matrix:
 	python -m app.tools.travel
+
+rag-eval:
+	python -m evals.rag_report --mode bm25 --store memory
 
 db-up:
 	docker compose up -d postgres

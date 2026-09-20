@@ -126,3 +126,26 @@ Cross-check the 2026 dates and whether each observance closes the specific type
 of venue. October 26 is local to Thessaloniki; it must not be applied nationally.
 The engine must read this file directly in Phase 2b rather than trusting holiday
 data embedded in the opening-hours dependency.
+
+## Phase 5 content review queue
+
+- `white_tower — What to see — the interior presentation introduces successive
+  periods of Thessaloniki's history — exhibition scope can change and should be
+  checked against the museum's current curatorial description.`
+- `roman_forum — What to see — subterranean passages are part of what visitors
+  can examine — the surviving feature is established, but present visitor
+  visibility and interpretation need official confirmation.`
+- `hagios_demetrios — What to see — the crypt preserves structures associated
+  with Roman baths — the relationship should be checked against the church or
+  Ephorate's preferred archaeological wording.`
+- `acheiropoietos — What to see — floor remains are visible in the church — the
+  extent presently visible to an ordinary visitor needs confirmation.`
+- `modiano_market — History — restoration retained the market identity while
+  adapting the interior for contemporary vendors — this characterization of
+  the recent reuse should be reviewed against Agora Modiano's official history.`
+- `tsinari_ano_poli — History — the neighborhood name is associated with its
+  Ottoman past — the etymological connection was kept general because a precise
+  derivation needs a local historical source.`
+- `vlatadon_monastery — What to see — publicly accessible parts of the elevated
+  complex provide views toward the Thermaic Gulf — sightlines and public access
+  should be confirmed by the monastery.`

@@ -1,0 +1,132 @@
+cases:
+  - id: en_white_tower_history
+    query: What was the White Tower used for in the past?
+    lang: en
+    expected_poi_ids: [white_tower]
+    note: Single-POI history question.
+
+  - id: en_rotunda_mosaics
+    query: What can I see inside the Rotunda?
+    lang: en
+    expected_poi_ids: [rotunda]
+    note: Single-POI visible-features question.
+
+  - id: en_jewish_museum
+    query: Where can I learn about Thessaloniki's Sephardic community and the Holocaust?
+    lang: en
+    expected_poi_ids: [jewish_museum]
+    note: Single-POI thematic question.
+
+  - id: en_byzantine_museum
+    query: Which museum has Byzantine icons, mosaics, coins, and ceramics?
+    lang: en
+    expected_poi_ids: [museum_of_byzantine_culture]
+    note: Single-POI collection question.
+
+  - id: en_heptapyrgio
+    query: Which fortress later served as a prison?
+    lang: en
+    expected_poi_ids: [heptapyrgio]
+    note: Single-POI history question without its proper name.
+
+  - id: en_modiano_market
+    query: What is worth noticing in the covered Modiano food market?
+    lang: en
+    expected_poi_ids: [modiano_market]
+    note: Single-POI descriptive question.
+
+  - id: el_rotunda
+    query: τι ειναι η Ροτοντα;
+    lang: el
+    expected_poi_ids: [rotunda]
+    note: Greek name without accent.
+
+  - id: el_white_tower
+    query: τι θα δω στον Λευκο Πυργο;
+    lang: el
+    expected_poi_ids: [white_tower]
+    note: Greek landmark name without accents.
+
+  - id: el_jewish_museum
+    query: τι θα δω στο Εβραϊκό Μουσείο Θεσσαλονίκης;
+    lang: el
+    expected_poi_ids: [jewish_museum]
+    note: Greek official museum name.
+
+  - id: el_archaeological_museum
+    query: τι εχει το Αρχαιολογικό Μουσείο Θεσσαλονίκης;
+    lang: el
+    expected_poi_ids: [archaeological_museum]
+    note: Greek official museum name.
+
+  - id: el_heptapyrgio
+    query: τι μπορω να δω στο Επταπύργιο;
+    lang: el
+    expected_poi_ids: [heptapyrgio]
+    note: Greek monument name.
+
+  - id: el_vlatadon
+    query: τι θα δω στη Μονή Βλατάδων;
+    lang: el
+    expected_poi_ids: [vlatadon_monastery]
+    note: Greek monastery name.
+
+  - id: alias_kamara
+    query: Καμάρα
+    lang: el
+    expected_poi_ids: [arch_of_galerius]
+    note: Local colloquial alias.
+
+  - id: alias_rotonda
+    query: Ροτόντα
+    lang: el
+    expected_poi_ids: [rotunda]
+    note: Common Greek alias.
+
+  - id: alias_old_walls
+    query: the old walls
+    lang: en
+    expected_poi_ids: [ano_poli_walls]
+    note: Informal English description.
+
+  - id: alias_yedi_kule
+    query: Yedi Kule
+    lang: en
+    expected_poi_ids: [heptapyrgio]
+    note: Ottoman-era colloquial alias.
+
+  - id: multi_roman_monuments
+    query: Which Roman monuments can I visit in the city center?
+    lang: en
+    expected_poi_ids: [arch_of_galerius, rotunda, roman_forum]
+    note: Multi-POI Roman heritage query.
+
+  - id: multi_byzantine_churches
+    query: Which Byzantine churches have mosaics?
+    lang: en
+    expected_poi_ids: [hagios_demetrios, hagia_sophia, rotunda]
+    note: Multi-POI religious heritage query.
+
+  - id: abstain_other_city
+    query: Acropolis Athens tips
+    lang: en
+    expect_abstain: true
+    note: Another city is outside this knowledge base.
+
+  - id: abstain_events
+    query: events tonight concerts
+    lang: en
+    expect_abstain: true
+    note: Current events require a live source.
+
+  - id: abstain_restaurant
+    query: best restaurant recommendation
+    lang: en
+    expect_abstain: true
+    note: Restaurant recommendations are outside the curated POI corpus.
+
+  - id: abstain_opening_hours
+    query: What are the White Tower opening hours?
+    lang: en
+    expect_abstain: true
+    note: Operational hours belong to structured POI data, not descriptive RAG.

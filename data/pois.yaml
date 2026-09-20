@@ -11,7 +11,7 @@ pois:
     names:
       en: White Tower
       el: Λευκός Πύργος
-    aliases: [White Tower Museum, Lefkos Pyrgos]
+    aliases: [White Tower Museum, Lefkos Pyrgos, Λευκός Πύργος, Λευκό Πύργο]
     coordinates: {latitude: 40.6264, longitude: 22.9484}
     category: museum
     tags: [history, city_views, landmark]
@@ -60,7 +60,7 @@ pois:
     names:
       en: Rotunda
       el: Ροτόντα
-    aliases: [Rotunda of Galerius, Agios Georgios Rotunda]
+    aliases: [Rotunda of Galerius, Agios Georgios Rotunda, Ροτόντα]
     coordinates: {latitude: 40.6321, longitude: 22.9529}
     category: archaeological_monument
     tags: [roman, byzantine, unesco, mosaics]
@@ -105,7 +105,7 @@ pois:
     names:
       en: Arch of Galerius
       el: Αψίδα του Γαλερίου
-    aliases: [Kamara, Galerius Arch]
+    aliases: [Kamara, Galerius Arch, Καμάρα, Αψίδα του Γαλερίου]
     coordinates: {latitude: 40.6327, longitude: 22.9518}
     category: public_space
     tags: [roman, architecture, landmark]
@@ -150,7 +150,7 @@ pois:
     names:
       en: Roman Forum
       el: Ρωμαϊκή Αγορά Θεσσαλονίκης
-    aliases: [Ancient Agora, Roman Agora]
+    aliases: [Ancient Agora, Roman Agora, Ρωμαϊκή Αγορά, Αρχαία Αγορά]
     coordinates: {latitude: 40.6378, longitude: 22.9455}
     category: archaeological_site
     tags: [roman, archaeology, history]
@@ -194,7 +194,7 @@ pois:
     names:
       en: Hagios Demetrios
       el: Ιερός Ναός Αγίου Δημητρίου
-    aliases: [Agios Dimitrios, Saint Demetrius Church]
+    aliases: [Agios Dimitrios, Saint Demetrius Church, Άγιος Δημήτριος, Ναός Αγίου Δημητρίου]
     coordinates: {latitude: 40.6388, longitude: 22.9472}
     category: church
     tags: [byzantine, unesco, religious, mosaics]
@@ -245,7 +245,7 @@ pois:
     names:
       en: Acheiropoietos
       el: Ιερός Ναός Παναγίας Αχειροποιήτου
-    aliases: [Church of the Acheiropoietos, Panagia Acheiropoietos]
+    aliases: [Church of the Acheiropoietos, Panagia Acheiropoietos, Αχειροποίητος, Παναγία Αχειροποίητος]
     coordinates: {latitude: 40.6345, longitude: 22.9475}
     category: church
     tags: [early_christian, byzantine, unesco, religious]
@@ -292,7 +292,7 @@ pois:
     names:
       en: Hagia Sophia
       el: Ιερός Ναός Αγίας Σοφίας
-    aliases: [Agia Sofia, Church of Holy Wisdom]
+    aliases: [Agia Sofia, Church of Holy Wisdom, Αγία Σοφία, Ναός Αγίας Σοφίας]
     coordinates: {latitude: 40.6328, longitude: 22.9471}
     category: church
     tags: [byzantine, unesco, religious, mosaics]
@@ -339,7 +339,7 @@ pois:
     names:
       en: Heptapyrgio
       el: Επταπύργιο
-    aliases: [Eptapyrgio, Yedi Kule]
+    aliases: [Eptapyrgio, Yedi Kule, Επταπύργιο, Γεντί Κουλέ]
     coordinates: {latitude: 40.6444, longitude: 22.9633}
     category: fortress
     tags: [byzantine, ottoman, history, city_views]
@@ -386,7 +386,7 @@ pois:
     names:
       en: Ano Poli Walls
       el: Τείχη Άνω Πόλης
-    aliases: [Upper Town Walls, Thessaloniki City Walls]
+    aliases: [Upper Town Walls, Thessaloniki City Walls, Τείχη Άνω Πόλης, Τείχη Θεσσαλονίκης]
     coordinates: {latitude: 40.6439, longitude: 22.9605}
     category: public_space
     tags: [byzantine, fortifications, city_views, walking]
@@ -433,7 +433,7 @@ pois:
     names:
       en: Archaeological Museum of Thessaloniki
       el: Αρχαιολογικό Μουσείο Θεσσαλονίκης
-    aliases: [AMTh, Archaeological Museum]
+    aliases: [AMTh, Archaeological Museum, Αρχαιολογικό Μουσείο Θεσσαλονίκης, Αρχαιολογικό Μουσείο]
     coordinates: {latitude: 40.6258, longitude: 22.9540}
     category: museum
     tags: [archaeology, ancient_macedonia, history, indoor]
@@ -519,7 +519,7 @@ pois:
     names:
       en: Museum of Byzantine Culture
       el: Μουσείο Βυζαντινού Πολιτισμού
-    aliases: [Byzantine Museum, MBP]
+    aliases: [Byzantine Museum, MBP, Μουσείο Βυζαντινού Πολιτισμού, Βυζαντινό Μουσείο]
     coordinates: {latitude: 40.6238, longitude: 22.9543}
     category: museum
     tags: [byzantine, art, history, indoor]
@@ -572,7 +572,7 @@ pois:
     names:
       en: Jewish Museum of Thessaloniki
       el: Εβραϊκό Μουσείο Θεσσαλονίκης
-    aliases: [Jewish Museum, JMTh]
+    aliases: [Jewish Museum, JMTh, Εβραϊκό Μουσείο Θεσσαλονίκης, Εβραϊκό Μουσείο]
     coordinates: {latitude: 40.6351, longitude: 22.9410}
     category: museum
     tags: [jewish_history, holocaust_history, culture, indoor]
@@ -648,7 +648,7 @@ pois:
     names:
       en: Bey Hamam
       el: Μπέη Χαμάμ
-    aliases: [Baths of Paradise, Paradise Baths]
+    aliases: [Baths of Paradise, Paradise Baths, Μπέη Χαμάμ, Λουτρά Παράδεισος]
     coordinates: {latitude: 40.6361, longitude: 22.9446}
     category: ottoman_monument
     tags: [ottoman, architecture, history]
@@ -690,7 +690,7 @@ pois:
     names:
       en: Aristotelous Square
       el: Πλατεία Αριστοτέλους
-    aliases: [Aristotle Square]
+    aliases: [Aristotle Square, Πλατεία Αριστοτέλους, Αριστοτέλους]
     coordinates: {latitude: 40.6323, longitude: 22.9409}
     category: public_space
     tags: [architecture, city_center, people_watching]
@@ -735,7 +735,7 @@ pois:
     names:
       en: Ladadika
       el: Λαδάδικα
-    aliases: [Ladadika District]
+    aliases: [Ladadika District, Λαδάδικα]
     coordinates: {latitude: 40.6350, longitude: 22.9365}
     category: public_space
     tags: [historic_district, food, nightlife, architecture]
@@ -780,7 +780,7 @@ pois:
     names:
       en: Kapani Market
       el: Αγορά Καπάνι
-    aliases: [Kapani, Vlali Market]
+    aliases: [Kapani, Vlali Market, Αγορά Καπάνι, Καπάνι, Αγορά Βλάλη]
     coordinates: {latitude: 40.6361, longitude: 22.9430}
     category: market
     tags: [food, local_life, shopping, historic_market]
@@ -825,7 +825,7 @@ pois:
     names:
       en: Modiano Market
       el: Αγορά Μοδιάνο
-    aliases: [Agora Modiano, Modiano]
+    aliases: [Agora Modiano, Modiano, Αγορά Μοδιάνο, Μοδιάνο]
     coordinates: {latitude: 40.6349, longitude: 22.9419}
     category: market
     tags: [food, architecture, shopping, indoor_market]
@@ -880,7 +880,7 @@ pois:
     names:
       en: New Waterfront Umbrellas
       el: Ομπρέλες Ζογγολόπουλου
-    aliases: [Umbrellas of Thessaloniki, Zongolopoulos Umbrellas]
+    aliases: [Umbrellas of Thessaloniki, Zongolopoulos Umbrellas, Ομπρέλες Ζογγολόπουλου, Ομπρέλες Θεσσαλονίκης]
     coordinates: {latitude: 40.6200, longitude: 22.9517}
     category: public_space
     tags: [public_art, waterfront, photography, sunset]
@@ -925,7 +925,7 @@ pois:
     names:
       en: Nea Paralia Parks
       el: Πάρκα Νέας Παραλίας
-    aliases: [New Waterfront Parks, Nea Paralia Gardens]
+    aliases: [New Waterfront Parks, Nea Paralia Gardens, Πάρκα Νέας Παραλίας, Νέα Παραλία]
     coordinates: {latitude: 40.6119, longitude: 22.9537}
     category: public_space
     tags: [parks, waterfront, playgrounds, walking, cycling]
@@ -970,7 +970,7 @@ pois:
     names:
       en: Seich Sou Forest
       el: Δάσος Σέιχ Σου
-    aliases: [Sheikh Sou, Kedrinos Lofos]
+    aliases: [Sheikh Sou, Kedrinos Lofos, Δάσος Σέιχ Σου, Σέιχ Σου, Κεδρηνός Λόφος]
     coordinates: {latitude: 40.6477, longitude: 23.0054}
     category: trail_forest
     tags: [nature, hiking, viewpoints, trail]
@@ -1015,7 +1015,7 @@ pois:
     names:
       en: Tsinari, Ano Poli
       el: Τσινάρι Άνω Πόλης
-    aliases: [Tsinari, Çınarli]
+    aliases: [Tsinari, Çınarli, Τσινάρι Άνω Πόλης, Τσινάρι]
     coordinates: {latitude: 40.6416, longitude: 22.9509}
     category: public_space
     tags: [historic_district, architecture, food, walking]
@@ -1062,7 +1062,7 @@ pois:
     names:
       en: Vlatadon Monastery
       el: Μονή Βλατάδων
-    aliases: [Vlatades Monastery, Moni Vlatadon]
+    aliases: [Vlatades Monastery, Moni Vlatadon, Μονή Βλατάδων]
     coordinates: {latitude: 40.6419, longitude: 22.9527}
     category: monastery
     tags: [byzantine, unesco, religious, city_views]

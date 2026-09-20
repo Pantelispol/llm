@@ -9,3 +9,4 @@ htmlcov/
 .serena/
 dist/
 *.egg-info/
+docs/specs/*
