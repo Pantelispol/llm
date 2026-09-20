@@ -5,11 +5,11 @@ the LLM understands and narrates; deterministic code solves and verifies.
 
 ## Current status
 
-Phase 4a is complete: the foundation and operational catalog now include
+Phase 4 is complete: the foundation and operational catalog now include
 deterministic opening-hours and weather checks, an independent itinerary
-validator, and an exhaustive small-request feasibility checker with numeric
-breakdowns and minimal fixes. The Phase 4b planner, retrieval, orchestration,
-and UI remain deferred to their corresponding checkpoints.
+validator, an exhaustive small-request feasibility checker, and a bounded beam
+planner with minimal-perturbation repair. Retrieval, orchestration, and the UI
+remain deferred to their corresponding checkpoints.
 
 ## Quick start
 
@@ -33,3 +33,14 @@ Set `WEATHER_FIXTURE` to `clear_day`, `rain_after_16`, `heatwave_39`, or
 `storm_evening` for a disclosed frozen scenario. Leaving it empty selects live
 Open-Meteo data. Live smoke tests are excluded by default; run them explicitly
 with `RUN_LIVE_WEATHER_TESTS=1 pytest -m live`.
+
+Run the deterministic planner demos without an API key:
+
+```bash
+python -m app.planning.demo --scenario five_hours_history
+python -m app.planning.demo --scenario rain_after_16
+```
+
+Available scenarios are `five_hours_history`, `no_museum_followup`,
+`with_child_followup`, `rain_after_16`, `heatwave`, `shrink_to_two_hours`, and
+`replace_second_indoor`.

@@ -370,3 +370,50 @@ the main alternative, and the reason for the choice.
 - **Why:** Shared helpers reduce duplication but can create correlated bugs. A
   wrong pace or rounding rule must make the validator tests fail, not update
   both the implementation and its expected value in lockstep.
+
+## Phase 4b — beam planner and repair
+
+### Use bounded beam search instead of a general solver
+
+- **Decision:** Rank at most ten candidates, retain thirty partial plans per
+  depth, and break ties by `poi_id`.
+- **Alternative:** Model the itinerary as an OR-Tools optimization problem.
+- **Why:** The search space is deliberately small. Beam search keeps time-window,
+  weather, meal, and break decisions visible in ordinary Python and stays well
+  within the interactive latency budget without adding a solver dependency.
+
+### Keep scoring components and weights visible
+
+- **Decision:** Default weights are interest 4, must-see 2, weather 4, child
+  suitability 1.5, diversity 1, travel 0.05, and repair perturbation 3. A
+  candidate gets a small baseline interest score; rain is strongly penalized,
+  while storm and high-heat exposure are hard constraints.
+- **Alternative:** Collapse quality into one opaque score or ask the LLM to rank
+  complete itineraries.
+- **Why:** Per-activity score components make planner behavior debuggable in the
+  interview and give the narrator structured reasons without letting prose
+  override safety or feasibility.
+
+### Repair locally before a full re-plan
+
+- **Decision:** Apply explicit edits and new constraints to the existing visit
+  order, then re-time that order. Reorder weather-exposed stops before replacing
+  them; use a full beam search only when the local plan remains invalid or
+  undesirable, with a penalty for removing or reordering retained POIs.
+- **Alternative:** Discard the itinerary and generate a fresh plan after every
+  follow-up.
+- **Why:** Users expect unmentioned choices to remain stable. The local-first
+  path makes continuity the default, while deterministic validation still gates
+  every repaired result.
+
+### Encode meal and child-break policy as planning rules
+
+- **Decision:** Windows of at least four hours receive one 45-minute meal at a
+  catalog meal area near the route, targeted at 13:00–15:00 when that band fits
+  or otherwise near the window midpoint. Parties with children receive a
+  15-minute break after roughly 90 minutes.
+- **Alternative:** Let narration suggest informal stops after the itinerary is
+  built.
+- **Why:** Meals and rests consume real time. Representing them as activities
+  makes the validator account for them and prevents the prose layer from adding
+  infeasible schedule commitments.

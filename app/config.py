@@ -20,6 +20,15 @@ class Settings(BaseSettings):
     weather_heat_apparent_c: float = 35.0
     weather_heat_children_apparent_c: float = 32.0
     weather_uv_high_threshold: float = Field(default=8.0, ge=0)
+    planner_top_k: int = Field(default=10, ge=1, le=25)
+    planner_beam_width: int = Field(default=30, ge=1, le=100)
+    planner_interest_weight: float = Field(default=4.0, ge=0)
+    planner_must_see_weight: float = Field(default=2.0, ge=0)
+    planner_weather_weight: float = Field(default=4.0, ge=0)
+    planner_child_weight: float = Field(default=1.5, ge=0)
+    planner_diversity_weight: float = Field(default=1.0, ge=0)
+    planner_travel_weight: float = Field(default=0.05, ge=0)
+    planner_perturbation_weight: float = Field(default=3.0, ge=0)
     prompt_version: str = "understand.v1,narrator.v1"
 
 
