@@ -18,4 +18,4 @@ The building combines a compact central plan with a prominent dome. Inside, visi
 
 ## Practical tips
 
-Hagia Sophia is an active church, so modest dress and quiet behavior are expected, especially when a service is taking place. Some sacred areas are not intended for tourist circulation. The square offers shade and a useful pause during a central walking route. Acheiropoietos, the Arch of Galerius, Aristotelous Square, and the waterfront are all reachable on foot. Visitors who require step-free access should verify the appropriate entrance and any interior level changes.
+Hagia Sophia is an active church. The square offers shade and a useful pause during central walking routes. Acheiropoietos, the Arch of Galerius, Aristotelous Square, and the waterfront are easily reachable on foot. Visitors requiring step-free access should check entrance points in advance.

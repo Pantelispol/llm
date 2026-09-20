@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
@@ -18,6 +19,9 @@ from app.domain.ports import (
 from app.tools.catalog import CatalogRepository
 from app.tools.opening_hours import OpeningHoursEngine
 from app.tools.travel import MatrixFile, PrecomputedTravelTimeProvider
+
+os.environ.setdefault("RAG_DENSE", "off")
+os.environ.setdefault("RAG_STORE", "memory")
 
 ATHENS = ZoneInfo("Europe/Athens")
 FIXED_MATRIX_PATH = Path(__file__).parent / "fixtures" / "walking_matrix_fixed.json"

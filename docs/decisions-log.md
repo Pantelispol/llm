@@ -550,3 +550,129 @@ the main alternative, and the reason for the choice.
 - **Why:** Future content can grow without silently producing oversized prompt
   chunks. A synthetic test proves the otherwise dormant branch and guarantees
   that it never cuts a paragraph or sentence in the current input model.
+
+## Phase 5c — dense retrieval, fusion, and abstention
+
+### Keep the real encoder fixed and the test encoder explicit
+
+- **Decision:** Use `intfloat/multilingual-e5-small` with its required query and
+  passage prefixes and normalized 384-dimensional vectors. Use the explicitly
+  named `HashEncoder` only when `RAG_DENSE=off`, and cache real passage vectors
+  by model name plus corpus content hash.
+- **Alternative:** Mock the E5 library throughout the application or download
+  and encode the corpus on every process start.
+- **Why:** Tests stay deterministic and offline without disguising the hash
+  encoder as semantic retrieval. The cache makes normal startup cheap while a
+  content edit or model change invalidates every stale vector.
+
+### Fuse ranks rather than incomparable scores
+
+- **Decision:** Retrieve the top 20 lexical and dense chunks independently and
+  combine their ranks with reciprocal rank fusion at `k=60`.
+- **Alternative:** Normalize and add BM25 and cosine scores directly.
+- **Why:** BM25 and cosine live on different scales. RRF needs no fitted score
+  weights, remains inspectable, and has a literal hand-computed unit test.
+
+### Do not claim an abstention threshold when the frozen set does not separate
+
+- **Decision:** Calibrate the required conjunctive dense/lexical rule against
+  the frozen gold set, but leave thresholds unset when no pair retains every
+  in-KB case and rejects every out-of-KB case. The 2026-09-20 E5 run found no
+  valid pair: rejecting all out-of-KB cases requires a dense threshold above
+  `0.855353` and a normalized-BM25 threshold above `0.575516`; the in-KB Roman
+  monuments query scores `0.853061` dense and `0.456520` lexical, while the
+  Greek Heptapyrgio query scores `0.837683` and `0.527697`. Both would be false
+  abstentions at those rejection floors, so no chosen thresholds or margin are
+  recorded.
+- **Alternative:** Optimize aggregate accuracy or silently accept one false
+  abstention to produce attractive precision/recall numbers.
+- **Why:** The spec makes 100% in-KB retention and rejection of all four
+  out-of-KB cases hard constraints. Reporting the overlap is more defensible
+  than overfitting a tiny set or calling an imperfect cutoff calibrated.
+
+### Treat every retrieved chunk as untrusted data
+
+- **Decision:** Carry an `is_untrusted` provenance flag through retrieval and
+  keep the poisoned instruction fixture outside the default content directory.
+- **Alternative:** Sanitize instruction-like sentences during ingestion.
+- **Why:** Retrieval must preserve source text for auditability while never
+  granting it control authority. Phase 6 will delimit untrusted prompt blocks
+  and post-check that operational claims come from the structured catalog.
+
+## Phase 5d — pgvector store boundary
+
+### Default the demo to pgvector and keep tests exact and dependency-free
+
+- **Decision:** Put dense search behind one `VectorStore` protocol. Runtime
+  selection defaults to `RAG_STORE=pgvector`; unit tests and CI select the
+  exact numpy `InMemoryVectorStore`, which is also the evaluation reference.
+- **Alternative:** Require PostgreSQL for every test, or keep numpy search as a
+  separate code path outside the store contract.
+- **Why:** The demo exercises the assignment's real vector-database component,
+  while deterministic unit tests do not depend on Docker or approximate HNSW
+  ranking. An unavailable pgvector runtime exits with instructions to run
+  `make db-up` or use `RAG_STORE=memory`.
+
+### Keep the vector schema model-specific
+
+- **Decision:** Store normalized E5 vectors as `vector(384)`, upsert with raw
+  parameterized SQL, and skip rows whose content hash has not changed.
+- **Alternative:** Use an ORM or an unconstrained vector representation.
+- **Why:** The fixed dimension lets pgvector validate data and build the HNSW
+  operator class. Changing the embedding model or its dimensions requires a
+  migration and a full re-embedding; it is not a transparent configuration
+  change.
+
+### Treat HNSW as a scaling path, not a small-corpus speed claim
+
+- **Decision:** Keep the HNSW index, but report the planner's observed choice.
+  On the 88-row Thessaloniki corpus, filtered `EXPLAIN ANALYZE` used a
+  sequential scan plus top-N sort (`0.516 ms` execution), not HNSW. A
+  rolled-back synthetic 384-dimensional test with a 50%-selective city filter
+  still used a sequential scan at 2,000 rows and first selected HNSW at the
+  next measured point, 2,250 rows (`0.052 ms` versus `0.346 ms` for the
+  2,000-row sequential plan). This crossover is environment-, selectivity-,
+  and query-dependent, not a universal threshold.
+- **Alternative:** Force index scans or claim that creating an index means the
+  planner uses it.
+- **Why:** Exact brute-force scanning is cheaper at this corpus size. Letting
+  PostgreSQL choose preserves the fast small-table plan while HNSW becomes
+  useful as the corpus grows.
+
+### Make filtered-HNSW underfill explicit
+
+- **Decision:** Always filter by `city_id`, while documenting that pgvector's
+  approximate index gathers `hnsw.ef_search` candidates before applying the
+  `WHERE` filter. A selective city or POI filter can therefore return fewer
+  than `top_k` rows even when enough matching rows exist.
+- **Alternative:** Hide the edge case or over-fetch in application code without
+  evidence that it is needed.
+- **Why:** pgvector 0.8+ iterative index scans and, for a stable small set of
+  destinations, partial indexes per city are the available mitigations. They
+  are intentionally not implemented for the current 88-row corpus.
+
+### Keep BM25 instead of relabeling PostgreSQL full-text ranking
+
+- **Decision:** Retain the prototype's own BM25 for the lexical half of hybrid
+  retrieval.
+- **Alternative:** Replace it with PostgreSQL `tsvector` / `ts_rank` and call
+  that BM25.
+- **Why:** PostgreSQL full-text search is a useful lightweight lexical path
+  without a second service, but `ts_rank` is not BM25: it does not provide the
+  same IDF and document-length normalization.
+
+### Record the same-gold-set measurement
+
+- **Decision:** Run all 23 frozen gold queries through E5 against both stores.
+  Memory and pgvector produced identical quality: BM25 recall@5/MRR
+  `0.852/0.862`, dense `0.963/1.000`, and hybrid `0.944/0.917`; there was no
+  retrieval delta. From comparable cached-corpus runs, mean latency in
+  milliseconds was memory `0.063/286.375/8.068` and pgvector
+  `0.063/307.782/32.749` for BM25/dense/hybrid. The dense row includes lazy
+  model startup on its first timed query; the hybrid row better represents
+  steady-state store overhead.
+- **Alternative:** Treat any approximate-store delta as an implementation bug
+  without first comparing against the exact baseline.
+- **Why:** HNSW is approximate by design. The exact memory result defines the
+  reference; quality differences must be measured and investigated rather than
+  presumed incorrect.

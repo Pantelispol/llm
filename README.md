@@ -5,11 +5,12 @@ the LLM understands and narrates; deterministic code solves and verifies.
 
 ## Current status
 
-Phase 4 is complete: the foundation and operational catalog now include
+Phase 5 is complete: the foundation and operational catalog now include
 deterministic opening-hours and weather checks, an independent itinerary
 validator, an exhaustive small-request feasibility checker, and a bounded beam
-planner with minimal-perturbation repair. Retrieval, orchestration, and the UI
-remain deferred to their corresponding checkpoints.
+planner with minimal-perturbation repair. Tourism retrieval now combines BM25,
+multilingual E5 embeddings, reciprocal-rank fusion, and a pgvector-backed
+runtime store. Orchestration and the UI remain deferred to later checkpoints.
 
 ## Quick start
 
@@ -23,7 +24,9 @@ make run
 ```
 
 The API currently exposes only `GET /health`; product endpoints arrive with the
-orchestration phase. PostgreSQL with pgvector can be started with `make db-up`.
+orchestration phase. Start PostgreSQL with pgvector using `make db-up`, then load
+the RAG corpus with `make rag-ingest`. Set `RAG_STORE=memory` for a
+dependency-free retrieval run.
 
 Regenerate `data/walking_matrix.json` with `make matrix`. If `ORS_API_KEY` is
 configured, the command makes one OpenRouteService foot-walking matrix request;

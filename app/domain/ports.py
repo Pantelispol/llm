@@ -156,9 +156,14 @@ class PlanningContext(PortModel):
 class RetrievalHit(PortModel):
     chunk_id: str
     poi_id: str
+    section: str
     text: str
     source_url: str
     score: float
+    bm25_score: float | None = None
+    dense_score: float | None = None
+    rrf_score: float | None = None
+    is_untrusted: bool = False
 
 
 class Retriever(Protocol):

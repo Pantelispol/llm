@@ -1,14 +1,17 @@
 from __future__ import annotations
 
+import argparse
 import hashlib
 import re
 from pathlib import Path
 
 import yaml
 
+from app.config import get_settings
 from app.domain.catalog import Poi, PoiCatalog
 from app.rag.models import Chunk, ContentDoc
 from app.rag.normalize import normalize
+from app.rag.store import DEFAULT_CITY_ID, VectorRecord, VectorStore, create_vector_store
 from app.tools.catalog import PROJECT_ROOT, CatalogRepository
 
 CONTENT_DIR = PROJECT_ROOT / "data" / "content"
@@ -46,8 +49,36 @@ def ingest_corpus(
     return chunks
 
 
-def chunk_document(document: ContentDoc, poi: Poi) -> list[Chunk]:
-    chunks = [_alias_chunk(document, poi)]
+def ingest_vector_store(
+    store: VectorStore,
+    chunks: list[Chunk],
+    embeddings: list[list[float]],
+    *,
+    city_id: str = DEFAULT_CITY_ID,
+) -> tuple[int, int]:
+    records = [
+        VectorRecord(
+            chunk_id=chunk.chunk_id,
+            city_id=city_id,
+            poi_id=chunk.poi_id,
+            section=chunk.section,
+            text=chunk.text,
+            content_hash=chunk.content_hash,
+            embedding=embedding,
+        )
+        for chunk, embedding in zip(chunks, embeddings, strict=True)
+    ]
+    written = store.upsert(records)
+    return written, len(records) - written
+
+
+def chunk_document(
+    document: ContentDoc,
+    poi: Poi,
+    *,
+    is_untrusted: bool = False,
+) -> list[Chunk]:
+    chunks = [_alias_chunk(document, poi, is_untrusted=is_untrusted)]
     for heading, text in _sections(document.body):
         parts = _split_at_paragraphs(text, MAX_SECTION_WORDS)
         slug = _section_slug(heading)
@@ -60,6 +91,7 @@ def chunk_document(document: ContentDoc, poi: Poi) -> list[Chunk]:
                     section=heading,
                     text=part,
                     content_hash=_content_hash(part),
+                    is_untrusted=is_untrusted,
                 )
             )
     return chunks
@@ -103,7 +135,12 @@ def _split_at_paragraphs(text: str, max_words: int) -> list[str]:
     return parts
 
 
-def _alias_chunk(document: ContentDoc, poi: Poi) -> Chunk:
+def _alias_chunk(
+    document: ContentDoc,
+    poi: Poi,
+    *,
+    is_untrusted: bool,
+) -> Chunk:
     values = [poi.names.en, poi.names.el, *poi.aliases, *document.aliases]
     text = " ".join(dict.fromkeys(values))
     return Chunk(
@@ -113,6 +150,7 @@ def _alias_chunk(document: ContentDoc, poi: Poi) -> Chunk:
         text=text,
         content_hash=_content_hash(text),
         is_alias_chunk=True,
+        is_untrusted=is_untrusted,
     )
 
 
@@ -126,3 +164,27 @@ def _word_count(text: str) -> int:
 
 def _content_hash(text: str) -> str:
     return hashlib.sha256(normalize(text).encode()).hexdigest()[:12]
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Ingest tourism RAG chunks.")
+    parser.add_argument("--store", choices=("pgvector", "memory"), default=None)
+    args = parser.parse_args()
+
+    from app.rag.dense import encode_passages_cached
+    from app.rag.retriever import dense_encoder_from_env
+
+    store = create_vector_store(args.store)
+    chunks = ingest_corpus()
+    encoder = dense_encoder_from_env()
+    embeddings = encode_passages_cached(encoder, chunks)
+    written, skipped = ingest_vector_store(store, chunks, embeddings)
+    selection = args.store or get_settings().rag_store
+    print(
+        f"store={selection} chunks={len(chunks)} written={written} "
+        f"skipped-as-unchanged={skipped}"
+    )
+
+
+if __name__ == "__main__":
+    main()

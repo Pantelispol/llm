@@ -8,9 +8,18 @@ from time import perf_counter
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from app.rag.abstention import CalibrationResult, QuerySignals, calibrate_thresholds
 from app.rag.bm25 import BM25Index
+from app.rag.dense import DenseEncoder
 from app.rag.ingest import ingest_corpus
 from app.rag.models import Chunk
+from app.rag.retriever import (
+    AbstentionThresholds,
+    HybridRetriever,
+    RetrievalMode,
+    dense_encoder_from_env,
+)
+from app.rag.store import VectorStore, create_vector_store
 
 ROOT = Path(__file__).parents[1]
 GOLD_PATH = ROOT / "evals" / "rag_gold.yaml"
@@ -41,6 +50,7 @@ class GoldSet(EvalModel):
 
 @dataclass(frozen=True)
 class FailedCase:
+    mode: str
     case_id: str
     query: str
     chunk_ids: list[str]
@@ -77,10 +87,13 @@ def top_deduped_poi_ids(
     return poi_ids
 
 
-def evaluate_bm25() -> EvalRow:
-    chunks = ingest_corpus()
+def evaluate_bm25(
+    chunks: list[Chunk] | None = None,
+    gold: GoldSet | None = None,
+) -> EvalRow:
+    chunks = chunks or ingest_corpus()
+    gold = gold or load_gold()
     index = BM25Index([chunk.text for chunk in chunks])
-    gold = load_gold()
     recalls: list[float] = []
     poi_deduped_recalls: list[float] = []
     reciprocal_ranks: list[float] = []
@@ -95,13 +108,12 @@ def evaluate_bm25() -> EvalRow:
         top_chunk_ids = [chunks[index].chunk_id for index, _score in top_five]
 
         if case.expect_abstain:
-            failures.append(FailedCase(case.id, case.query, top_chunk_ids))
+            failures.append(FailedCase("bm25", case.id, case.query, top_chunk_ids))
             continue
 
         expected = set(case.expected_poi_ids or [])
         top_pois = {chunks[index].poi_id for index, _score in top_five}
-        recall = len(expected & top_pois) / len(expected)
-        recalls.append(recall)
+        recalls.append(len(expected & top_pois) / len(expected))
         deduped_top_pois = set(top_deduped_poi_ids(ranked, chunks, limit=5))
         poi_deduped_recalls.append(len(expected & deduped_top_pois) / len(expected))
         relevant_rank = next(
@@ -113,8 +125,8 @@ def evaluate_bm25() -> EvalRow:
             None,
         )
         reciprocal_ranks.append(1 / relevant_rank if relevant_rank is not None else 0.0)
-        if recall < 1.0:
-            failures.append(FailedCase(case.id, case.query, top_chunk_ids))
+        if len(expected & top_pois) < len(expected):
+            failures.append(FailedCase("bm25", case.id, case.query, top_chunk_ids))
 
     return EvalRow(
         mode="bm25",
@@ -126,6 +138,148 @@ def evaluate_bm25() -> EvalRow:
         abstain_recall=None,
         mean_latency_ms=sum(latencies) / len(latencies),
         failures=failures,
+    )
+
+
+def evaluate_retriever(
+    retriever: HybridRetriever,
+    mode: RetrievalMode,
+    gold: GoldSet,
+) -> EvalRow:
+    recalls: list[float] = []
+    poi_deduped_recalls: list[float] = []
+    reciprocal_ranks: list[float] = []
+    latencies: list[float] = []
+    failures: list[FailedCase] = []
+    predicted_abstentions = 0
+    correct_abstentions = 0
+    actual_abstentions = sum(case.expect_abstain for case in gold.cases)
+
+    for case in gold.cases:
+        started = perf_counter()
+        result = retriever.search_sync(case.query, limit=len(retriever.chunks), mode=mode)
+        latencies.append((perf_counter() - started) * 1000)
+        if result.abstained:
+            predicted_abstentions += 1
+        top_five = result.hits[:5]
+        top_chunk_ids = [hit.chunk_id for hit in top_five]
+
+        if case.expect_abstain:
+            if result.abstained:
+                correct_abstentions += 1
+            else:
+                failures.append(FailedCase(mode, case.id, case.query, top_chunk_ids))
+            continue
+
+        expected = set(case.expected_poi_ids or [])
+        top_pois = {hit.poi_id for hit in top_five}
+        recalls.append(len(expected & top_pois) / len(expected))
+        deduped_pois = list(dict.fromkeys(hit.poi_id for hit in result.hits))[:5]
+        poi_deduped_recalls.append(len(expected & set(deduped_pois)) / len(expected))
+        relevant_rank = next(
+            (
+                position
+                for position, hit in enumerate(result.hits, start=1)
+                if hit.poi_id in expected
+            ),
+            None,
+        )
+        reciprocal_ranks.append(1 / relevant_rank if relevant_rank is not None else 0.0)
+        if len(expected & top_pois) < len(expected):
+            failures.append(FailedCase(mode, case.id, case.query, top_chunk_ids))
+
+    has_abstention = retriever.thresholds is not None
+    return EvalRow(
+        mode=mode,
+        recall_at_5=sum(recalls) / len(recalls),
+        poi_deduped_recall_at_5=sum(poi_deduped_recalls)
+        / len(poi_deduped_recalls),
+        mrr=sum(reciprocal_ranks) / len(reciprocal_ranks),
+        abstain_precision=(
+            correct_abstentions / predicted_abstentions
+            if has_abstention and predicted_abstentions
+            else (0.0 if has_abstention else None)
+        ),
+        abstain_recall=(
+            correct_abstentions / actual_abstentions if has_abstention else None
+        ),
+        mean_latency_ms=sum(latencies) / len(latencies),
+        failures=failures,
+    )
+
+
+def calibration_signals(
+    retriever: HybridRetriever,
+    gold: GoldSet,
+) -> list[QuerySignals]:
+    return [
+        QuerySignals(
+            case_id=case.id,
+            in_knowledge_base=not case.expect_abstain,
+            max_dense_cosine=dense,
+            max_bm25_normalized=lexical,
+        )
+        for case in gold.cases
+        for dense, lexical in [retriever.score_signals(case.query)]
+    ]
+
+
+def print_calibration(
+    result: CalibrationResult | None,
+    encoder: DenseEncoder,
+    signals: list[QuerySignals],
+) -> None:
+    print(f"Calibration ({encoder.model_name}):")
+    if result is None:
+        print("- no threshold pair cleanly separates all frozen gold cases")
+        print("- chosen dense threshold: none")
+        print("- chosen BM25 normalized threshold: none")
+        print("- margin: n/a")
+        out_of_kb = [signal for signal in signals if not signal.in_knowledge_base]
+        in_kb = [signal for signal in signals if signal.in_knowledge_base]
+        dense_floor_case = max(out_of_kb, key=lambda signal: signal.max_dense_cosine)
+        lexical_floor_case = max(
+            out_of_kb,
+            key=lambda signal: signal.max_bm25_normalized,
+        )
+        dense_floor = dense_floor_case.max_dense_cosine
+        lexical_floor = lexical_floor_case.max_bm25_normalized
+        blockers = [
+            signal
+            for signal in in_kb
+            if signal.max_dense_cosine <= dense_floor
+            and signal.max_bm25_normalized <= lexical_floor
+        ]
+        print(
+            f"- out-of-KB dense floor: {dense_floor:.6f} "
+            f"({dense_floor_case.case_id})"
+        )
+        print(
+            f"- out-of-KB BM25 floor: {lexical_floor:.6f} "
+            f"({lexical_floor_case.case_id})"
+        )
+        print("- blocking in-KB cases:")
+        for blocker in blockers:
+            print(
+                f"  - {blocker.case_id} "
+                f"(dense={blocker.max_dense_cosine:.6f}, "
+                f"BM25={blocker.max_bm25_normalized:.6f})"
+            )
+        return
+    print(f"- dense threshold: {result.thresholds.dense:.6f}")
+    print(f"- BM25 normalized threshold: {result.thresholds.lexical:.6f}")
+    print(f"- margin: {result.margin:.6f}")
+    nearest_in = result.nearest_in_kb
+    nearest_out = result.nearest_out_of_kb
+    print(
+        f"- nearest in-KB: {nearest_in.case_id} "
+        f"(dense={nearest_in.max_dense_cosine:.6f}, "
+        f"BM25={nearest_in.max_bm25_normalized:.6f})"
+    )
+    print(
+        f"- nearest out-of-KB: {nearest_out.case_id} "
+        f"(dense={nearest_out.max_dense_cosine:.6f}, "
+        f"BM25={nearest_out.max_bm25_normalized:.6f})"
     )
 
 
@@ -166,7 +320,7 @@ def print_report(rows: list[EvalRow]) -> None:
         print("- none")
         return
     for failure in failures:
-        print(f"- {failure.case_id}: {failure.query}")
+        print(f"- [{failure.mode}] {failure.case_id}: {failure.query}")
         print(f"  top-5: {', '.join(failure.chunk_ids) or '(no results)'}")
 
 
@@ -180,14 +334,36 @@ def main() -> None:
     parser.add_argument(
         "--store",
         choices=("memory", "pgvector"),
-        default="memory",
+        default=None,
     )
+    parser.add_argument("--calibrate", action="store_true")
     args = parser.parse_args()
-    if args.store != "memory":
-        parser.error("pgvector evaluation is implemented in checkpoint 5d")
-    if args.mode != "bm25":
-        parser.error("dense and hybrid evaluation are implemented in checkpoint 5c")
-    print_report([evaluate_bm25()])
+    chunks = ingest_corpus()
+    gold = load_gold()
+    store: VectorStore | None = None
+    rows: list[EvalRow] = []
+    if args.mode in {"bm25", "all"}:
+        rows.append(evaluate_bm25(chunks, gold))
+    if args.mode in {"dense", "hybrid", "all"}:
+        encoder = dense_encoder_from_env()
+        store = create_vector_store(args.store)
+        retriever = HybridRetriever(chunks, encoder, store=store)
+        calibration: CalibrationResult | None = None
+        if args.calibrate:
+            signals = calibration_signals(retriever, gold)
+            calibration = calibrate_thresholds(signals)
+            print_calibration(calibration, encoder, signals)
+            print()
+            if calibration is not None:
+                retriever.thresholds = AbstentionThresholds(
+                    dense=calibration.thresholds.dense,
+                    lexical=calibration.thresholds.lexical,
+                )
+        modes: tuple[RetrievalMode, ...] = (
+            ("dense", "hybrid") if args.mode == "all" else (args.mode,)
+        )
+        rows.extend(evaluate_retriever(retriever, mode, gold) for mode in modes)
+    print_report(rows)
 
 
 if __name__ == "__main__":

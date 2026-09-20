@@ -27,3 +27,4 @@ class Chunk(RagModel):
     text: str
     content_hash: str
     is_alias_chunk: bool = False
+    is_untrusted: bool = False

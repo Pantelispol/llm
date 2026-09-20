@@ -18,4 +18,4 @@ The broad basilica interior is organized by rows of columns and opens toward ric
 
 ## Practical tips
 
-This is an active place of worship rather than only a historic attraction. Modest dress, quiet conversation, and sensitivity during services are appropriate. Religious ceremonies can limit access to parts of the interior without notice. The church stands uphill from the waterfront but within the central street grid; the approach is gentler than routes deeper into Ano Poli. Visitors with mobility requirements should confirm which entrance serves the accessible route and whether the crypt is suitable.
+As an active place of worship, modest dress and quiet conduct are expected, especially during services. Ceremonies can limit interior access without notice. The church sits uphill from the waterfront within the central street grid. Visitors with mobility needs should confirm accessible entrances and crypt access.
