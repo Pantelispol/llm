@@ -249,3 +249,80 @@ def test_per_poi_holiday_closure_beats_seasonal_hours(
     assert result.can_visit is False
     assert result.source_rule == "holiday"
     assert result.reason == "closed: Labour Day"
+
+
+def test_acheiropoietos_split_hours_reject_midday(engine: OpeningHoursEngine) -> None:
+    result = check(
+        engine,
+        "acheiropoietos",
+        at(2026, 9, 22, 13),
+        at(2026, 9, 22, 13, 30),
+    )
+    assert result.can_visit is False
+    assert result.reason == "closed at requested start time"
+
+
+def test_acheiropoietos_split_hours_accept_morning(engine: OpeningHoursEngine) -> None:
+    result = check(
+        engine,
+        "acheiropoietos",
+        at(2026, 9, 22, 10),
+        at(2026, 9, 22, 10, 30),
+    )
+    assert result.can_visit is True
+
+
+def test_roman_forum_is_closed_on_demo_tuesday(engine: OpeningHoursEngine) -> None:
+    result = check(
+        engine,
+        "roman_forum",
+        at(2026, 9, 22, 10),
+        at(2026, 9, 22, 11),
+    )
+    assert result.can_visit is False
+    assert result.reason == "closed at requested start time"
+    assert result.source_rule == "seasonal"
+
+
+def test_hagios_demetrios_sunday_is_unknown(engine: OpeningHoursEngine) -> None:
+    result = check(
+        engine,
+        "hagios_demetrios",
+        at(2026, 9, 20, 10),
+        at(2026, 9, 20, 10, 30),
+    )
+    assert result.can_visit is False
+    assert result.reason == "opening hours unknown for this date"
+    assert result.source_rule is None
+    assert result.needs_verification is True
+
+
+def test_jewish_museum_monday_is_unknown_and_conflict_is_recorded(
+    engine: OpeningHoursEngine,
+) -> None:
+    result = check(
+        engine,
+        "jewish_museum",
+        at(2026, 9, 21, 10),
+        at(2026, 9, 21, 11),
+    )
+    museum = engine.repository.get("jewish_museum")
+    assert result.can_visit is False
+    assert result.reason == "opening hours unknown for this date"
+    assert result.source_rule is None
+    assert len(museum.conflicts) >= 2
+    assert {conflict.source.kind for conflict in museum.conflicts} >= {
+        "official",
+        "google_maps_listing",
+    }
+
+
+def test_modiano_market_is_open_at_23_00(engine: OpeningHoursEngine) -> None:
+    result = check(
+        engine,
+        "modiano_market",
+        at(2026, 9, 22, 23),
+        at(2026, 9, 22, 23, 30),
+    )
+    assert result.can_visit is True
+    assert result.closes_at == at(2026, 9, 23, 0)

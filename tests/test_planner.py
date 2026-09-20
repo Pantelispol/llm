@@ -110,7 +110,7 @@ def test_candidate_generation_filters_operational_and_user_constraints(
     assert len(generated.candidates) <= 10
     assert reasons["white_tower"] == DroppedReason.EXCLUDED
     assert reasons["arch_of_galerius"] == DroppedReason.EXCLUDED
-    assert reasons["rotunda"] == DroppedReason.HOURS_UNKNOWN
+    assert reasons["bey_hamam"] == DroppedReason.HOURS_UNKNOWN
     assert reasons["seich_sou_forest"] == DroppedReason.WEATHER
 
 

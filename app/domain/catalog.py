@@ -90,10 +90,18 @@ class PriceEur(CatalogModel):
     reduced: float | None = Field(default=None, ge=0)
 
 
+class Confidence(StrEnum):
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"
+
+
 class Source(CatalogModel):
     url: str
     kind: str
     verified_at: date | None = None
+    verified_by: str | None = None
+    confidence: Confidence | None = None
 
 
 class Conflict(CatalogModel):
@@ -131,6 +139,7 @@ class Poi(CatalogModel):
     exposure: Exposure
     visit_minutes: VisitMinutes
     opening_hours: list[SeasonalHours]
+    opening_hours_unknown_weekdays: list[str] = Field(default_factory=list)
     last_entry_before_close_min: int | None = Field(default=None, ge=0)
     temporary_closures: list[TemporaryClosure] = Field(default_factory=list)
     date_overrides: list[DateOverride] = Field(default_factory=list)
@@ -142,10 +151,19 @@ class Poi(CatalogModel):
     price_eur: PriceEur | None
     safety_tier: SafetyTier
     notes: str | None
+    visitor_note: str | None = None
     conflicts: list[Conflict]
     source: Source
     field_sources: dict[str, Source] = Field(default_factory=dict)
     needs_verification: dict[str, bool]
+
+    @field_validator("opening_hours_unknown_weekdays")
+    @classmethod
+    def valid_unknown_weekdays(cls, values: list[str]) -> list[str]:
+        valid = {"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"}
+        if len(values) != len(set(values)) or not set(values) <= valid:
+            raise ValueError("unknown opening weekdays must be unique OSM weekday codes")
+        return values
 
 
 class PoiCatalog(CatalogModel):

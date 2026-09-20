@@ -154,6 +154,10 @@ class OpeningHoursEngine:
                     needs_verification=poi.needs_verification.get("closed", True),
                 )
 
+        weekday = ("Mo", "Tu", "We", "Th", "Fr", "Sa", "Su")[day.weekday()]
+        if weekday in poi.opening_hours_unknown_weekdays:
+            return None
+
         season = next(
             (period for period in poi.opening_hours if self._contains(period, month_day)),
             None,

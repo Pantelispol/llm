@@ -417,3 +417,18 @@ the main alternative, and the reason for the choice.
 - **Why:** Meals and rests consume real time. Representing them as activities
   makes the validator account for them and prevents the prose layer from adding
   infeasible schedule commitments.
+
+## Verified-hours data refresh
+
+### Treat manual listing checks as curated input, not a production integration
+
+- **Decision:** Record Tony's dated manual checks with explicit confidence and
+  source kind. Preserve unknown weekdays and source conflicts instead of
+  converting missing days into closures.
+- **Alternative:** Treat every omitted weekday as closed or scrape listing pages
+  during a request.
+- **Why:** Unknown is operationally different from closed, and page scraping is
+  brittle. A production system would ingest Google Places and official
+  `odysseus.culture.gr` data through supported APIs, retain source timestamps,
+  enforce freshness thresholds, and flag stale or conflicting schedules for
+  review.

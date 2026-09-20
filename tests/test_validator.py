@@ -202,10 +202,22 @@ def test_unknown_hours_are_not_treated_as_closed_or_open(
     planning_context_factory: Callable[..., PlanningContext],
 ) -> None:
     state = state_for(at(9, 22, 9), at(9, 22, 12))
-    itinerary = itinerary_for(state, [activity("rotunda", at(9, 22, 10), 30)])
+    itinerary = itinerary_for(state, [activity("bey_hamam", at(9, 22, 10), 30)])
     assert ViolationCode.HOURS_UNKNOWN_FOR_DATE in error_codes(
         VALIDATOR.validate(itinerary, state, planning_context_factory())
     )
+
+
+def test_verified_partial_week_keeps_sunday_unknown(
+    planning_context_factory: Callable[..., PlanningContext],
+) -> None:
+    state = state_for(at(9, 20, 9), at(9, 20, 12))
+    itinerary = itinerary_for(state, [activity("hagios_demetrios", at(9, 20, 10), 30)])
+
+    codes = error_codes(VALIDATOR.validate(itinerary, state, planning_context_factory()))
+
+    assert ViolationCode.HOURS_UNKNOWN_FOR_DATE in codes
+    assert ViolationCode.CLOSED_DURING_VISIT not in codes
 
 
 def test_outside_user_window_is_caught(

@@ -143,6 +143,34 @@ def test_seich_sou_has_required_safety_classification() -> None:
     assert all(term in forest["notes"] for term in ("storm", "night", "fire-risk"))
 
 
+def test_manually_verified_hours_include_provenance() -> None:
+    verified = {
+        "rotunda",
+        "roman_forum",
+        "hagios_demetrios",
+        "acheiropoietos",
+        "hagia_sophia",
+        "heptapyrgio",
+        "jewish_museum",
+        "modiano_market",
+        "kapani_market",
+    }
+    pois = by_id()
+    for poi_id in verified:
+        poi = pois[poi_id]
+        assert poi["opening_hours"]
+        assert poi["needs_verification"]["opening_hours"] is False
+        assert poi["source"]["verified_by"] == "Tony (manual check)"
+        assert poi["source"]["verified_at"] == date(2026, 9, 20)
+        assert poi["source"]["confidence"] in {"low", "medium"}
+
+
+def test_active_churches_have_visitor_note() -> None:
+    expected = "active church: modest dress, quiet during services"
+    for poi_id in ("rotunda", "hagios_demetrios", "acheiropoietos", "hagia_sophia"):
+        assert by_id()[poi_id]["visitor_note"] == expected
+
+
 def test_holidays_are_explicit_and_unverified() -> None:
     holidays = load_yaml("holidays.yaml")["holidays"]
     assert all(item["needs_verification"] is True for item in holidays)

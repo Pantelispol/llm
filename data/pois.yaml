@@ -66,7 +66,8 @@ pois:
     tags: [roman, byzantine, unesco, mosaics]
     exposure: indoor
     visit_minutes: {min: 20, typical: 35, max: 60}
-    opening_hours: []
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "Mo-Sa 08:00-20:00; Su off"}
     last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
@@ -74,11 +75,14 @@ pois:
     price_eur: null
     safety_tier: standard
     notes: null
+    visitor_note: "active church: modest dress, quiet during services"
     conflicts: []
     source:
-      url: https://thessaloniki.travel/exploring-the-city/religion/greek-orthodox-churches/rotunda-unesco-monument/
-      kind: official_tourism_candidate
-      verified_at: null
+      url: https://www.google.com/maps
+      kind: google_maps_listing
+      verified_at: 2026-09-20
+      verified_by: Tony (manual check)
+      confidence: medium
     needs_verification:
       names.en: false
       names.el: true
@@ -88,14 +92,14 @@ pois:
       tags: true
       exposure: true
       visit_minutes: true
-      opening_hours: true
+      opening_hours: false
       last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
       price_eur: true
       safety_tier: true
-      source: true
+      source: false
 
   - id: arch_of_galerius
     names:
@@ -152,7 +156,8 @@ pois:
     tags: [roman, archaeology, history]
     exposure: mixed
     visit_minutes: {min: 45, typical: 75, max: 120}
-    opening_hours: []
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "Mo,We-Sa 09:00-16:00; Tu,Su off"}
     last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
@@ -162,9 +167,11 @@ pois:
     notes: null
     conflicts: []
     source:
-      url: https://efapoth.gr/
-      kind: official_culture_candidate
-      verified_at: null
+      url: https://www.google.com/maps
+      kind: google_maps_listing
+      verified_at: 2026-09-20
+      verified_by: Tony (manual check)
+      confidence: medium
     needs_verification:
       names.en: false
       names.el: true
@@ -174,14 +181,14 @@ pois:
       tags: true
       exposure: true
       visit_minutes: true
-      opening_hours: true
+      opening_hours: false
       last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
       price_eur: true
       safety_tier: true
-      source: true
+      source: false
 
   - id: hagios_demetrios
     names:
@@ -193,19 +200,26 @@ pois:
     tags: [byzantine, unesco, religious, mosaics]
     exposure: indoor
     visit_minutes: {min: 25, typical: 45, max: 75}
-    opening_hours: []
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "Mo-Sa 06:00-22:00"}
+    opening_hours_unknown_weekdays: [Su]
     last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     heat_exposure: low
     price_eur: null
     safety_tier: standard
-    notes: Worship and services may affect tourist access.
+    notes: >-
+      Sunday hours are unknown. The church is likely open for services with a
+      different schedule, so the planner must not schedule Sunday visits.
+    visitor_note: "active church: modest dress, quiet during services"
     conflicts: []
     source:
-      url: https://thessaloniki.travel/pdf/Thessaloniki_EN.pdf
-      kind: official_tourism_candidate
-      verified_at: null
+      url: https://www.google.com/maps
+      kind: google_maps_listing
+      verified_at: 2026-09-20
+      verified_by: Tony (manual check)
+      confidence: medium
     needs_verification:
       names.en: false
       names.el: true
@@ -215,15 +229,17 @@ pois:
       tags: true
       exposure: true
       visit_minutes: true
-      opening_hours: true
+      opening_hours: false
+      opening_hours_unknown_weekdays: false
       last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
       price_eur: true
       safety_tier: true
-      notes: true
-      source: true
+      notes: false
+      visitor_note: false
+      source: false
 
   - id: acheiropoietos
     names:
@@ -235,7 +251,8 @@ pois:
     tags: [early_christian, byzantine, unesco, religious]
     exposure: indoor
     visit_minutes: {min: 20, typical: 35, max: 60}
-    opening_hours: []
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "Mo-Fr 07:30-12:00,18:00-19:30; Sa 06:00-12:00,18:00-19:30; Su 06:00-12:00,18:00-19:00"}
     last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
@@ -243,11 +260,14 @@ pois:
     price_eur: null
     safety_tier: standard
     notes: Worship and services may affect tourist access.
+    visitor_note: "active church: modest dress, quiet during services"
     conflicts: []
     source:
-      url: https://thessaloniki.travel/pdf/Thessaloniki_EN.pdf
-      kind: official_tourism_candidate
-      verified_at: null
+      url: https://www.google.com/maps
+      kind: google_maps_listing
+      verified_at: 2026-09-20
+      verified_by: Tony (manual check)
+      confidence: medium
     needs_verification:
       names.en: false
       names.el: true
@@ -257,7 +277,7 @@ pois:
       tags: true
       exposure: true
       visit_minutes: true
-      opening_hours: true
+      opening_hours: false
       last_entry_before_close_min: true
       child_friendly: true
       step_free: true
@@ -265,7 +285,8 @@ pois:
       price_eur: true
       safety_tier: true
       notes: true
-      source: true
+      visitor_note: false
+      source: false
 
   - id: hagia_sophia
     names:
@@ -277,7 +298,8 @@ pois:
     tags: [byzantine, unesco, religious, mosaics]
     exposure: indoor
     visit_minutes: {min: 20, typical: 35, max: 60}
-    opening_hours: []
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "Mo-Su 07:00-21:00"}
     last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
@@ -285,11 +307,14 @@ pois:
     price_eur: null
     safety_tier: standard
     notes: Worship and services may affect tourist access.
+    visitor_note: "active church: modest dress, quiet during services"
     conflicts: []
     source:
-      url: https://thessaloniki.travel/pdf/Thessaloniki_EN.pdf
-      kind: official_tourism_candidate
-      verified_at: null
+      url: https://www.google.com/maps
+      kind: google_maps_listing
+      verified_at: 2026-09-20
+      verified_by: Tony (manual check)
+      confidence: medium
     needs_verification:
       names.en: false
       names.el: true
@@ -299,7 +324,7 @@ pois:
       tags: true
       exposure: true
       visit_minutes: true
-      opening_hours: true
+      opening_hours: false
       last_entry_before_close_min: true
       child_friendly: true
       step_free: true
@@ -307,7 +332,8 @@ pois:
       price_eur: true
       safety_tier: true
       notes: true
-      source: true
+      visitor_note: false
+      source: false
 
   - id: heptapyrgio
     names:
@@ -319,7 +345,8 @@ pois:
     tags: [byzantine, ottoman, history, city_views]
     exposure: mixed
     visit_minutes: {min: 35, typical: 60, max: 90}
-    opening_hours: []
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "Mo-Su 08:30-15:30"}
     last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
@@ -330,9 +357,11 @@ pois:
     notes: Steep approaches and uneven surfaces may affect access.
     conflicts: []
     source:
-      url: https://efapoth.gr/
-      kind: official_culture_candidate
-      verified_at: null
+      url: https://www.google.com/maps
+      kind: google_maps_listing
+      verified_at: 2026-09-20
+      verified_by: Tony (manual check)
+      confidence: medium
     needs_verification:
       names.en: false
       names.el: true
@@ -342,7 +371,7 @@ pois:
       tags: true
       exposure: true
       visit_minutes: true
-      opening_hours: true
+      opening_hours: false
       last_entry_before_close_min: true
       child_friendly: true
       step_free: true
@@ -351,7 +380,7 @@ pois:
       price_eur: true
       safety_tier: true
       notes: true
-      source: true
+      source: false
 
   - id: ano_poli_walls
     names:
@@ -548,19 +577,52 @@ pois:
     tags: [jewish_history, holocaust_history, culture, indoor]
     exposure: indoor
     visit_minutes: {min: 45, typical: 75, max: 120}
-    opening_hours: []
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "Tu-Fr 09:00-14:00; We 17:00-20:00; Su 10:00-14:00; Sa off"}
+    opening_hours_unknown_weekdays: [Mo]
     last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
     heat_exposure: low
     price_eur: null
     safety_tier: standard
-    notes: null
-    conflicts: []
+    notes: >-
+      Monday remains unknown because the official sites and Google Maps
+      conflict. The planner must not treat Monday as either open or closed.
+    conflicts:
+      - field: opening_hours
+        stale_value: "Mo-Fr 09:00-14:00"
+        risk: Official schedule includes Monday, conflicting with Google Maps.
+        source:
+          url: https://www.jmth.gr/
+          kind: official
+          verified_at: 2026-09-20
+          verified_by: Tony (manual check)
+          confidence: medium
+      - field: opening_hours
+        stale_value: "Mo-Fr 09:00-14:00"
+        risk: Second official site also includes Monday, conflicting with Google Maps.
+        source:
+          url: https://www.jct.gr/
+          kind: official
+          verified_at: 2026-09-20
+          verified_by: Tony (manual check)
+          confidence: medium
+      - field: opening_hours
+        stale_value: "Mo off"
+        risk: Google Maps reports Monday closed, conflicting with both official sites.
+        source:
+          url: https://www.google.com/maps
+          kind: google_maps_listing
+          verified_at: 2026-09-20
+          verified_by: Tony (manual check)
+          confidence: medium
     source:
       url: https://www.jmth.gr/
-      kind: official_museum_candidate
-      verified_at: null
+      kind: official
+      verified_at: 2026-09-20
+      verified_by: Tony (manual check)
+      confidence: medium
     needs_verification:
       names.en: false
       names.el: true
@@ -570,14 +632,16 @@ pois:
       tags: true
       exposure: true
       visit_minutes: true
-      opening_hours: true
+      opening_hours: false
+      opening_hours_unknown_weekdays: false
       last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
       price_eur: true
       safety_tier: true
-      source: true
+      notes: false
+      source: false
 
   - id: bey_hamam
     names:
@@ -721,7 +785,8 @@ pois:
     tags: [food, local_life, shopping, historic_market]
     exposure: mixed
     visit_minutes: {min: 30, typical: 60, max: 90}
-    opening_hours: []
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "Mo,We,Sa 08:00-16:00; Tu,Th,Fr 08:00-21:00; Su off"}
     last_entry_before_close_min: null
     child_friendly: medium
     step_free: null
@@ -731,9 +796,11 @@ pois:
     notes: Individual stalls may keep different hours.
     conflicts: []
     source:
-      url: https://thessaloniki.travel/
-      kind: official_tourism_candidate
-      verified_at: null
+      url: https://www.google.com/maps
+      kind: google_maps_listing
+      verified_at: 2026-09-20
+      verified_by: Tony (manual check)
+      confidence: medium
     needs_verification:
       names.en: false
       names.el: true
@@ -743,7 +810,7 @@ pois:
       tags: true
       exposure: true
       visit_minutes: true
-      opening_hours: true
+      opening_hours: false
       last_entry_before_close_min: true
       child_friendly: true
       step_free: true
@@ -751,7 +818,7 @@ pois:
       price_eur: true
       safety_tier: true
       notes: true
-      source: true
+      source: false
 
   - id: modiano_market
     names:
@@ -763,19 +830,31 @@ pois:
     tags: [food, architecture, shopping, indoor_market]
     exposure: indoor
     visit_minutes: {min: 30, typical: 60, max: 90}
-    opening_hours: []
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "Mo-Sa 08:00-24:00; Su 10:00-24:00"}
     last_entry_before_close_min: null
     child_friendly: high
     step_free: null
     heat_exposure: low
     price_eur: null
     safety_tier: standard
-    notes: Individual businesses may keep different hours from the market hall.
+    notes: >-
+      Reopened in September 2026 according to agoramodiano.com. Hours may change,
+      and individual businesses may keep different hours from the market hall.
     conflicts: []
     source:
-      url: https://www.agoramodiano.com/
-      kind: official_venue_candidate
-      verified_at: null
+      url: https://www.google.com/maps
+      kind: google_maps_listing
+      verified_at: 2026-09-20
+      verified_by: Tony (manual check)
+      confidence: low
+    field_sources:
+      reopening_status:
+        url: https://www.agoramodiano.com/
+        kind: official
+        verified_at: 2026-09-20
+        verified_by: Tony (manual check)
+        confidence: medium
     needs_verification:
       names.en: false
       names.el: true
@@ -785,15 +864,16 @@ pois:
       tags: true
       exposure: true
       visit_minutes: true
-      opening_hours: true
+      opening_hours: false
       last_entry_before_close_min: true
       child_friendly: true
       step_free: true
       heat_exposure: true
       price_eur: true
       safety_tier: true
-      notes: true
-      source: true
+      notes: false
+      source: false
+      field_sources.reopening_status: false
 
   - id: new_waterfront_umbrellas
     names:
