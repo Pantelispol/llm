@@ -5,6 +5,7 @@ from app.domain.models import (
     TurnAnalysis,
     ValidationResult,
     Violation,
+    ViolationCode,
 )
 
 __all__ = [
@@ -14,5 +15,5 @@ __all__ = [
     "TurnAnalysis",
     "ValidationResult",
     "Violation",
+    "ViolationCode",
 ]
-

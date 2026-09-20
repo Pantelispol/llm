@@ -146,6 +146,6 @@ def test_validation_result_cannot_claim_valid_with_errors() -> None:
     with pytest.raises(ValidationError, match="is_valid"):
         ValidationResult(
             is_valid=True,
-            violations=[Violation(code="overlap", message="Activities overlap")],
+            violations=[Violation(code="OVERLAP", message="Activities overlap")],
             checked_at=at(10),
         )

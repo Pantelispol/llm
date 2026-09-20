@@ -5,11 +5,11 @@ the LLM understands and narrates; deterministic code solves and verifies.
 
 ## Current status
 
-Phase 3 is complete: the foundation and operational catalog now include
-deterministic opening-hours checks, a walking matrix, live Open-Meteo weather,
-frozen weather scenarios, and policy-ready hourly safety flags. Planning,
-retrieval, orchestration, and the UI remain deferred to their corresponding
-phases.
+Phase 4a is complete: the foundation and operational catalog now include
+deterministic opening-hours and weather checks, an independent itinerary
+validator, and an exhaustive small-request feasibility checker with numeric
+breakdowns and minimal fixes. The Phase 4b planner, retrieval, orchestration,
+and UI remain deferred to their corresponding checkpoints.
 
 ## Quick start
 

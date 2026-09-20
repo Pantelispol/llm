@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from datetime import date, datetime
-from typing import Protocol, TypeVar
+from typing import Protocol, TypeVar, runtime_checkable
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
 
+from app.domain.catalog import PoiCatalog
 from app.domain.models import Exposure, GeoPoint, Itinerary, TripState, ValidationResult
 
 
@@ -86,6 +87,7 @@ class OpenInterval(PortModel):
     needs_verification: bool = False
 
 
+@runtime_checkable
 class OpeningHoursChecker(Protocol):
     def check(self, request: OpeningHoursRequest) -> OpeningHoursResult: ...
 
@@ -137,11 +139,18 @@ class PaceFactors(PortModel):
 
 
 class PlanningContext(PortModel):
+    model_config = ConfigDict(extra="forbid", arbitrary_types_allowed=True)
+
     now: AwareDatetime
+    catalog: PoiCatalog
+    opening_hours: OpeningHoursChecker
     candidates: list[PlanningCandidate]
     hourly_weather_flags: list[HourlyWeatherFlags]
+    weather_unavailable_reason: str | None = None
     travel_matrix: TravelMatrixResult
     pace_factors: PaceFactors
+    transition_buffer_minutes: int = Field(default=5, ge=0)
+    long_walk_with_child_minutes: int = Field(default=20, ge=1)
 
 
 class RetrievalHit(PortModel):

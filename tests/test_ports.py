@@ -16,6 +16,8 @@ from app.domain.ports import (
     TravelMatrixResult,
     WeatherRequest,
 )
+from app.tools.catalog import CatalogRepository
+from app.tools.opening_hours import OpeningHoursEngine
 
 ATHENS = ZoneInfo("Europe/Athens")
 
@@ -47,8 +49,11 @@ def test_travel_matrix_requires_at_least_two_locations() -> None:
 
 
 def test_planning_context_is_fully_typed() -> None:
+    repository = CatalogRepository()
     context = PlanningContext(
         now=datetime(2026, 9, 19, 9, tzinfo=ATHENS),
+        catalog=repository.catalog,
+        opening_hours=OpeningHoursEngine(repository),
         candidates=[
             PlanningCandidate(
                 poi_id="example",

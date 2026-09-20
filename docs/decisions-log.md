@@ -303,3 +303,58 @@ the main alternative, and the reason for the choice.
 - **Why:** This product serves one fixed city. An explicit adapter constant is
   predictable around DST while keeping provider query mechanics out of the
   domain port.
+
+## Phase 4a — validator and feasibility checker
+
+### Recompute feasibility independently from the proposed itinerary
+
+- **Decision:** Treat activity starts as proposed slots, then recompute visit
+  ends from catalog durations and pace factors, travel from the matrix, opening
+  status from the hours engine, and hazards from hourly flags. Stored visit and
+  travel claims are never used as evidence of feasibility.
+- **Alternative:** Trust planner-populated duration and travel fields and only
+  check that activities do not overlap.
+- **Why:** A planner bug would otherwise validate itself. Independent
+  recomputation catches shortened visits, missing buffers, stale hours, and
+  incorrect walking claims with a separate implementation boundary.
+
+### Make violation codes a stable contract
+
+- **Decision:** Define error and warning codes as uppercase string enums while
+  keeping concrete, human-readable messages separate.
+- **Alternative:** Infer failure types from free-text validation messages.
+- **Why:** Evals, logs, the narrator, and future repair logic need identifiers
+  that do not change when wording changes. Typed codes also prevent spelling
+  drift across tests and orchestration.
+
+### Treat unavailable weather as unknown risk
+
+- **Decision:** Emit `WEATHER_UNAVAILABLE`, continue planning ordinary city
+  POIs, and exclude every `safety_tier=critical` POI from feasibility results.
+- **Alternative:** Treat an empty weather response as clear conditions or fail
+  every plan outright.
+- **Why:** Missing data is not evidence of safety, especially for trails. The
+  warning preserves useful low-risk plans while the critical-tier exclusion
+  enforces the conservative boundary deterministically.
+
+### Exhaustively check small feasibility requests
+
+- **Decision:** Enumerate every order for up to six POIs, prefer weather-safe
+  orders, then select the shortest elapsed schedule and break ties
+  lexicographically by `poi_id`.
+- **Alternative:** Use a greedy nearest-neighbor order or the future beam-search
+  planner.
+- **Why:** At six stops the maximum 720 permutations remain small. Exhaustive
+  search gives an explainable ground truth for “can I do these places?” and is
+  independent from Phase 4b's heuristic planner.
+
+### Apply pace as explicit arithmetic
+
+- **Decision:** Relaxed pace multiplies both walks and visits by 1.25; a party
+  with children additionally multiplies walking by 1.3 and visits by 1.15. Each
+  duration rounds up, and transition buffers default to five configurable
+  minutes in `PlanningContext`.
+- **Alternative:** Encode “relaxed” or “with children” as qualitative planner
+  hints.
+- **Why:** Explicit multipliers make feasibility reproducible and prevent the
+  narrator or LLM from silently compressing travel and visit durations.
