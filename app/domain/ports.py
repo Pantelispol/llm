@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 from typing import Protocol, TypeVar
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
@@ -17,19 +17,34 @@ class WeatherRequest(PortModel):
     start: AwareDatetime
     end: AwareDatetime
 
+    @model_validator(mode="after")
+    def valid_window(self) -> WeatherRequest:
+        if self.end <= self.start:
+            raise ValueError("weather request end must be after start")
+        return self
+
 
 class HourlyWeather(PortModel):
     at: AwareDatetime
     temperature_c: float
     apparent_temperature_c: float
     precipitation_probability: int = Field(ge=0, le=100)
+    precipitation_mm: float = Field(ge=0)
     weather_code: int
     uv_index: float = Field(ge=0)
     wind_speed_kmh: float = Field(ge=0)
+    wind_gusts_kmh: float = Field(ge=0)
+
+
+class DailyWeather(PortModel):
+    date: date
+    sunrise: AwareDatetime
+    sunset: AwareDatetime
 
 
 class WeatherResult(PortModel):
     hours: list[HourlyWeather]
+    days: list[DailyWeather] = Field(default_factory=list)
     fetched_at: AwareDatetime
     source: str
     is_fixture: bool = False
@@ -113,6 +128,7 @@ class HourlyWeatherFlags(PortModel):
     heat_risk: bool = False
     storm: bool = False
     uv_high: bool = False
+    after_dark: bool = False
 
 
 class PaceFactors(PortModel):

@@ -64,8 +64,8 @@ the main alternative, and the reason for the choice.
 ### Keep provider-specific weather parameters in the adapter
 
 - **Decision:** The domain `WeatherRequest` contains only coordinates and aware
-  datetimes. The Open-Meteo adapter will always add `timezone=auto` and convert
-  its response into the domain result.
+  datetimes. The Open-Meteo adapter adds its required timezone parameter and
+  converts the response into the domain result.
 - **Alternative:** Expose the Open-Meteo timezone query parameter in the domain
   port.
 - **Why:** Domain callers should express what forecast they need, not how a
@@ -252,3 +252,54 @@ the main alternative, and the reason for the choice.
 - **Alternative:** Block the phase until an external key is supplied.
 - **Why:** The assignment explicitly permits the approximation, and its metadata
   makes the loss of routing accuracy visible rather than hidden.
+
+## Phase 3 — weather providers and flags
+
+### Give the planner stable weather decisions, not vendor measurements
+
+- **Decision:** Convert hourly Open-Meteo values into `rain_risk`, `storm`,
+  `heat_risk`, `uv_high`, and `after_dark` before planning.
+- **Alternative:** Pass raw temperatures, WMO codes, probabilities, and sunset
+  strings into the planner or LLM.
+- **Why:** Named booleans make safety and planning rules deterministic, small,
+  and testable. Raw values remain in `WeatherResult` for explanations and logs,
+  but cannot silently change planner policy.
+
+### Parse live and fixture weather through one path
+
+- **Decision:** Store the captured Open-Meteo response shape and derive frozen
+  scenarios by changing its hourly arrays; both providers call the same parser.
+- **Alternative:** Hand-author already-normalized fixture domain objects.
+- **Why:** Shared parsing catches vendor-shape drift and prevents fixtures from
+  passing while live responses fail. `is_fixture` and the scenario source remain
+  explicit so narration can disclose simulated weather.
+
+### Degrade weather failures into typed results
+
+- **Decision:** Retry timeouts, transport errors, and 5xx responses once, then
+  return `WeatherResult.unavailable_reason` instead of raising to orchestration.
+- **Alternative:** Let HTTP or parsing exceptions abort the whole turn.
+- **Why:** Weather is mandatory for planning, but an upstream outage should
+  produce a safe limitation or conservative fallback rather than a server error.
+  Structured failure reasons are also measurable in evaluation and operations.
+
+### Keep weather thresholds explicit and configurable
+
+- **Decision:** Default rain risk to probability >=50% or WMO rain codes, storm
+  to codes 95/96/99, heat risk to feels-like >=35C (>=32C with children), and
+  high UV to >=8.
+- **Alternative:** Ask the LLM to interpret each forecast or bury thresholds in
+  planner branches.
+- **Why:** The defaults are conservative, inspectable product policy. The lower
+  child heat threshold demonstrates party-aware safety, and inclusive boundary
+  tests prevent ambiguous behavior at exactly 50%, 35C, 32C, and UV 8.
+
+### Fix the city timezone inside the Open-Meteo adapter
+
+- **Decision:** Send `timezone=Europe/Athens` and parse returned local timestamps
+  as timezone-aware Athens datetimes.
+- **Alternative:** Send `timezone=auto` or add a timezone field to the domain
+  request.
+- **Why:** This product serves one fixed city. An explicit adapter constant is
+  predictable around DST while keeping provider query mechanics out of the
+  domain port.

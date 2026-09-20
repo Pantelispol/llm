@@ -5,10 +5,11 @@ the LLM understands and narrates; deterministic code solves and verifies.
 
 ## Current status
 
-Phase 2 is complete: the Phase 1 foundation now has a validated 22-POI catalog,
-field-level verification metadata, an explicit 2026 holiday file, deterministic
-opening-hours checks, and a committed walking matrix. Planning, retrieval,
-orchestration, and the UI remain deferred to their corresponding phases.
+Phase 3 is complete: the foundation and operational catalog now include
+deterministic opening-hours checks, a walking matrix, live Open-Meteo weather,
+frozen weather scenarios, and policy-ready hourly safety flags. Planning,
+retrieval, orchestration, and the UI remain deferred to their corresponding
+phases.
 
 ## Quick start
 
@@ -27,3 +28,8 @@ orchestration phase. PostgreSQL with pgvector can be started with `make db-up`.
 Regenerate `data/walking_matrix.json` with `make matrix`. If `ORS_API_KEY` is
 configured, the command makes one OpenRouteService foot-walking matrix request;
 otherwise it uses the documented approximate fallback.
+
+Set `WEATHER_FIXTURE` to `clear_day`, `rain_after_16`, `heatwave_39`, or
+`storm_evening` for a disclosed frozen scenario. Leaving it empty selects live
+Open-Meteo data. Live smoke tests are excluded by default; run them explicitly
+with `RUN_LIVE_WEATHER_TESTS=1 pytest -m live`.
