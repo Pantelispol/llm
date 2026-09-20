@@ -175,6 +175,7 @@ def run_scenario(name: str) -> tuple[PlanResult, PlanDiff | None, str]:
 
 def _print_result(name: str, plan: PlanResult, diff: PlanDiff | None, fixture: str) -> None:
     print(f"Scenario: {name} (recorded weather fixture: {fixture})")
+    print(f"Window utilization: {plan.window_utilization:.0%}")
     print("Timetable")
     for position, activity in enumerate(plan.itinerary.activities, start=1):
         label = activity.poi_id or activity.area_label or activity.kind.value

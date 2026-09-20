@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import timedelta
 from enum import StrEnum
+from math import ceil
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -24,6 +25,7 @@ class DroppedReason(StrEnum):
     TOO_FAR = "TOO_FAR"
     NOT_ENOUGH_TIME = "NOT_ENOUGH_TIME"
     LOW_INTEREST = "LOW_INTEREST"
+    LOWER_SCORE = "LOWER_SCORE"
     CHILD_UNSUITABLE = "CHILD_UNSUITABLE"
 
 
@@ -45,10 +47,16 @@ class PlannerConfig(CandidateModel):
     interest_weight: float = Field(default=4.0, ge=0)
     must_see_weight: float = Field(default=2.0, ge=0)
     weather_weight: float = Field(default=4.0, ge=0)
-    child_weight: float = Field(default=1.5, ge=0)
+    child_weight: float = Field(default=4.0, ge=0)
     diversity_weight: float = Field(default=1.0, ge=0)
-    travel_weight: float = Field(default=0.05, ge=0)
+    travel_weight: float = Field(default=0.02, ge=0)
     perturbation_weight: float = Field(default=3.0, ge=0)
+    utilization_weight: float = Field(default=12.0, ge=0)
+    child_walk_soft_minutes: int = Field(default=15, ge=0)
+    child_walk_hard_minutes: int = Field(default=25, ge=1)
+    child_walk_penalty: float = Field(default=0.4, ge=0)
+    child_hilly_penalty: float = Field(default=3.0, ge=0)
+    minimum_break_after_meal_minutes: int = Field(default=45, ge=0)
 
     @classmethod
     def from_settings(cls, settings: Settings) -> PlannerConfig:
@@ -62,6 +70,11 @@ class PlannerConfig(CandidateModel):
             diversity_weight=settings.planner_diversity_weight,
             travel_weight=settings.planner_travel_weight,
             perturbation_weight=settings.planner_perturbation_weight,
+            utilization_weight=settings.planner_utilization_weight,
+            child_walk_soft_minutes=settings.planner_child_walk_soft_minutes,
+            child_walk_hard_minutes=settings.planner_child_walk_hard_minutes,
+            child_walk_penalty=settings.planner_child_walk_penalty,
+            child_hilly_penalty=settings.planner_child_hilly_penalty,
         )
 
 
@@ -114,7 +127,7 @@ def generate_candidates(
         dropped.append(
             DroppedCandidate(
                 poi_id=candidate.poi_id,
-                reason=DroppedReason.LOW_INTEREST,
+                reason=DroppedReason.LOWER_SCORE,
                 detail="Candidate fell below the deterministic top-K cutoff.",
             )
         )
@@ -177,35 +190,68 @@ def _filter_reason(
             reason=DroppedReason.HOURS_UNKNOWN,
             detail="Opening hours are unknown for the requested date.",
         )
-    interval = context.opening_hours.next_open_interval(
-        poi.id,
-        state.time_window.start,
-        search_days=0,
-    )
-    if (
-        interval is None
-        or interval.opens_at.date() != day
-        or interval.opens_at >= state.time_window.end
-    ):
+    if not _has_full_visit_interval(poi, state, context):
         return DroppedCandidate(
             poi_id=poi.id,
             reason=DroppedReason.CLOSED,
-            detail="No open interval remains inside the requested window.",
+            detail="No complete visit fits an open interval inside the requested window.",
         )
     return None
+
+
+def _has_full_visit_interval(
+    poi: Poi,
+    state: TripState,
+    context: PlanningContext,
+) -> bool:
+    assert state.time_window is not None
+    visit_minutes = ceil(poi.visit_minutes.typical * context.pace_factors.visit_time_multiplier)
+    cursor = state.time_window.start
+    for _attempt in range(4):
+        interval = context.opening_hours.next_open_interval(
+            poi.id,
+            cursor,
+            search_days=0,
+        )
+        if (
+            interval is None
+            or interval.opens_at.date() != state.time_window.start.date()
+            or interval.opens_at >= state.time_window.end
+        ):
+            return False
+        visit_start = max(cursor, interval.opens_at)
+        visit_end = visit_start + timedelta(minutes=visit_minutes)
+        if visit_end <= state.time_window.end:
+            result = context.opening_hours.check(
+                OpeningHoursRequest(
+                    poi_id=poi.id,
+                    visit_start=visit_start,
+                    visit_end=visit_end,
+                )
+            )
+            if result.can_visit:
+                return True
+        cursor = interval.closes_at + timedelta(minutes=1)
+        if cursor >= state.time_window.end:
+            return False
+    return False
 
 
 def _static_score(poi: Poi, state: TripState, config: PlannerConfig) -> StaticScore:
     interests = {value.lower() for value in state.interests}
     searchable = {poi.category.lower(), *(tag.lower() for tag in poi.tags)}
     matches = len(interests & searchable)
-    interest_raw = 0.5 + float(matches)
+    interest_raw = float(matches)
     must_see_raw = 1.0 if {"landmark", "unesco"} & set(poi.tags) else 0.0
-    child_raw = 0.0
+    child_score = 0.0
     if state.party.children_ages:
-        child_raw = 1.0 if poi.child_friendly == ChildFriendly.HIGH else 0.0
+        child_score = config.child_weight * (
+            1.0 if poi.child_friendly == ChildFriendly.HIGH else 0.5
+        )
+        if poi.hilly:
+            child_score -= config.child_hilly_penalty
     return StaticScore(
         interest_match=interest_raw * config.interest_weight,
         must_see=must_see_raw * config.must_see_weight,
-        child_suitability=child_raw * config.child_weight,
+        child_suitability=child_score,
     )

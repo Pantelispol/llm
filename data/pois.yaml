@@ -15,7 +15,7 @@ pois:
     coordinates: {latitude: 40.6264, longitude: 22.9484}
     category: museum
     tags: [history, city_views, landmark]
-    exposure: mixed
+    exposure: indoor
     visit_minutes: {min: 45, typical: 60, max: 90}
     opening_hours:
       - {valid_from: "04-01", valid_to: "10-31", expression: "Mo-Su 08:00-21:00"}
@@ -44,7 +44,7 @@ pois:
       coordinates: true
       category: true
       tags: true
-      exposure: true
+      exposure: false
       visit_minutes: true
       opening_hours: false
       last_entry_before_close_min: true
@@ -107,7 +107,7 @@ pois:
       el: Αψίδα του Γαλερίου
     aliases: [Kamara, Galerius Arch]
     coordinates: {latitude: 40.6327, longitude: 22.9518}
-    category: archaeological_monument
+    category: public_space
     tags: [roman, architecture, landmark]
     exposure: outdoor
     visit_minutes: {min: 10, typical: 20, max: 30}
@@ -132,12 +132,12 @@ pois:
       names.el: true
       aliases: true
       coordinates: true
-      category: true
+      category: false
       tags: true
       exposure: true
       visit_minutes: true
-      opening_hours: true
-      last_entry_before_close_min: true
+      opening_hours: false
+      last_entry_before_close_min: false
       child_friendly: true
       step_free: true
       heat_exposure: true
@@ -392,8 +392,9 @@ pois:
     tags: [byzantine, fortifications, city_views, walking]
     exposure: outdoor
     visit_minutes: {min: 25, typical: 45, max: 75}
-    opening_hours: []
-    last_entry_before_close_min: null
+    opening_hours:
+      - {valid_from: "01-01", valid_to: "12-31", expression: "24/7"}
+    last_entry_before_close_min: 0
     child_friendly: medium
     step_free: null
     hilly: true
@@ -417,8 +418,8 @@ pois:
       tags: true
       exposure: true
       visit_minutes: true
-      opening_hours: true
-      last_entry_before_close_min: true
+      opening_hours: false
+      last_entry_before_close_min: false
       child_friendly: true
       step_free: true
       hilly: true

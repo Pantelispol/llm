@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from itertools import permutations
+
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
 
 from app.domain.catalog import ChildFriendly, HeatExposure, Poi
@@ -75,6 +77,10 @@ class PlanRepairer:
         old_order = self._visit_order(previous)
         target_order = list(old_order)
         removal_reasons: dict[str, str] = {}
+        weather_changed = previous_context is not None and self._weather_changed(
+            previous_context,
+            context,
+        )
 
         for operation in operations or []:
             target_order = self._apply_operation(
@@ -101,6 +107,10 @@ class PlanRepairer:
             else:
                 filtered.append(poi_id)
         target_order = filtered
+        weather_risk_ids = (
+            self._weather_risk_ids(previous, updated_context, pois) if weather_changed else set()
+        )
+        weather_protected_ids = set(target_order) - weather_risk_ids
 
         local = self.planner.plan_for_order(
             updated_state,
@@ -108,25 +118,18 @@ class PlanRepairer:
             target_order,
             assumptions=previous.assumptions,
         )
-        if local is not None and self._has_undesirable_weather(local, updated_context, pois):
-            reordered = sorted(
-                enumerate(target_order),
-                key=lambda item: (
-                    pois[item[1]].exposure == Exposure.INDOOR,
-                    item[0],
-                ),
+        if weather_changed and (
+            local is None or self._has_undesirable_weather(local, updated_context, pois)
+        ):
+            weather_local = self._find_weather_reorder(
+                target_order,
+                updated_state,
+                updated_context,
+                previous.assumptions,
+                pois,
             )
-            reordered_ids = [poi_id for _index, poi_id in reordered]
-            if reordered_ids != target_order:
-                weather_local = self.planner.plan_for_order(
-                    updated_state,
-                    updated_context,
-                    reordered_ids,
-                    assumptions=previous.assumptions,
-                )
-                if weather_local is not None:
-                    local = weather_local
-                    target_order = reordered_ids
+            if weather_local is not None:
+                local, target_order = weather_local
 
         if local is None and self._window_shrank(state, updated_state):
             local, target_order = self._drop_low_scores_until_fit(
@@ -157,6 +160,7 @@ class PlanRepairer:
                 replan_state,
                 updated_context,
                 preferred_order=target_order,
+                required_poi_ids=weather_protected_ids,
             )
             if used_full_replan
             else local
@@ -165,10 +169,7 @@ class PlanRepairer:
         for poi_id in set(old_order) - set(self._visit_order(plan)):
             removal_reasons.setdefault(
                 poi_id,
-                "weather"
-                if previous_context is not None
-                and self._weather_changed(previous_context, updated_context)
-                else "replanned",
+                "weather" if poi_id in weather_risk_ids else "replanned",
             )
         diff = self._diff(previous, plan, removal_reasons)
         return RepairResult(
@@ -287,6 +288,54 @@ class PlanRepairer:
             removal_reasons[dropped] = "window_shrink_lowest_score"
         return None, remaining
 
+    def _find_weather_reorder(
+        self,
+        order: list[str],
+        state: TripState,
+        context: PlanningContext,
+        assumptions: list[str],
+        pois: dict[str, Poi],
+    ) -> tuple[PlanResult, list[str]] | None:
+        if len(order) <= 6:
+            orders = permutations(order)
+        else:
+            orders = iter(
+                [
+                    tuple(
+                        sorted(
+                            order,
+                            key=lambda poi_id: (
+                                pois[poi_id].exposure == Exposure.INDOOR,
+                                order.index(poi_id),
+                            ),
+                        )
+                    )
+                ]
+            )
+        valid: list[tuple[int, PlanResult, list[str]]] = []
+        original_positions = {poi_id: index for index, poi_id in enumerate(order)}
+        for proposed in orders:
+            proposed_ids = list(proposed)
+            candidate = self.planner.plan_for_order(
+                state,
+                context,
+                proposed_ids,
+                assumptions=assumptions,
+            )
+            if candidate is None or self._has_undesirable_weather(candidate, context, pois):
+                continue
+            moved = sum(
+                index != original_positions[poi_id] for index, poi_id in enumerate(proposed_ids)
+            )
+            valid.append((moved, candidate, proposed_ids))
+        if not valid:
+            return None
+        _moved, plan, proposed_ids = min(
+            valid,
+            key=lambda item: (item[0], -item[1].total_score, tuple(item[2])),
+        )
+        return plan, proposed_ids
+
     @staticmethod
     def _has_undesirable_weather(
         plan: PlanResult,
@@ -322,6 +371,26 @@ class PlanRepairer:
             old.hourly_weather_flags != new.hourly_weather_flags
             or old.weather_unavailable_reason != new.weather_unavailable_reason
         )
+
+    @staticmethod
+    def _weather_risk_ids(
+        plan: PlanResult,
+        context: PlanningContext,
+        pois: dict[str, Poi],
+    ) -> set[str]:
+        risky: set[str] = set()
+        for activity in plan.itinerary.activities:
+            if activity.kind != ActivityKind.VISIT or activity.poi_id is None:
+                continue
+            poi = pois[activity.poi_id]
+            flags = weather_during(context, activity.start, activity.end)
+            exposed = poi.exposure != Exposure.INDOOR
+            high_heat = poi.heat_exposure == HeatExposure.HIGH and any(
+                flag.heat_risk for flag in flags
+            )
+            if exposed and (any(flag.rain_risk or flag.storm for flag in flags) or high_heat):
+                risky.add(poi.id)
+        return risky
 
     @staticmethod
     def _visit_order(plan: PlanResult) -> list[str]:

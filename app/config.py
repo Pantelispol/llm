@@ -25,10 +25,15 @@ class Settings(BaseSettings):
     planner_interest_weight: float = Field(default=4.0, ge=0)
     planner_must_see_weight: float = Field(default=2.0, ge=0)
     planner_weather_weight: float = Field(default=4.0, ge=0)
-    planner_child_weight: float = Field(default=1.5, ge=0)
+    planner_child_weight: float = Field(default=4.0, ge=0)
     planner_diversity_weight: float = Field(default=1.0, ge=0)
-    planner_travel_weight: float = Field(default=0.05, ge=0)
+    planner_travel_weight: float = Field(default=0.02, ge=0)
     planner_perturbation_weight: float = Field(default=3.0, ge=0)
+    planner_utilization_weight: float = Field(default=12.0, ge=0)
+    planner_child_walk_soft_minutes: int = Field(default=15, ge=0)
+    planner_child_walk_hard_minutes: int = Field(default=25, ge=1)
+    planner_child_walk_penalty: float = Field(default=0.4, ge=0)
+    planner_child_hilly_penalty: float = Field(default=3.0, ge=0)
     prompt_version: str = "understand.v1,narrator.v1"
 
 

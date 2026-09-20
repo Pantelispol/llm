@@ -384,10 +384,12 @@ the main alternative, and the reason for the choice.
 
 ### Keep scoring components and weights visible
 
-- **Decision:** Default weights are interest 4, must-see 2, weather 4, child
-  suitability 1.5, diversity 1, travel 0.05, and repair perturbation 3. A
-  candidate gets a small baseline interest score; rain is strongly penalized,
-  while storm and high-heat exposure are hard constraints.
+- **Decision:** Current defaults are interest 4, must-see 2, weather 4, child
+  suitability 4, diversity 1, travel 0.02, repair perturbation 3, and window
+  utilization 12. Interest is earned from an actual preference match rather
+  than a baseline; rain is strongly penalized, while storm and high-heat
+  exposure are hard constraints. The child, travel, and utilization defaults
+  supersede the initial Phase 4b values after the Phase 4c quality review.
 - **Alternative:** Collapse quality into one opaque score or ask the LLM to rank
   complete itineraries.
 - **Why:** Per-activity score components make planner behavior debuggable in the
@@ -408,10 +410,11 @@ the main alternative, and the reason for the choice.
 
 ### Encode meal and child-break policy as planning rules
 
-- **Decision:** Windows of at least four hours receive one 45-minute meal at a
-  catalog meal area near the route, targeted at 13:00–15:00 when that band fits
-  or otherwise near the window midpoint. Parties with children receive a
-  15-minute break after roughly 90 minutes.
+- **Decision:** Windows of at least four hours receive one 45-minute meal at an
+  open approved meal area near the route: lunch at 13:00–15:30 or dinner at
+  19:30–21:30. Tsinari is eligible only when the route is already in Ano Poli.
+  Parties with children receive a 15-minute break after roughly 90 minutes,
+  never within 45 minutes after a meal.
 - **Alternative:** Let narration suggest informal stops after the itinerary is
   built.
 - **Why:** Meals and rests consume real time. Representing them as activities
@@ -432,3 +435,50 @@ the main alternative, and the reason for the choice.
   `odysseus.culture.gr` data through supported APIs, retain source timestamps,
   enforce freshness thresholds, and flag stale or conflicting schedules for
   review.
+
+## Phase 4c — plan quality
+
+### Feasible is not good
+
+- **Decision:** Add reusable quality assertions for window use, thematic value,
+  meal timing, child walking, weather placement, and drop-reason honesty on top
+  of the independent feasibility validator.
+- **Alternative:** Treat zero validator errors as sufficient plan quality.
+- **Why:** A short, empty, or poorly ordered itinerary can be perfectly valid.
+  Feasibility remains the safety gate; quality assertions measure whether the
+  valid plan is useful.
+
+### Reward useful window utilization explicitly
+
+- **Decision:** Add a bounded utilization component to beam ranking and final
+  scoring, targeting at least 80% elapsed-window use when enough candidates are
+  open. Reduce raw walking cost from 0.05 to 0.02 per minute so it cannot erase
+  the value of a worthwhile visit.
+- **Alternative:** Keep adding positive visit scores and assume deeper search
+  will naturally fill the window.
+- **Why:** Meals, opening waits, and different visit lengths make visit count an
+  unreliable proxy for a complete itinerary. The explicit term states the
+  product objective without weakening any feasibility constraint.
+
+### Repair weather in least-disruptive order
+
+- **Decision:** Try all visit reorderings for plans of at most six stops, moving
+  exposed activities before the risk window. If that fails, the beam search may
+  swap or add indoor stops, but POIs that were already indoor or outside the
+  risk window are required and cannot be removed as weather casualties.
+- **Alternative:** Apply a weather penalty and allow a full re-plan to remove any
+  activity.
+- **Why:** Reordering preserves user choices. Replacement and removal are
+  progressively more disruptive, while rain-exposed slots remain hard-invalid.
+
+### Make every drop reason auditable
+
+- **Decision:** Emit `CLOSED` only when no full typical visit fits an open
+  interval, and `NOT_ENOUGH_TIME` only when a conservative occupied-time lower
+  bound exceeds the window. All other eligible omissions use `LOWER_SCORE` with
+  the non-negative static-score gap to the weakest selected visit; route costs
+  and stable tie-breaking explain a zero-gap omission.
+- **Alternative:** Report the first failed beam expansion as the final reason.
+- **Why:** Expansion failures depend on one partial route and can falsely imply
+  that a candidate never fit. Post-classifying the chosen plan produces stable,
+  defensible explanations.

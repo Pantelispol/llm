@@ -13,13 +13,13 @@ release and retain evidence plus `verified_at`.
 | white_tower | opening_hours, temporary_closures | **verified 2026-09-20**: Apr–Oct `08:00-21:00`; Nov–Mar `08:30-15:30`; closed Oct 12–15, 2026 for construction | Re-check only when the official source becomes stale or announces a change. | [Museum of Byzantine Culture / White Tower](https://www.mbp.gr/en/) |
 | white_tower | last_entry_before_close_min | `20` | The value is supported by the museums directorate but remains flagged pending direct venue confirmation. | [Museums directorate](https://archaeologicalmuseums.gr/en/museum/5df34af3deca5e2d79e8c155/white-tower-exhibition) |
 | rotunda | opening_hours | **manually verified 2026-09-20, medium confidence**: Mon–Sat `08:00-20:00`; Sun closed | Google Maps listing is not an official operational API; refresh before production use. Last-entry remains unknown. | [Ephorate of Antiquities of Thessaloniki](https://efapoth.gr/) |
-| arch_of_galerius | opening_hours | `24/7` draft for exterior viewing | Confirm that public exterior access has no restrictions or works. | [Ephorate of Antiquities of Thessaloniki](https://efapoth.gr/) |
+| arch_of_galerius | opening_hours | **classified for Phase 4c**: `24/7` exterior public-space access | This applies only to viewing the outdoor arch from the public space; it does not imply managed interior access, staffing, or lighting. | Municipality of Thessaloniki / [Ephorate](https://efapoth.gr/) |
 | roman_forum | opening_hours | **manually verified 2026-09-20, medium confidence**: Mon and Wed–Sat `09:00-16:00`; Tue and Sun closed | Refresh against the official culture service before production use. Last-entry remains unknown. | [Ephorate of Antiquities of Thessaloniki](https://efapoth.gr/) |
 | hagios_demetrios | opening_hours | **manually verified 2026-09-20, medium confidence**: Mon–Sat `06:00-22:00`; Sunday explicitly unknown | Active-church services can change access. Unknown Sunday is not encoded as closed and is excluded from plans. | Holy Metropolis of Thessaloniki and the church office |
 | acheiropoietos | opening_hours | **manually verified 2026-09-20, medium confidence**: weekday, Saturday, and Sunday split morning/evening periods | The midday closure is operationally significant; services can still affect access. Last-entry remains unknown. | Holy Metropolis of Thessaloniki and [Ephorate](https://efapoth.gr/) |
 | hagia_sophia | opening_hours | **manually verified 2026-09-20, medium confidence**: daily `07:00-21:00` | Active-church services and observances can change access. Last-entry remains unknown. | Holy Metropolis of Thessaloniki and the church office |
 | heptapyrgio | opening_hours | **manually verified 2026-09-20, medium confidence**: daily `08:30-15:30` | Refresh against the official culture service before production use. Last-entry remains unknown. | [Ephorate of Antiquities of Thessaloniki](https://efapoth.gr/) |
-| ano_poli_walls | opening_hours, last_entry_before_close_min | unknown | Public viewpoints must be distinguished from managed wall interiors. | [Ephorate](https://efapoth.gr/) and Municipality of Thessaloniki |
+| ano_poli_walls | opening_hours | **classified for Phase 4c**: `24/7` exterior public-space access | This describes the public exterior viewpoints and paths only; managed wall interiors remain out of scope. | [Ephorate](https://efapoth.gr/) and Municipality of Thessaloniki |
 | archaeological_museum | opening_hours, date_overrides, closed, price_eur | **verified 2026-09-20**: Apr–Oct daily `09:00-17:00`; Nov–Mar Tue off, otherwise `09:00-17:00`; 20-minute last entry; standard €10/reduced €5 | The official museum replaces both stale sources. Preserve them as incident evidence, not planning input. | [Official museum hours](https://www.amth.gr/en/visit/hours-and-tickets) |
 | archaeological_museum | conflicts | Discover Greece: Apr 15–Nov 14 `08:00-20:00`, remainder `09:00-16:00`; travel blog: Apr–Oct `08:00-20:00` | Both stale third-party schedules could send a visitor at 18:00, one hour after official closing. | [Discover Greece](https://www.discovergreece.com/experiences/tour-archaeological-museum-thessaloniki); [travel PDF](https://bucketlisttraveltrips.com/wp-content/uploads/2023/06/Thessaloniki-Downloadable-Guide.pdf) |
 | museum_of_byzantine_culture | opening_hours | **partly verified 2026-09-20**: May 8–Oct 31 `08:00-20:00`; Nov–Mar Tue off, otherwise `08:30-15:30`; Apr 1–May 7 unknown | The uncovered spring period prevents the whole field from being marked verified. | [Museum of Byzantine Culture](https://www.mbp.gr/en/) |
@@ -36,12 +36,27 @@ release and retain evidence plus `verified_at`.
 | tsinari_ano_poli | opening_hours | `24/7` requirement-supplied area access | Individual venues have separate schedules. | Municipality of Thessaloniki |
 | vlatadon_monastery | opening_hours, last_entry_before_close_min | unknown | Services and monastery rules affect visitor access. | Vlatadon Monastery and Holy Metropolis of Thessaloniki |
 
-Hours remain unverified or only partly verified for `arch_of_galerius`,
-`ano_poli_walls`, `museum_of_byzantine_culture`, `bey_hamam`,
-`seich_sou_forest`, and `vlatadon_monastery`. The White Tower and the Museum of
-Byzantine Culture also retain unverified last-entry values. All other remaining
-field-level work is listed below and remains authoritative through the catalog's
+Hours remain unverified or only partly verified for
+`museum_of_byzantine_culture`, `bey_hamam`, `seich_sou_forest`, and
+`vlatadon_monastery`. The White Tower and the Museum of Byzantine Culture also
+retain unverified last-entry values. All other remaining field-level work is
+listed below and remains authoritative through the catalog's
 `needs_verification` flags.
+
+### Phase 4c classification audit
+
+The audit changed three operational classifications supplied by the assignment:
+
+- `arch_of_galerius`: category changed from archaeological monument to outdoor
+  `public_space`; exterior access remains `24/7`.
+- `ano_poli_walls`: the existing outdoor `public_space` classification now has
+  explicit `24/7` exterior access and zero last-entry offset.
+- `white_tower`: exposure changed from mixed to indoor so rain repair treats the
+  museum visit as sheltered.
+
+The other catalog entries were reviewed for the same public-space/hours mismatch.
+No other opening hours were changed: unknown managed-site, forest, church, and
+monastery hours remain unknown rather than being inferred.
 
 ## 2. Coordinates
 
@@ -81,9 +96,9 @@ explicitly supplied it.
 
 | poi_id | field | current value | why it needs verification | suggested official source |
 |---|---|---|---|---|
-| white_tower | Greek name, aliases, category, tags, exposure, visit_minutes, child_friendly, step_free, heat_exposure, price_eur, safety_tier | draft values in catalog | Confirm taxonomy, accessibility, duration, and price. | Museum of Byzantine Culture / White Tower |
+| white_tower | Greek name, aliases, category, tags, visit_minutes, child_friendly, step_free, heat_exposure, price_eur, safety_tier | draft values in catalog | Confirm taxonomy, accessibility, duration, and price. | Museum of Byzantine Culture / White Tower |
 | rotunda | Greek name, aliases, category, tags, exposure, visit_minutes, child_friendly, step_free, heat_exposure, price_eur, safety_tier | draft values in catalog | Confirm visitor facilities and monument classification. | Ephorate of Antiquities of Thessaloniki |
-| arch_of_galerius | Greek name, aliases, category, tags, exposure, visit_minutes, child_friendly, step_free, heat_exposure, price_eur, safety_tier, notes, source | draft values in catalog | Exterior access and accessibility need an official check. | Ephorate / Municipality |
+| arch_of_galerius | Greek name, aliases, tags, exposure, visit_minutes, child_friendly, step_free, heat_exposure, price_eur, safety_tier, notes, source | draft values in catalog | Exterior accessibility and conditions need an official check. | Ephorate / Municipality |
 | roman_forum | Greek name, aliases, category, tags, exposure, visit_minutes, child_friendly, step_free, heat_exposure, price_eur, safety_tier | draft values in catalog | Site facilities and visit duration require confirmation. | Ephorate of Antiquities of Thessaloniki |
 | hagios_demetrios | Greek name, aliases, category, tags, exposure, visit_minutes, child_friendly, step_free, heat_exposure, price_eur, safety_tier | draft values in catalog | Religious access and accessibility may differ by entrance. | Church office / Holy Metropolis |
 | acheiropoietos | Greek name, aliases, category, tags, exposure, visit_minutes, child_friendly, step_free, heat_exposure, price_eur, safety_tier, notes | draft values in catalog | Religious access and accessibility require confirmation. | Church office / Holy Metropolis |

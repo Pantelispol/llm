@@ -171,6 +171,21 @@ def test_active_churches_have_visitor_note() -> None:
         assert by_id()[poi_id]["visitor_note"] == expected
 
 
+def test_public_space_classification_audit_and_white_tower_exposure() -> None:
+    pois = by_id()
+    for poi_id in ("ano_poli_walls", "arch_of_galerius"):
+        assert pois[poi_id]["category"] == "public_space"
+        assert pois[poi_id]["opening_hours"] == [
+            {
+                "valid_from": "01-01",
+                "valid_to": "12-31",
+                "expression": "24/7",
+            }
+        ]
+        assert pois[poi_id]["needs_verification"]["opening_hours"] is False
+    assert pois["white_tower"]["exposure"] == "indoor"
+
+
 def test_holidays_are_explicit_and_unverified() -> None:
     holidays = load_yaml("holidays.yaml")["holidays"]
     assert all(item["needs_verification"] is True for item in holidays)
