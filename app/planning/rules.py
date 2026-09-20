@@ -8,14 +8,12 @@ from app.domain.ports import HourlyWeatherFlags, PaceFactors, PlanningContext, T
 
 
 def pace_factors_for(state: TripState) -> PaceFactors:
-    travel = 1.25 if state.pace == Pace.RELAXED else 1.0
-    visit = 1.25 if state.pace == Pace.RELAXED else 1.0
-    if state.party.children_ages:
-        travel *= 1.3
-        visit *= 1.15
+    pace_factor = 1.25 if state.pace == Pace.RELAXED else 1.0
+    child_travel_factor = 1.3 if state.party.children_ages else 1.0
+    child_visit_factor = 1.15 if state.party.children_ages else 1.0
     return PaceFactors(
-        travel_time_multiplier=travel,
-        visit_time_multiplier=visit,
+        travel_time_multiplier=max(pace_factor, child_travel_factor),
+        visit_time_multiplier=max(pace_factor, child_visit_factor),
     )
 
 

@@ -348,13 +348,25 @@ the main alternative, and the reason for the choice.
   search gives an explainable ground truth for “can I do these places?” and is
   independent from Phase 4b's heuristic planner.
 
-### Apply pace as explicit arithmetic
+### Apply pace as explicit, non-compounding arithmetic
 
-- **Decision:** Relaxed pace multiplies both walks and visits by 1.25; a party
-  with children additionally multiplies walking by 1.3 and visits by 1.15. Each
-  duration rounds up, and transition buffers default to five configurable
-  minutes in `PlanningContext`.
+- **Decision:** Relaxed pace contributes a 1.25 factor; children contribute 1.3
+  for walking and 1.15 for visits. Each duration uses the maximum applicable
+  factor rather than multiplying factors, then rounds up. Transition buffers
+  default to five configurable minutes in `PlanningContext`.
 - **Alternative:** Encode “relaxed” or “with children” as qualitative planner
-  hints.
+  hints, or multiply the factors and cap the result.
 - **Why:** Explicit multipliers make feasibility reproducible and prevent the
-  narrator or LLM from silently compressing travel and visit durations.
+  narrator or LLM from silently compressing travel and visit durations. Taking
+  the maximum avoids double-counting two descriptions of slower movement.
+
+### Keep validator expectations independent from shared helpers
+
+- **Decision:** Production planner and validator may share small lookup and
+  rounding helpers, but validator tests use hand-computed matrix, buffer, pace,
+  and clock expectations rather than calling `rules.py` to derive assertions.
+- **Alternative:** Build test expectations with the same helper functions used
+  by the code under test.
+- **Why:** Shared helpers reduce duplication but can create correlated bugs. A
+  wrong pace or rounding rule must make the validator tests fail, not update
+  both the implementation and its expected value in lockstep.

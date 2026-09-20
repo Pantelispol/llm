@@ -200,8 +200,8 @@ def test_relaxed_child_pace_factors_apply_to_walks_and_visits() -> None:
 
     factors = pace_factors_for(state)
 
-    assert factors.travel_time_multiplier == 1.25 * 1.3
-    assert factors.visit_time_multiplier == 1.25 * 1.15
+    assert factors.travel_time_multiplier == 1.3
+    assert factors.visit_time_multiplier == 1.25
 
 
 def test_same_inputs_produce_identical_tie_broken_result(

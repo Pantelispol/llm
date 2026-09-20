@@ -18,8 +18,7 @@ from app.domain.models import (
     ViolationCode,
     ViolationSeverity,
 )
-from app.domain.ports import HourlyWeatherFlags, PlanningContext
-from app.planning.rules import pace_factors_for
+from app.domain.ports import HourlyWeatherFlags, PaceFactors, PlanningContext
 from app.planning.validator import DeterministicItineraryValidator
 from app.tools.weather import parse_open_meteo
 from app.tools.weather_flags import WeatherThresholds, derive_weather_flags
@@ -158,14 +157,19 @@ def test_catalog_and_pace_override_shortened_stored_visit(
     result = VALIDATOR.validate(
         itinerary,
         state,
-        planning_context_factory(pace_factors=pace_factors_for(state)),
+        planning_context_factory(
+            pace_factors=PaceFactors(
+                travel_time_multiplier=1.3,
+                visit_time_multiplier=1.25,
+            )
+        ),
     )
 
     assert ViolationCode.OUTSIDE_USER_WINDOW in error_codes(result)
     violation = next(
         item for item in result.violations if item.code == ViolationCode.OUTSIDE_USER_WINDOW
     )
-    assert "09:00–10:27" in violation.message
+    assert "09:00–10:15" in violation.message
 
 
 def test_closed_during_visit_is_caught(
@@ -355,7 +359,10 @@ def test_missing_weather_warns_and_child_rules_use_pace_adjusted_walk(
     )
     context = planning_context_factory(
         weather_unavailable_reason="timeout",
-        pace_factors=pace_factors_for(state),
+        pace_factors=PaceFactors(
+            travel_time_multiplier=1.3,
+            visit_time_multiplier=1.15,
+        ),
     )
 
     result = VALIDATOR.validate(itinerary, state, context)
