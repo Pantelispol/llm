@@ -2,15 +2,15 @@ services:
   postgres:
     image: pgvector/pgvector:pg17
     environment:
-      POSTGRES_DB: tourist
-      POSTGRES_USER: tourist
-      POSTGRES_PASSWORD: tourist
+      POSTGRES_DB: ${POSTGRES_DB:-tourist}
+      POSTGRES_USER: ${POSTGRES_USER:-tourist}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tourist}
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tourist -d tourist"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
       timeout: 3s
       retries: 10

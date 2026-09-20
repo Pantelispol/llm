@@ -15,7 +15,7 @@ class Settings(BaseSettings):
 
     app_env: Literal["development", "test", "production"] = "development"
     log_level: str = "INFO"
-    database_url: str = "postgresql://tourist:tourist@localhost:5432/tourist"
+    database_url: str = ""
     rag_store: Literal["pgvector", "memory"] = "pgvector"
     llm_api_key: SecretStr = Field(default_factory=lambda: SecretStr(""), repr=False)
     llm_mode: LLMMode = "replay"
