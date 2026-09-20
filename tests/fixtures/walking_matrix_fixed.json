@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-20T00:00:00+03:00",
+  "mode": "foot-walking",
+  "source": "haversine_fallback",
+  "approximate": true,
+  "assumptions": {
+    "distance_multiplier": 1.3,
+    "walking_speed_kmh": 4.5
+  },
+  "poi_ids": [
+    "white_tower",
+    "archaeological_museum",
+    "arch_of_galerius",
+    "aristotelous_square",
+    "ladadika",
+    "new_waterfront_umbrellas",
+    "nea_paralia_parks",
+    "museum_of_byzantine_culture",
+    "seich_sou_forest"
+  ],
+  "durations_minutes": {
+    "white_tower": {
+      "white_tower": 0,
+      "archaeological_museum": 9,
+      "arch_of_galerius": 14,
+      "aristotelous_square": 16,
+      "ladadika": 25,
+      "new_waterfront_umbrellas": 14,
+      "nea_paralia_parks": 30,
+      "museum_of_byzantine_culture": 10,
+      "seich_sou_forest": 93
+    },
+    "archaeological_museum": {
+      "white_tower": 9,
+      "archaeological_museum": 0,
+      "arch_of_galerius": 14,
+      "aristotelous_square": 23,
+      "ladadika": 32,
+      "new_waterfront_umbrellas": 12,
+      "nea_paralia_parks": 27,
+      "museum_of_byzantine_culture": 4,
+      "seich_sou_forest": 87
+    },
+    "arch_of_galerius": {
+      "white_tower": 14,
+      "archaeological_museum": 14,
+      "arch_of_galerius": 0,
+      "aristotelous_square": 16,
+      "ladadika": 23,
+      "new_waterfront_umbrellas": 25,
+      "nea_paralia_parks": 41,
+      "museum_of_byzantine_culture": 18,
+      "seich_sou_forest": 84
+    },
+    "aristotelous_square": {
+      "white_tower": 16,
+      "archaeological_museum": 23,
+      "arch_of_galerius": 16,
+      "aristotelous_square": 0,
+      "ladadika": 9,
+      "new_waterfront_umbrellas": 29,
+      "nea_paralia_parks": 44,
+      "museum_of_byzantine_culture": 26,
+      "seich_sou_forest": 99
+    },
+    "ladadika": {
+      "white_tower": 25,
+      "archaeological_museum": 32,
+      "arch_of_galerius": 23,
+      "aristotelous_square": 9,
+      "ladadika": 0,
+      "new_waterfront_umbrellas": 37,
+      "nea_paralia_parks": 52,
+      "museum_of_byzantine_culture": 34,
+      "seich_sou_forest": 104
+    },
+    "new_waterfront_umbrellas": {
+      "white_tower": 14,
+      "archaeological_museum": 12,
+      "arch_of_galerius": 25,
+      "aristotelous_square": 29,
+      "ladadika": 37,
+      "new_waterfront_umbrellas": 0,
+      "nea_paralia_parks": 16,
+      "museum_of_byzantine_culture": 9,
+      "seich_sou_forest": 95
+    },
+    "nea_paralia_parks": {
+      "white_tower": 30,
+      "archaeological_museum": 27,
+      "arch_of_galerius": 41,
+      "aristotelous_square": 44,
+      "ladadika": 52,
+      "new_waterfront_umbrellas": 16,
+      "nea_paralia_parks": 0,
+      "museum_of_byzantine_culture": 23,
+      "seich_sou_forest": 103
+    },
+    "museum_of_byzantine_culture": {
+      "white_tower": 10,
+      "archaeological_museum": 4,
+      "arch_of_galerius": 18,
+      "aristotelous_square": 26,
+      "ladadika": 34,
+      "new_waterfront_umbrellas": 9,
+      "nea_paralia_parks": 23,
+      "museum_of_byzantine_culture": 0,
+      "seich_sou_forest": 88
+    },
+    "seich_sou_forest": {
+      "white_tower": 93,
+      "archaeological_museum": 87,
+      "arch_of_galerius": 84,
+      "aristotelous_square": 99,
+      "ladadika": 104,
+      "new_waterfront_umbrellas": 95,
+      "nea_paralia_parks": 103,
+      "museum_of_byzantine_culture": 88,
+      "seich_sou_forest": 0
+    }
+  }
+}

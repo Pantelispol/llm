@@ -482,3 +482,32 @@ the main alternative, and the reason for the choice.
 - **Why:** Expansion failures depend on one partial route and can falsely imply
   that a candidate never fit. Post-classifying the chosen plan produces stable,
   defensible explanations.
+
+## ORS walking-matrix refresh
+
+### Keep unit arithmetic independent from refreshable data artifacts
+
+- **Decision:** Validator and feasibility unit tests load a small, fixed walking
+  matrix from `tests/fixtures/`; only the catalog-coverage test reads the
+  committed matrix and accepts either supported source when its `approximate`
+  flag agrees with that source.
+- **Alternative:** Update expected minutes and warning assertions each time the
+  production matrix is regenerated.
+- **Why:** ORS routing is the better runtime input, but route refreshes are data
+  changes, not validator or feasibility behavior changes. Fixed legs keep
+  hand-computed expectations meaningful and prevent external routing changes
+  from masquerading as code regressions.
+
+### Preserve compatible activities during a full repair
+
+- **Decision:** Before a non-weather full replan, deterministically find the
+  largest prior-order prefix/subsequence that still fits the updated
+  constraints, require those compatible visits in the replacement plan, and
+  apply twice the normal perturbation cost to removal versus reordering. Record
+  an explicit constraint reason for prior activities that no longer fit.
+- **Alternative:** Let the ordinary beam objective freely trade every prior
+  activity against new candidates once local repair fails.
+- **Why:** A full replan is an implementation fallback, not permission to erase
+  unaffected user choices. Stronger removal cost keeps the search focused on
+  continuity, while the compatibility pass avoids requiring an impossible stop
+  such as a hilly POI after child walking constraints are introduced.

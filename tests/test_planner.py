@@ -8,7 +8,7 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from app.domain.catalog import HeatExposure
+from app.domain.catalog import ChildFriendly, HeatExposure
 from app.domain.models import (
     ActivityKind,
     ConstraintUpdates,
@@ -176,12 +176,53 @@ def test_three_turn_continuity_diffs(
         clear_context,
         constraint_updates=ConstraintUpdates(party=Party(children_ages=[10])),
     )
-    assert set(second_visits).issubset(third.diff.kept)
+    assert third.used_full_replan is True
+    assert "rotunda" in third.diff.kept
+    assert next(
+        item.reason for item in third.diff.removed if item.poi_id == "heptapyrgio"
+    ) == "child_constraints"
+    added_visits = set(visit_ids(third.plan)) - set(second_visits)
+    assert added_visits
+    assert added_visits.issubset(third.diff.added)
+    assert all(
+        catalog[poi_id].child_friendly != ChildFriendly.LOW
+        for poi_id in added_visits
+    )
     assert any(item.startswith("break:") for item in third.diff.added)
     assert any(
         item.reason == DroppedReason.CHILD_UNSUITABLE for item in third.plan.dropped_candidates
     )
     assert_no_errors(third.plan)
+
+
+def test_full_replan_diff_reports_new_visits_and_supplemental_activities(
+    planning_context_factory: Callable[..., PlanningContext],
+) -> None:
+    planner = BeamSearchPlanner()
+    repairer = PlanRepairer(planner)
+    initial_state = trip()
+    context = context_for(planning_context_factory, initial_state)
+    first = planner.plan(initial_state, context)
+    second = repairer.repair(
+        first,
+        state_with_plan(initial_state, first, 1),
+        context,
+        constraint_updates=ConstraintUpdates(add_exclude_categories=["museum"]),
+    )
+
+    third = repairer.repair(
+        second.plan,
+        state_with_plan(second.state, second.plan, 2),
+        context,
+        constraint_updates=ConstraintUpdates(party=Party(children_ages=[10])),
+    )
+
+    old_visits = set(visit_ids(second.plan))
+    new_visits = set(visit_ids(third.plan)) - old_visits
+    assert third.used_full_replan is True
+    assert new_visits
+    assert new_visits.issubset(third.diff.added)
+    assert any(key.startswith("break:") for key in third.diff.added)
 
 
 def test_rain_after_16_reorders_or_swaps_outdoor_visits(

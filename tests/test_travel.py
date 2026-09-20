@@ -13,22 +13,23 @@ from app.tools.travel import (
     build_matrix,
 )
 
+FIXED_MATRIX_PATH = Path(__file__).parent / "fixtures" / "walking_matrix_fixed.json"
 
-def test_committed_matrix_covers_catalog_and_is_marked_approximate() -> None:
+
+def test_committed_matrix_covers_catalog_and_source_matches_approximation() -> None:
     repository = CatalogRepository()
     matrix = MatrixFile.model_validate_json(MATRIX_PATH.read_text(encoding="utf-8"))
     poi_ids = [poi.id for poi in repository.catalog.pois]
 
     assert matrix.poi_ids == poi_ids
-    assert matrix.source == "haversine_fallback"
-    assert matrix.approximate is True
-    assert matrix.assumptions == {"distance_multiplier": 1.3, "walking_speed_kmh": 4.5}
+    assert matrix.source in {"openrouteservice", "haversine_fallback"}
+    assert matrix.approximate is (matrix.source == "haversine_fallback")
     assert set(matrix.durations_minutes) == set(poi_ids)
     assert all(set(row) == set(poi_ids) for row in matrix.durations_minutes.values())
 
 
 def test_fallback_matrix_is_symmetric_with_zero_diagonal() -> None:
-    matrix = MatrixFile.model_validate_json(MATRIX_PATH.read_text(encoding="utf-8"))
+    matrix = build_matrix(CatalogRepository().catalog)
     for origin in matrix.poi_ids:
         assert matrix.durations_minutes[origin][origin] == 0
         for destination in matrix.poi_ids:
@@ -47,7 +48,7 @@ def test_fallback_formula_is_explicit_and_rounds_up() -> None:
 def test_precomputed_provider_returns_requested_subset() -> None:
     repository = CatalogRepository()
     coordinates = {poi.id: poi.coordinates for poi in repository.catalog.pois}
-    provider = PrecomputedTravelTimeProvider()
+    provider = PrecomputedTravelTimeProvider(FIXED_MATRIX_PATH)
     result = provider.matrix(
         TravelMatrixRequest(
             locations={

@@ -110,7 +110,9 @@ class PlanRepairer:
         weather_risk_ids = (
             self._weather_risk_ids(previous, updated_context, pois) if weather_changed else set()
         )
-        weather_protected_ids = set(target_order) - weather_risk_ids
+        weather_protected_ids = (
+            set(target_order) - weather_risk_ids if weather_changed else set()
+        )
 
         local = self.planner.plan_for_order(
             updated_state,
@@ -143,6 +145,19 @@ class PlanRepairer:
         used_full_replan = local is None or self._has_undesirable_weather(
             local, updated_context, pois
         )
+        compatible_order = target_order
+        if used_full_replan and not weather_changed:
+            compatible_order = self._compatible_order(
+                target_order,
+                updated_state,
+                updated_context,
+                previous.assumptions,
+                removal_reasons,
+                child_added=(
+                    not state.party.children_ages and bool(updated_state.party.children_ages)
+                ),
+                pois=pois,
+            )
         user_removed = {
             poi_id
             for poi_id, reason in removal_reasons.items()
@@ -159,8 +174,10 @@ class PlanRepairer:
             self.planner.plan(
                 replan_state,
                 updated_context,
-                preferred_order=target_order,
-                required_poi_ids=weather_protected_ids,
+                preferred_order=(target_order if weather_changed else compatible_order),
+                required_poi_ids=(
+                    weather_protected_ids if weather_changed else set(compatible_order)
+                ),
             )
             if used_full_replan
             else local
@@ -178,6 +195,35 @@ class PlanRepairer:
             state=updated_state,
             used_full_replan=used_full_replan,
         )
+
+    def _compatible_order(
+        self,
+        target_order: list[str],
+        state: TripState,
+        context: PlanningContext,
+        assumptions: list[str],
+        removal_reasons: dict[str, str],
+        *,
+        child_added: bool,
+        pois: dict[str, Poi],
+    ) -> list[str]:
+        compatible: list[str] = []
+        for poi_id in target_order:
+            proposed = [*compatible, poi_id]
+            if self.planner.plan_for_order(
+                state,
+                context,
+                proposed,
+                assumptions=assumptions,
+            ) is not None:
+                compatible = proposed
+                continue
+            reason = "replanned"
+            poi = pois[poi_id]
+            if child_added and (poi.hilly or poi.child_friendly == ChildFriendly.LOW):
+                reason = "child_constraints"
+            removal_reasons.setdefault(poi_id, reason)
+        return compatible
 
     def _apply_operation(
         self,

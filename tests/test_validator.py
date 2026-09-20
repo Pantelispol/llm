@@ -6,6 +6,8 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+import pytest
+
 from app.domain.models import (
     Activity,
     Exposure,
@@ -25,6 +27,13 @@ from app.tools.weather_flags import WeatherThresholds, derive_weather_flags
 
 ATHENS = ZoneInfo("Europe/Athens")
 VALIDATOR = DeterministicItineraryValidator()
+
+
+@pytest.fixture(name="planning_context_factory")
+def fixed_matrix_context_factory(
+    fixed_planning_context_factory: Callable[..., PlanningContext],
+) -> Callable[..., PlanningContext]:
+    return fixed_planning_context_factory
 
 
 def at(month: int, day: int, hour: int, minute: int = 0) -> datetime:

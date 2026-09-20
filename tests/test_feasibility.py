@@ -4,6 +4,8 @@ from collections.abc import Callable
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+import pytest
+
 from app.domain.models import LocationRef, Pace, Party, TimeWindow, TripState, ViolationCode
 from app.domain.ports import HourlyWeatherFlags, PlanningContext
 from app.planning.feasibility import (
@@ -15,6 +17,13 @@ from app.planning.rules import pace_factors_for
 
 ATHENS = ZoneInfo("Europe/Athens")
 CHECKER = FeasibilityChecker()
+
+
+@pytest.fixture(name="planning_context_factory")
+def fixed_matrix_context_factory(
+    fixed_planning_context_factory: Callable[..., PlanningContext],
+) -> Callable[..., PlanningContext]:
+    return fixed_planning_context_factory
 
 
 def at(hour: int, minute: int = 0) -> datetime:

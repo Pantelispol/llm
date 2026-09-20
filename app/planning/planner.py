@@ -919,7 +919,7 @@ class BeamSearchPlanner:
         removed = len(set(preferred_order) - set(sequence))
         kept = [poi_id for poi_id in sequence if poi_id in original]
         reordered = sum(1 for index, poi_id in enumerate(kept) if original[poi_id] != index)
-        return (removed + reordered) * self.config.perturbation_weight
+        return (removed * 2 + reordered) * self.config.perturbation_weight
 
     def _with_positions_and_perturbation(
         self,
