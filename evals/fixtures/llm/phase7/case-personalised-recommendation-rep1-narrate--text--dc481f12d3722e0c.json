@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_personalised_recommendation_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "278208ae908f1d4eafdafc70b134a43440ff8d9f2c2573a81ffd68e27c7dec2f"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "For Byzantine history and mosaics, start with {{poi:hagia_sophia}}, renowned for its exceptional Byzantine mosaics, including the dome’s Ascension of Christ and the sanctuary apse’s Virgin and Child {{cite:hagia_sophia#history}}.\n\nContinue to {{poi:acheiropoietos}}, one of the city’s oldest surviving early Christian basilicas, with a long history of Byzantine worship {{cite:acheiropoietos#history}}. Visit {{poi:museum_of_byzantine_culture}} for indoor galleries that help you recognise mosaics, icons, marble carving, and changes in Byzantine visual culture {{cite:museum_of_byzantine_culture#practical-tips}}. Finish at {{poi:vlatadon_monastery}}, a Byzantine monastery in the upper city with strong links to the religious landscape of Byzantine Thessaloniki {{cite:vlatadon_monastery#history}}.\n\nThis is a draft selection rather than a timed itinerary.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 4576,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 353,
+      "reasoning_tokens": 149,
+      "latency_ms": 4103.77662499377
+    }
+  },
+  "parsed_output": "For Byzantine history and mosaics, start with {{poi:hagia_sophia}}, renowned for its exceptional Byzantine mosaics, including the dome’s Ascension of Christ and the sanctuary apse’s Virgin and Child {{cite:hagia_sophia#history}}.\n\nContinue to {{poi:acheiropoietos}}, one of the city’s oldest surviving early Christian basilicas, with a long history of Byzantine worship {{cite:acheiropoietos#history}}. Visit {{poi:museum_of_byzantine_culture}} for indoor galleries that help you recognise mosaics, icons, marble carving, and changes in Byzantine visual culture {{cite:museum_of_byzantine_culture#practical-tips}}. Finish at {{poi:vlatadon_monastery}}, a Byzantine monastery in the upper city with strong links to the religious landscape of Byzantine Thessaloniki {{cite:vlatadon_monastery#history}}.\n\nThis is a draft selection rather than a timed itinerary."
+}

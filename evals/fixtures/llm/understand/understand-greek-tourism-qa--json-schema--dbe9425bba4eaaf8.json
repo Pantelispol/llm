@@ -1,0 +1,60 @@
+{
+  "identity": {
+    "call_name": "understand_greek_tourism_qa",
+    "prompt_version": "understand.v1",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "none",
+    "output_format": "json_schema",
+    "schema_name": "TurnAnalysis",
+    "schema_sha256": "e3e751bec6959bf4ab16bdda957f16d03b1d05e97306ce770ac0a8e5b2c46bbd",
+    "stable_prefix_sha256": "8b28ab1ff9155f95ed228c9fc800ae1d5d4ac9863a1ceb51679c1491a83d6e06",
+    "dynamic_input_sha256": "4c2da4724bd3caff8d3b9c77fc50ee8656b5a61d14f828d9de696b80a0875ef3"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "{\"intents\":[\"tourism_qa\"],\"entities\":{\"mentioned_poi_ids\":[\"rotunda\"],\"unresolved_place_names\":[],\"requested_date_text\":null},\"constraint_updates\":{\"time_window\":null,\"clear_time_window\":false,\"start_location\":null,\"clear_start_location\":false,\"party\":null,\"mobility\":null,\"transport\":null,\"pace\":null,\"add_interests\":[],\"remove_interests\":[],\"add_exclude_categories\":[],\"remove_exclude_categories\":[],\"add_exclude_poi_ids\":[],\"remove_exclude_poi_ids\":[],\"add_visited\":[]},\"plan_edits\":[],\"needs_clarification\":false,\"clarifying_question\":null}",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "none",
+      "input_tokens": 4502,
+      "cached_input_tokens": 4398,
+      "cache_write_tokens": 0,
+      "output_tokens": 145,
+      "reasoning_tokens": 0,
+      "latency_ms": 2502.6748750024126
+    }
+  },
+  "parsed_output": {
+    "intents": [
+      "tourism_qa"
+    ],
+    "entities": {
+      "mentioned_poi_ids": [
+        "rotunda"
+      ],
+      "unresolved_place_names": [],
+      "requested_date_text": null
+    },
+    "constraint_updates": {
+      "time_window": null,
+      "clear_time_window": false,
+      "start_location": null,
+      "clear_start_location": false,
+      "party": null,
+      "mobility": null,
+      "transport": null,
+      "pace": null,
+      "add_interests": [],
+      "remove_interests": [],
+      "add_exclude_categories": [],
+      "remove_exclude_categories": [],
+      "add_exclude_poi_ids": [],
+      "remove_exclude_poi_ids": [],
+      "add_visited": []
+    },
+    "plan_edits": [],
+    "needs_clarification": false,
+    "clarifying_question": null
+  }
+}

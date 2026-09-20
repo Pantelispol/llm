@@ -1,4 +1,4 @@
-.PHONY: test lint run matrix rag-eval rag-ingest db-up db-down
+.PHONY: test lint run matrix rag-eval rag-ingest eval eval-full chat-demo db-up db-down
 
 test:
 	pytest
@@ -17,6 +17,20 @@ rag-eval:
 
 rag-ingest:
 	python -m app.rag.ingest
+
+eval:
+	LLM_MODE=replay python -m evals.llm_report
+	LLM_MODE=replay python -m evals.understand_report
+	LLM_MODE=replay python -m evals.router_report
+	LLM_MODE=replay python -m evals.narration_report
+
+eval-full:
+	LLM_MODE=replay python -m evals.run --repetitions 2
+
+chat-demo:
+	LLM_MODE=replay WEATHER_FIXTURE=clear_day RAG_STORE=memory \
+		python -m app.chat_cli --scenario assignment \
+		--now 2026-09-21T12:00:00+03:00
 
 db-up:
 	docker compose up -d postgres

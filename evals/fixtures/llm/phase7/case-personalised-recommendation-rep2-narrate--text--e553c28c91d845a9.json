@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_personalised_recommendation_rep2_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "68031a2bc83c1c6b5c7e409ce90726aa5462703b461df455f57245c061386d7f"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "1. {{poi:hagia_sophia}} is the strongest choice for mosaics, especially its monumental Ascension of Christ and Virgin and Child mosaics {{cite:hagia_sophia#history}}.\n2. {{poi:acheiropoietos}} offers an early Christian basilica with a long Byzantine worship history {{cite:acheiropoietos#history}}.\n3. {{poi:museum_of_byzantine_culture}} provides useful context for reading mosaics, icons, marble carving, and changes in Byzantine visual culture {{cite:museum_of_byzantine_culture#practical-tips}}.\n4. {{poi:vlatadon_monastery}} adds a Byzantine monastic setting in the upper city and remains an active Orthodox religious community {{cite:vlatadon_monastery#history}}.\n\nthis is draft content.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 4635,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 362,
+      "reasoning_tokens": 185,
+      "latency_ms": 4502.75016699743
+    }
+  },
+  "parsed_output": "1. {{poi:hagia_sophia}} is the strongest choice for mosaics, especially its monumental Ascension of Christ and Virgin and Child mosaics {{cite:hagia_sophia#history}}.\n2. {{poi:acheiropoietos}} offers an early Christian basilica with a long Byzantine worship history {{cite:acheiropoietos#history}}.\n3. {{poi:museum_of_byzantine_culture}} provides useful context for reading mosaics, icons, marble carving, and changes in Byzantine visual culture {{cite:museum_of_byzantine_culture#practical-tips}}.\n4. {{poi:vlatadon_monastery}} adds a Byzantine monastic setting in the upper city and remains an active Orthodox religious community {{cite:vlatadon_monastery#history}}.\n\nthis is draft content."
+}

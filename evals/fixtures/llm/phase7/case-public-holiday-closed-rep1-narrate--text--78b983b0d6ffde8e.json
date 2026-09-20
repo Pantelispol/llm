@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_public_holiday_closed_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "2f96de88a696ed26c25e8d750d777f3b19f29d0c9155077d5772641423d6a79c"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "{{poi:archaeological_museum}} is closed today. {{fact:catalog:archaeological_museum:hours}} {{cite:catalog:archaeological_museum:hours}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 3968,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 44,
+      "reasoning_tokens": 0,
+      "latency_ms": 1329.8453750030603
+    }
+  },
+  "parsed_output": "{{poi:archaeological_museum}} is closed today. {{fact:catalog:archaeological_museum:hours}} {{cite:catalog:archaeological_museum:hours}}."
+}

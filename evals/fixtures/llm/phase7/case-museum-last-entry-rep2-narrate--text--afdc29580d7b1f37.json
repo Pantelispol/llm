@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_museum_last_entry_rep2_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "d4e1ee32fed971a899c987f0e4489d7293e1bfe70b345f3fdf7fe821e8762b44"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "{{fact:catalog:archaeological_museum:hours}} {{cite:catalog:archaeological_museum:hours}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5624,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 31,
+      "reasoning_tokens": 0,
+      "latency_ms": 1293.365666999307
+    }
+  },
+  "parsed_output": "{{fact:catalog:archaeological_museum:hours}} {{cite:catalog:archaeological_museum:hours}}."
+}

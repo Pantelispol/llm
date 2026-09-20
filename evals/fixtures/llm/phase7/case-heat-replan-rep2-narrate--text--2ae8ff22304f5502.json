@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_heat_replan_rep2_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "50ab5b619560008d32fa2dbfff23c352dc1faa695796e84f340e80295acd86d8"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "1. {{time:1:start}}–{{time:1:end}}: visit {{poi:acheiropoietos}}.\n2. {{time:2:start}}–{{time:2:end}}: explore {{poi:aristotelous_square}}.\n3. {{time:3:start}}–{{time:3:end}}: take an indoor rest nearby.\n4. {{time:4:start}}–{{time:4:end}}: visit {{poi:hagia_sophia}}.\n5. {{time:5:start}}–{{time:5:end}}: explore {{poi:modiano_market}}.\n6. {{time:6:start}}–{{time:6:end}}: take an indoor rest nearby.\n7. {{time:7:start}}–{{time:7:end}}: have a meal at {{poi:kapani_market}}, then visit {{poi:hagios_demetrios}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5586,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 590,
+      "reasoning_tokens": 395,
+      "latency_ms": 6259.418875000847
+    }
+  },
+  "parsed_output": "1. {{time:1:start}}–{{time:1:end}}: visit {{poi:acheiropoietos}}.\n2. {{time:2:start}}–{{time:2:end}}: explore {{poi:aristotelous_square}}.\n3. {{time:3:start}}–{{time:3:end}}: take an indoor rest nearby.\n4. {{time:4:start}}–{{time:4:end}}: visit {{poi:hagia_sophia}}.\n5. {{time:5:start}}–{{time:5:end}}: explore {{poi:modiano_market}}.\n6. {{time:6:start}}–{{time:6:end}}: take an indoor rest nearby.\n7. {{time:7:start}}–{{time:7:end}}: have a meal at {{poi:kapani_market}}, then visit {{poi:hagios_demetrios}}."
+}

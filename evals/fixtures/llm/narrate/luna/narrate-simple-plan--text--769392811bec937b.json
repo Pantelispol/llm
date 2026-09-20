@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "narrate_simple_plan",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "ad3c8a7ded7753fa8933ff0b20b849f84c352a16b0159abbc2b6c5c35eba65c1"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "1. {{time:1:start}} to {{time:1:end}} at {{poi:rotunda}}, a Roman monument later adapted for Christian and Ottoman use. {{fact:catalog:rotunda:hours}} {{cite:catalog:rotunda:hours}}.\n2. {{time:2:start}} to {{time:2:end}} at {{poi:white_tower}}, a waterfront landmark with Roman? No, Ottoman and Byzantine defensive history. {{fact:catalog:white_tower:hours}} {{cite:catalog:white_tower:hours}}.\n3. {{time:3:start}} to {{time:3:end}} at {{poi:heptapyrgio}}.\n4. {{time:4:start}} to {{time:4:end}} for a meal at {{poi:tsinari_ano_poli}}.\n\nThis is a draft plan.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 4966,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 337,
+      "reasoning_tokens": 157,
+      "latency_ms": 3871.644124999875
+    }
+  },
+  "parsed_output": "1. {{time:1:start}} to {{time:1:end}} at {{poi:rotunda}}, a Roman monument later adapted for Christian and Ottoman use. {{fact:catalog:rotunda:hours}} {{cite:catalog:rotunda:hours}}.\n2. {{time:2:start}} to {{time:2:end}} at {{poi:white_tower}}, a waterfront landmark with Roman? No, Ottoman and Byzantine defensive history. {{fact:catalog:white_tower:hours}} {{cite:catalog:white_tower:hours}}.\n3. {{time:3:start}} to {{time:3:end}} at {{poi:heptapyrgio}}.\n4. {{time:4:start}} to {{time:4:end}} for a meal at {{poi:tsinari_ano_poli}}.\n\nThis is a draft plan."
+}

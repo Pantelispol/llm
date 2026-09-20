@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "narrate_greek_poi_names_plan",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "c0a2889130a38fdf21f258a412dcb0b83a8aa29b0a5410075d5ac269fd755bfd"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "Το παρακάτω είναι προσχέδιο για ένα πρωινό πρόγραμμα με βυζαντινές εκκλησίες:\n\n1. {{time:1:start}}–{{time:1:end}}: {{poi:hagios_demetrios}}, γνωστή για τα παλαιοχριστιανικά και βυζαντινά ψηφιδωτά της {{cite:hagios_demetrios#history}}.\n2. {{time:2:start}}–{{time:2:end}}: {{poi:acheiropoietos}}.\n3. {{time:3:start}}–{{time:3:end}}: {{poi:hagia_sophia}}, με σημαντικά βυζαντινά ψηφιδωτά {{cite:hagia_sophia#history}}.\n\n{{fact:catalog:hagios_demetrios:hours}} {{cite:catalog:hagios_demetrios:hours}}.  \n{{fact:catalog:acheiropoietos:hours}} {{cite:catalog:acheiropoietos:hours}}.  \n{{fact:catalog:hagia_sophia:hours}} {{cite:catalog:hagia_sophia:hours}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5046,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 412,
+      "reasoning_tokens": 158,
+      "latency_ms": 4151.604833998135
+    }
+  },
+  "parsed_output": "Το παρακάτω είναι προσχέδιο για ένα πρωινό πρόγραμμα με βυζαντινές εκκλησίες:\n\n1. {{time:1:start}}–{{time:1:end}}: {{poi:hagios_demetrios}}, γνωστή για τα παλαιοχριστιανικά και βυζαντινά ψηφιδωτά της {{cite:hagios_demetrios#history}}.\n2. {{time:2:start}}–{{time:2:end}}: {{poi:acheiropoietos}}.\n3. {{time:3:start}}–{{time:3:end}}: {{poi:hagia_sophia}}, με σημαντικά βυζαντινά ψηφιδωτά {{cite:hagia_sophia#history}}.\n\n{{fact:catalog:hagios_demetrios:hours}} {{cite:catalog:hagios_demetrios:hours}}.  \n{{fact:catalog:acheiropoietos:hours}} {{cite:catalog:acheiropoietos:hours}}.  \n{{fact:catalog:hagia_sophia:hours}} {{cite:catalog:hagia_sophia:hours}}."
+}

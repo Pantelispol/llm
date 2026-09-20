@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_feasibility_feasible_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "251da404b030f98314a69a732e0df8450274533d542415cd67748e522cd63ce9"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "No. The validated itinerary places {{poi:rotunda}} at {{time:4:start}}–{{time:4:end}} and {{poi:arch_of_galerius}} at {{time:6:start}}–{{time:6:end}}, so you cannot see both within your requested window.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5600,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 282,
+      "reasoning_tokens": 215,
+      "latency_ms": 3675.058665998222
+    }
+  },
+  "parsed_output": "No. The validated itinerary places {{poi:rotunda}} at {{time:4:start}}–{{time:4:end}} and {{poi:arch_of_galerius}} at {{time:6:start}}–{{time:6:end}}, so you cannot see both within your requested window."
+}

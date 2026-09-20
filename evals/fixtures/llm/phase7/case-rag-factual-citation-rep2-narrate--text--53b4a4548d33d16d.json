@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_rag_factual_citation_rep2_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "0a02bea41a459465dec85cabb79f3b85a8ce9cab06a766ffc86493367ed9b67b"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "In the past, {{poi:white_tower}} served successively as a garrison, fortress, and Ottoman prison known as the “tower of blood” {{cite:white_tower#history}}.\n\ndraft information follows.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 4788,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 279,
+      "reasoning_tokens": 229,
+      "latency_ms": 3717.8315830024076
+    }
+  },
+  "parsed_output": "In the past, {{poi:white_tower}} served successively as a garrison, fortress, and Ottoman prison known as the “tower of blood” {{cite:white_tower#history}}.\n\ndraft information follows."
+}

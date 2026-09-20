@@ -78,9 +78,14 @@ def test_llm_result_carries_usage_for_text_and_structured_outputs() -> None:
         output="hello",
         usage=LLMUsage(
             model_id="test-model",
+            reasoning_effort="none",
             input_tokens=10,
+            cached_input_tokens=0,
+            cache_write_tokens=0,
             output_tokens=2,
+            reasoning_tokens=0,
             latency_ms=12.5,
         ),
     )
     assert result.usage.output_tokens == 2
+    assert result.usage.ordinary_input_tokens == 10

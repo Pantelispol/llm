@@ -1,0 +1,61 @@
+{
+  "identity": {
+    "call_name": "conversation_turn1_understand",
+    "prompt_version": "understand.v1",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "none",
+    "output_format": "json_schema",
+    "schema_name": "TurnAnalysis",
+    "schema_sha256": "e3e751bec6959bf4ab16bdda957f16d03b1d05e97306ce770ac0a8e5b2c46bbd",
+    "stable_prefix_sha256": "8b28ab1ff9155f95ed228c9fc800ae1d5d4ac9863a1ceb51679c1491a83d6e06",
+    "dynamic_input_sha256": "365f9c1d062c25a1473e6b1770e8d0e4075c595e946bbac90450526258f87194"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "{\"intents\":[\"create_plan\"],\"entities\":{\"mentioned_poi_ids\":[],\"unresolved_place_names\":[],\"requested_date_text\":\"tomorrow\"},\"constraint_updates\":{\"time_window\":{\"start\":\"0900-05-01T00:00:00+03:00\",\"end\":\"0900-05-01T05:00:00+03:00\"},\"clear_time_window\":false,\"start_location\":null,\"clear_start_location\":false,\"party\":null,\"mobility\":null,\"transport\":null,\"pace\":null,\"add_interests\":[],\"remove_interests\":[],\"add_exclude_categories\":[],\"remove_exclude_categories\":[],\"add_exclude_poi_ids\":[],\"remove_exclude_poi_ids\":[],\"add_visited\":[]},\"plan_edits\":[],\"needs_clarification\":false,\"clarifying_question\":null}",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "none",
+      "input_tokens": 4494,
+      "cached_input_tokens": 0,
+      "cache_write_tokens": 4398,
+      "output_tokens": 179,
+      "reasoning_tokens": 0,
+      "latency_ms": 4362.402083002962
+    }
+  },
+  "parsed_output": {
+    "intents": [
+      "create_plan"
+    ],
+    "entities": {
+      "mentioned_poi_ids": [],
+      "unresolved_place_names": [],
+      "requested_date_text": "tomorrow"
+    },
+    "constraint_updates": {
+      "time_window": {
+        "start": "0900-05-01T00:00:00+03:00",
+        "end": "0900-05-01T05:00:00+03:00"
+      },
+      "clear_time_window": false,
+      "start_location": null,
+      "clear_start_location": false,
+      "party": null,
+      "mobility": null,
+      "transport": null,
+      "pace": null,
+      "add_interests": [],
+      "remove_interests": [],
+      "add_exclude_categories": [],
+      "remove_exclude_categories": [],
+      "add_exclude_poi_ids": [],
+      "remove_exclude_poi_ids": [],
+      "add_visited": []
+    },
+    "plan_edits": [],
+    "needs_clarification": false,
+    "clarifying_question": null
+  }
+}

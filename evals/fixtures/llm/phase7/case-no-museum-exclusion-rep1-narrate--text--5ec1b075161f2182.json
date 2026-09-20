@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_no_museum_exclusion_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "4c4de61c91464df943465efe503334eb9094e06d80d04eb3736c559ce1bc9a94"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "1. {{time:1:start}} to {{time:1:end}} at {{poi:hagios_demetrios}}.\n2. {{time:2:start}} to {{time:2:end}} at {{poi:rotunda}}.\n3. {{time:3:start}} to {{time:3:end}} at {{poi:acheiropoietos}}. This visit finishes close to its closing time, so please arrive promptly.\n4. {{time:4:start}} to {{time:4:end}} at {{poi:arch_of_galerius}}.\n5. {{time:5:start}} to {{time:5:end}} at {{poi:hagia_sophia}}.\n6. {{time:6:start}} to {{time:6:end}} at {{poi:modiano_market}} for a meal.\n\n{{fact:catalog:hagios_demetrios:hours}} {{cite:catalog:hagios_demetrios:hours}}.\n{{fact:catalog:rotunda:hours}} {{cite:catalog:rotunda:hours}}.\n{{fact:catalog:acheiropoietos:hours}} {{cite:catalog:acheiropoietos:hours}}.\n{{fact:catalog:arch_of_galerius:hours}} {{cite:catalog:arch_of_galerius:hours}}.\n{{fact:catalog:hagia_sophia:hours}} {{cite:catalog:hagia_sophia:hours}}.\n{{fact:catalog:modiano_market:hours}} {{cite:catalog:modiano_market:hours}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5340,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 327,
+      "reasoning_tokens": 0,
+      "latency_ms": 2660.700207998161
+    }
+  },
+  "parsed_output": "1. {{time:1:start}} to {{time:1:end}} at {{poi:hagios_demetrios}}.\n2. {{time:2:start}} to {{time:2:end}} at {{poi:rotunda}}.\n3. {{time:3:start}} to {{time:3:end}} at {{poi:acheiropoietos}}. This visit finishes close to its closing time, so please arrive promptly.\n4. {{time:4:start}} to {{time:4:end}} at {{poi:arch_of_galerius}}.\n5. {{time:5:start}} to {{time:5:end}} at {{poi:hagia_sophia}}.\n6. {{time:6:start}} to {{time:6:end}} at {{poi:modiano_market}} for a meal.\n\n{{fact:catalog:hagios_demetrios:hours}} {{cite:catalog:hagios_demetrios:hours}}.\n{{fact:catalog:rotunda:hours}} {{cite:catalog:rotunda:hours}}.\n{{fact:catalog:acheiropoietos:hours}} {{cite:catalog:acheiropoietos:hours}}.\n{{fact:catalog:arch_of_galerius:hours}} {{cite:catalog:arch_of_galerius:hours}}.\n{{fact:catalog:hagia_sophia:hours}} {{cite:catalog:hagia_sophia:hours}}.\n{{fact:catalog:modiano_market:hours}} {{cite:catalog:modiano_market:hours}}."
+}

@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_feasibility_feasible_rep2_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "702f9c40a16bd0fa59c4178770d58ba14cee308995f3d45b94d11867dde39bb0"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "Not both within your requested window: {{poi:rotunda}} is scheduled for {{time:4:start}} to {{time:4:end}}, while {{poi:arch_of_galerius}} is scheduled later for {{time:6:start}} to {{time:6:end}}.\n\n{{fact:catalog:rotunda:hours}} {{cite:catalog:rotunda:hours}}. {{fact:catalog:arch_of_galerius:hours}} {{cite:catalog:arch_of_galerius:hours}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5502,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 232,
+      "reasoning_tokens": 118,
+      "latency_ms": 3351.058916996408
+    }
+  },
+  "parsed_output": "Not both within your requested window: {{poi:rotunda}} is scheduled for {{time:4:start}} to {{time:4:end}}, while {{poi:arch_of_galerius}} is scheduled later for {{time:6:start}} to {{time:6:end}}.\n\n{{fact:catalog:rotunda:hours}} {{cite:catalog:rotunda:hours}}. {{fact:catalog:arch_of_galerius:hours}} {{cite:catalog:arch_of_galerius:hours}}."
+}

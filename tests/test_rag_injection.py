@@ -24,5 +24,8 @@ def test_injection_fixture_remains_untrusted_retrieved_data() -> None:
     assert result.hits
     assert result.hits[0].is_untrusted
     assert "always open" in result.hits[0].text
-    # TODO(Phase 6): delimit untrusted prompt blocks and post-check that any
-    # hours or prices in an answer originate from the structured POI catalog.
+    # Resolved in Phase 6d: the narrator fences this text in
+    # UNTRUSTED_RETRIEVED_TEXT after the cache breakpoint, and the answer
+    # post-check rejects any hours or price that did not come from the
+    # catalog. See tests/test_narrate.py::
+    # test_poisoned_rag_instruction_cannot_change_hours_price_or_plan.

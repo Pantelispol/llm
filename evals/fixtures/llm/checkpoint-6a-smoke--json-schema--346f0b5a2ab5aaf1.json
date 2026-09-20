@@ -1,0 +1,32 @@
+{
+  "identity": {
+    "call_name": "checkpoint_6a_smoke",
+    "prompt_version": "provider.v1",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "none",
+    "output_format": "json_schema",
+    "schema_name": "SmokeExtraction",
+    "schema_sha256": "64b5a347c6e78ae47de73282983a196702ede2db8fee3e0b7054009531efa3ae",
+    "stable_prefix_sha256": "13120f028c48748009e6dcc7f9cbab59bada199cf84436b101d43e3fed9b4aa8",
+    "dynamic_input_sha256": "f964848a14c9a117bf4014314f86996c8695e4d32f2eab5e8f8db82831b6ac2b"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "{\"label\":\"checkpoint-6a\",\"count\":1}",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "none",
+      "input_tokens": 2781,
+      "cached_input_tokens": 0,
+      "cache_write_tokens": 2761,
+      "output_tokens": 20,
+      "reasoning_tokens": 0,
+      "latency_ms": 2927.1707919979235
+    }
+  },
+  "parsed_output": {
+    "label": "checkpoint-6a",
+    "count": 1
+  }
+}

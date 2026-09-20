@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_weather_question_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "acf4426fac57f55f8b2aef86940be0dbf4f463738f61a6613bba32a8ee9fbf25"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "Weather information for tomorrow is not available in the supplied details.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5484,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 69,
+      "reasoning_tokens": 51,
+      "latency_ms": 1947.644833002414
+    }
+  },
+  "parsed_output": "Weather information for tomorrow is not available in the supplied details."
+}

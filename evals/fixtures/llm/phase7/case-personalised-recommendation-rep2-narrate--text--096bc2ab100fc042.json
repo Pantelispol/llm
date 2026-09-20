@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_personalised_recommendation_rep2_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "278208ae908f1d4eafdafc70b134a43440ff8d9f2c2573a81ffd68e27c7dec2f"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "draft guidance follows.\n\n1. Start at {{poi:museum_of_byzantine_culture}} for an indoor introduction to mosaics, icons, marble carving, and changes in Byzantine visual culture {{cite:museum_of_byzantine_culture#practical-tips}}.\n2. Continue to {{poi:hagia_sophia}}, one of Thessaloniki’s most significant Byzantine churches, renowned for its dome mosaic and sanctuary apse mosaic {{cite:hagia_sophia#history}}.\n3. Visit {{poi:acheiropoietos}}, an early Christian basilica and one of the city’s oldest surviving churches, with a long Byzantine history {{cite:acheiropoietos#history}}.\n4. Finish at {{poi:vlatadon_monastery}}, a Byzantine monastery in the upper city whose setting connects it with the religious landscape and fortifications of Byzantine Thessaloniki {{cite:vlatadon_monastery#history}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 4576,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 449,
+      "reasoning_tokens": 252,
+      "latency_ms": 5258.1226249967585
+    }
+  },
+  "parsed_output": "draft guidance follows.\n\n1. Start at {{poi:museum_of_byzantine_culture}} for an indoor introduction to mosaics, icons, marble carving, and changes in Byzantine visual culture {{cite:museum_of_byzantine_culture#practical-tips}}.\n2. Continue to {{poi:hagia_sophia}}, one of Thessaloniki’s most significant Byzantine churches, renowned for its dome mosaic and sanctuary apse mosaic {{cite:hagia_sophia#history}}.\n3. Visit {{poi:acheiropoietos}}, an early Christian basilica and one of the city’s oldest surviving churches, with a long Byzantine history {{cite:acheiropoietos#history}}.\n4. Finish at {{poi:vlatadon_monastery}}, a Byzantine monastery in the upper city whose setting connects it with the religious landscape and fortifications of Byzantine Thessaloniki {{cite:vlatadon_monastery#history}}."
+}

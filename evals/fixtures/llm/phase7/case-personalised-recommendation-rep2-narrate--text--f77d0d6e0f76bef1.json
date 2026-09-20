@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_personalised_recommendation_rep2_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "38f5c34e7211dfe2f7e957ef178ef0c3d7226afdc92b1015d4b25e7e7832b7ca"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "This is a draft selection for a Byzantine-focused visit.\n\n- {{poi:museum_of_byzantine_culture}} offers the strongest overall introduction to Byzantine visual culture, including mosaics, icons, and marble carving.\n- {{poi:hagia_sophia}} is a highlight for monumental Byzantine mosaics, especially its dome and sanctuary decoration {{cite:hagia_sophia#history}}.\n- {{poi:acheiropoietos}} is an early Christian basilica with a long Byzantine history {{cite:acheiropoietos#history}}.\n- {{poi:vlatadon_monastery}} adds an active Byzantine monastery and upper-city setting {{cite:vlatadon_monastery#history}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 4836,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 358,
+      "reasoning_tokens": 210,
+      "latency_ms": 4617.284458996437
+    }
+  },
+  "parsed_output": "This is a draft selection for a Byzantine-focused visit.\n\n- {{poi:museum_of_byzantine_culture}} offers the strongest overall introduction to Byzantine visual culture, including mosaics, icons, and marble carving.\n- {{poi:hagia_sophia}} is a highlight for monumental Byzantine mosaics, especially its dome and sanctuary decoration {{cite:hagia_sophia#history}}.\n- {{poi:acheiropoietos}} is an early Christian basilica with a long Byzantine history {{cite:acheiropoietos#history}}.\n- {{poi:vlatadon_monastery}} adds an active Byzantine monastery and upper-city setting {{cite:vlatadon_monastery#history}}."
+}

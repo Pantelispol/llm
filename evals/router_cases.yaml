@@ -1,0 +1,83 @@
+schema_version: 1
+intent_cases:
+  - intent: tourism_qa
+    user_turn: Tell me about Roman history.
+    expected_tools: [catalog, retriever]
+  - intent: recommendation
+    user_turn: Recommend a historic place.
+    expected_tools: [catalog, retriever]
+  - intent: create_plan
+    user_turn: Help with this request.
+    expected_tools: [catalog, weather, hours, travel, planner, validator]
+  - intent: edit_plan
+    user_turn: Help with this request.
+    expected_tools: [catalog, weather, hours, travel, planner, validator]
+  - intent: feasibility_check
+    user_turn: Help with this request.
+    expected_tools: [catalog, weather, hours, travel, planner, validator]
+  - intent: weather_question
+    user_turn: What is the forecast?
+    expected_tools: [weather]
+  - intent: opening_hours_question
+    user_turn: Operational information, please.
+    expected_tools: [catalog, hours]
+  - intent: price_question
+    user_turn: Operational information, please.
+    expected_tools: [catalog]
+  - intent: safety
+    user_turn: Is this area safe at night?
+    expected_tools: [catalog, weather]
+  - intent: unsupported_live_info
+    user_turn: What concerts are happening tonight?
+    expected_tools: []
+  - intent: out_of_scope
+    user_turn: Explain quantum chromodynamics.
+    expected_tools: []
+  - intent: small_talk
+    user_turn: Hello there.
+    expected_tools: []
+
+plan_spy_cases:
+  - id: explicit_create_intent
+    user_turn: Help with this request.
+    analysis:
+      intents: [create_plan]
+    validator_valid: true
+  - id: misclassified_edit_text
+    user_turn: Please change my plan and replace the second stop.
+    analysis:
+      intents: [tourism_qa]
+    validator_valid: true
+  - id: plan_edit_delta
+    user_turn: Help with this request.
+    analysis:
+      intents: [tourism_qa]
+      plan_edits:
+        - op: replace_activity
+          position: 2
+          preferred_poi_id: null
+          required_tags: []
+          required_exposure: outdoor
+    validator_valid: true
+  - id: constraint_delta
+    user_turn: Help with this request.
+    analysis:
+      intents: [tourism_qa]
+      constraint_updates:
+        add_exclude_categories: [museum]
+    validator_valid: true
+  - id: invalid_plan
+    user_turn: Create a plan for tomorrow.
+    analysis:
+      intents: [create_plan]
+    validator_valid: false
+
+source_boundary_cases:
+  - id: phase_5c_opening_hours
+    user_turn: What are the White Tower opening hours?
+    analysis_intent: tourism_qa
+    expected_calls: [catalog, hours]
+  - id: price_question
+    user_turn: How much does admission to the Archaeological Museum cost?
+    analysis_intent: tourism_qa
+    expected_calls: [catalog]

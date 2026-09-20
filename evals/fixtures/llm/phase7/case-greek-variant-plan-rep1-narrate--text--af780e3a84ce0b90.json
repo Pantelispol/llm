@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_greek_variant_plan_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "3e565bfa5a35d45e408efffc3e24f942d784054e434c941ae578bfc9e2f04d76"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "1. {{time:1:start}}–{{time:1:end}} στο {{poi:hagios_demetrios}}.\n2. {{time:2:start}}–{{time:2:end}} στη {{poi:rotunda}}.\n3. {{time:3:start}}–{{time:3:end}} στον {{poi:white_tower}}.\n4. {{time:4:start}}–{{time:4:end}} στην {{poi:hagia_sophia}}.\n5. {{time:5:start}}–{{time:5:end}} στην {{poi:modiano_market}}, με χρόνο για γεύμα.\n\nΗ πρόγνωση δεν προβλέπει βροχή ή καταιγίδα για αύριο. {{fact:weather:2026-09-22:summary}} {{cite:weather:2026-09-22:summary}}",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5118,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 442,
+      "reasoning_tokens": 259,
+      "latency_ms": 4472.982040999341
+    }
+  },
+  "parsed_output": "1. {{time:1:start}}–{{time:1:end}} στο {{poi:hagios_demetrios}}.\n2. {{time:2:start}}–{{time:2:end}} στη {{poi:rotunda}}.\n3. {{time:3:start}}–{{time:3:end}} στον {{poi:white_tower}}.\n4. {{time:4:start}}–{{time:4:end}} στην {{poi:hagia_sophia}}.\n5. {{time:5:start}}–{{time:5:end}} στην {{poi:modiano_market}}, με χρόνο για γεύμα.\n\nΗ πρόγνωση δεν προβλέπει βροχή ή καταιγίδα για αύριο. {{fact:weather:2026-09-22:summary}} {{cite:weather:2026-09-22:summary}}"
+}

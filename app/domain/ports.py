@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import date, datetime
-from typing import Protocol, TypeVar, runtime_checkable
+from typing import Literal, Protocol, TypeVar, runtime_checkable
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
 
@@ -185,9 +185,25 @@ StructuredOutput = TypeVar("StructuredOutput", bound=BaseModel)
 
 class LLMUsage(PortModel):
     model_id: str
+    reasoning_effort: Literal["none", "low", "medium", "high", "xhigh", "max"]
     input_tokens: int = Field(ge=0)
+    cached_input_tokens: int = Field(ge=0)
+    cache_write_tokens: int = Field(ge=0)
     output_tokens: int = Field(ge=0)
+    reasoning_tokens: int = Field(ge=0)
     latency_ms: float = Field(ge=0)
+
+    @model_validator(mode="after")
+    def usage_breakdowns_fit_totals(self) -> LLMUsage:
+        if self.cached_input_tokens + self.cache_write_tokens > self.input_tokens:
+            raise ValueError("cached and cache-write tokens cannot exceed input tokens")
+        if self.reasoning_tokens > self.output_tokens:
+            raise ValueError("reasoning tokens cannot exceed output tokens")
+        return self
+
+    @property
+    def ordinary_input_tokens(self) -> int:
+        return self.input_tokens - self.cached_input_tokens - self.cache_write_tokens
 
 
 class LLMResult[Output](PortModel):

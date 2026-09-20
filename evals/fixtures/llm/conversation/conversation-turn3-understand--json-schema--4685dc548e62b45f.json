@@ -1,0 +1,63 @@
+{
+  "identity": {
+    "call_name": "conversation_turn3_understand",
+    "prompt_version": "understand.v1",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "none",
+    "output_format": "json_schema",
+    "schema_name": "TurnAnalysis",
+    "schema_sha256": "e3e751bec6959bf4ab16bdda957f16d03b1d05e97306ce770ac0a8e5b2c46bbd",
+    "stable_prefix_sha256": "8b28ab1ff9155f95ed228c9fc800ae1d5d4ac9863a1ceb51679c1491a83d6e06",
+    "dynamic_input_sha256": "de465458c43184518283cd1bc5c05646b147aded67f3f4ecabaf8c8347b16448"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "{\"intents\":[\"edit_plan\"],\"entities\":{\"mentioned_poi_ids\":[],\"unresolved_place_names\":[],\"requested_date_text\":null},\"constraint_updates\":{\"time_window\":null,\"clear_time_window\":false,\"start_location\":null,\"clear_start_location\":false,\"party\":{\"adults\":1,\"children_ages\":[10]},\"mobility\":null,\"transport\":null,\"pace\":null,\"add_interests\":[],\"remove_interests\":[],\"add_exclude_categories\":[],\"remove_exclude_categories\":[],\"add_exclude_poi_ids\":[],\"remove_exclude_poi_ids\":[],\"add_visited\":[]},\"plan_edits\":[],\"needs_clarification\":false,\"clarifying_question\":null}",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "none",
+      "input_tokens": 4962,
+      "cached_input_tokens": 4398,
+      "cache_write_tokens": 0,
+      "output_tokens": 150,
+      "reasoning_tokens": 0,
+      "latency_ms": 2141.887541998585
+    }
+  },
+  "parsed_output": {
+    "intents": [
+      "edit_plan"
+    ],
+    "entities": {
+      "mentioned_poi_ids": [],
+      "unresolved_place_names": [],
+      "requested_date_text": null
+    },
+    "constraint_updates": {
+      "time_window": null,
+      "clear_time_window": false,
+      "start_location": null,
+      "clear_start_location": false,
+      "party": {
+        "adults": 1,
+        "children_ages": [
+          10
+        ]
+      },
+      "mobility": null,
+      "transport": null,
+      "pace": null,
+      "add_interests": [],
+      "remove_interests": [],
+      "add_exclude_categories": [],
+      "remove_exclude_categories": [],
+      "add_exclude_poi_ids": [],
+      "remove_exclude_poi_ids": [],
+      "add_visited": []
+    },
+    "plan_edits": [],
+    "needs_clarification": false,
+    "clarifying_question": null
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_safety_storm_seich_sou_rep2_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "8fefb49e5cf60f099e64db8235ffcde6ea00a788c8ece333f854016da3ff5cea"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "I would not recommend an evening walk in {{poi:seich_sou_forest}}, which is a demanding trail environment with a critical safety tier, especially without a validated route or conditions check.\n\n{{fact:weather:2026-09-22:summary}} {{cite:weather:2026-09-22:summary}}",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 3991,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 215,
+      "reasoning_tokens": 142,
+      "latency_ms": 3293.0563330010045
+    }
+  },
+  "parsed_output": "I would not recommend an evening walk in {{poi:seich_sou_forest}}, which is a demanding trail environment with a critical safety tier, especially without a validated route or conditions check.\n\n{{fact:weather:2026-09-22:summary}} {{cite:weather:2026-09-22:summary}}"
+}

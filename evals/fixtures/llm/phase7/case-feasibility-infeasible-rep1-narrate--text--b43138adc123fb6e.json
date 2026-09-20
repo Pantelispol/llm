@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_feasibility_infeasible_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "1b6130adbb5dee3002ae4214216ea785d351dbd352b898c1b36db9966e07757d"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "No. If you arrive at {{time:7:end}}, entry is no longer available because the last entry is earlier, and the museum closes shortly afterward.\n\n{{fact:catalog:archaeological_museum:hours}} {{cite:catalog:archaeological_museum:hours}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5714,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 62,
+      "reasoning_tokens": 0,
+      "latency_ms": 1810.2881669983617
+    }
+  },
+  "parsed_output": "No. If you arrive at {{time:7:end}}, entry is no longer available because the last entry is earlier, and the museum closes shortly afterward.\n\n{{fact:catalog:archaeological_museum:hours}} {{cite:catalog:archaeological_museum:hours}}."
+}

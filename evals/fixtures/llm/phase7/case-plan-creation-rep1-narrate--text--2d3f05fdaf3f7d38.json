@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_plan_creation_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "063492871a561850254d2e9b9b706607d34cd1cfc6a2168cf639bafe6f9582a7"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "1. {{time:1:start}} to {{time:1:end}} at {{poi:hagios_demetrios}}.\n2. {{time:2:start}} to {{time:2:end}} at {{poi:rotunda}}.\n3. {{time:3:start}} to {{time:3:end}} at {{poi:white_tower}}.\n4. {{time:4:start}} to {{time:4:end}} at {{poi:hagia_sophia}}.\n5. {{time:5:start}} to {{time:5:end}} at {{poi:modiano_market}} for a meal.\n\n{{fact:catalog:hagios_demetrios:hours}} {{cite:catalog:hagios_demetrios:hours}}.  \n{{fact:catalog:rotunda:hours}} {{cite:catalog:rotunda:hours}}.  \n{{fact:catalog:white_tower:hours}} {{cite:catalog:white_tower:hours}}.  \n{{fact:catalog:hagia_sophia:hours}} {{cite:catalog:hagia_sophia:hours}}.  \n{{fact:catalog:modiano_market:hours}} {{cite:catalog:modiano_market:hours}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5016,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 249,
+      "reasoning_tokens": 0,
+      "latency_ms": 2636.7081659991527
+    }
+  },
+  "parsed_output": "1. {{time:1:start}} to {{time:1:end}} at {{poi:hagios_demetrios}}.\n2. {{time:2:start}} to {{time:2:end}} at {{poi:rotunda}}.\n3. {{time:3:start}} to {{time:3:end}} at {{poi:white_tower}}.\n4. {{time:4:start}} to {{time:4:end}} at {{poi:hagia_sophia}}.\n5. {{time:5:start}} to {{time:5:end}} at {{poi:modiano_market}} for a meal.\n\n{{fact:catalog:hagios_demetrios:hours}} {{cite:catalog:hagios_demetrios:hours}}.  \n{{fact:catalog:rotunda:hours}} {{cite:catalog:rotunda:hours}}.  \n{{fact:catalog:white_tower:hours}} {{cite:catalog:white_tower:hours}}.  \n{{fact:catalog:hagia_sophia:hours}} {{cite:catalog:hagia_sophia:hours}}.  \n{{fact:catalog:modiano_market:hours}} {{cite:catalog:modiano_market:hours}}."
+}

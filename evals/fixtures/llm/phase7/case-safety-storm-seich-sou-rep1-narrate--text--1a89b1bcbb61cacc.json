@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_safety_storm_seich_sou_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "8fefb49e5cf60f099e64db8235ffcde6ea00a788c8ece333f854016da3ff5cea"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "I would avoid walking in {{poi:seich_sou_forest}} tomorrow evening: it is rated as a critical-safety outdoor trail, and rain with storm risk is forecast during the evening. {{fact:weather:2026-09-22:summary}} {{cite:weather:2026-09-22:summary}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 3991,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 220,
+      "reasoning_tokens": 145,
+      "latency_ms": 2830.6145840033423
+    }
+  },
+  "parsed_output": "I would avoid walking in {{poi:seich_sou_forest}} tomorrow evening: it is rated as a critical-safety outdoor trail, and rain with storm risk is forecast during the evening. {{fact:weather:2026-09-22:summary}} {{cite:weather:2026-09-22:summary}}."
+}

@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "conversation_turn2_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "08b928a26c143c8af711c3e4045fd06ffdf926ea655a1b3602084d5c5d0cc1b5"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "1. {{time:1:start}} to {{time:1:end}} at {{poi:hagios_demetrios}}.\n2. {{time:2:start}} to {{time:2:end}} at {{poi:rotunda}}.\n3. {{time:3:start}} to {{time:3:end}} at {{poi:hagia_sophia}}.\n4. {{time:4:start}} to {{time:4:end}} for a meal at {{poi:modiano_market}}.\n\n{{fact:weather:2026-09-22:summary}} {{cite:weather:2026-09-22:summary}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5015,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 134,
+      "reasoning_tokens": 0,
+      "latency_ms": 1805.287541996222
+    }
+  },
+  "parsed_output": "1. {{time:1:start}} to {{time:1:end}} at {{poi:hagios_demetrios}}.\n2. {{time:2:start}} to {{time:2:end}} at {{poi:rotunda}}.\n3. {{time:3:start}} to {{time:3:end}} at {{poi:hagia_sophia}}.\n4. {{time:4:start}} to {{time:4:end}} for a meal at {{poi:modiano_market}}.\n\n{{fact:weather:2026-09-22:summary}} {{cite:weather:2026-09-22:summary}}."
+}

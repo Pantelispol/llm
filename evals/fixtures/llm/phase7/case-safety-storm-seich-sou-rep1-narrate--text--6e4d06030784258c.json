@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_safety_storm_seich_sou_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "eb85239048c9fe10de55686269f174da8423800ce5620559593187a97591c07e"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "{{poi:seich_sou_forest}} is not a good choice for an evening walk: its catalog safety tier is critical, and it is an outdoor trail area with low child-friendliness and no step-free access. Consider a safer, well-trafficked alternative in Thessaloniki instead.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5524,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 65,
+      "reasoning_tokens": 0,
+      "latency_ms": 1849.1952089971164
+    }
+  },
+  "parsed_output": "{{poi:seich_sou_forest}} is not a good choice for an evening walk: its catalog safety tier is critical, and it is an outdoor trail area with low child-friendliness and no step-free access. Consider a safer, well-trafficked alternative in Thessaloniki instead."
+}

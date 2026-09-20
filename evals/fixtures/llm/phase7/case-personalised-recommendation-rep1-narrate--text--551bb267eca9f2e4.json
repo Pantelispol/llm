@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_personalised_recommendation_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "a1c001c605fb0c136ddceaa872cd9353c0541db247edd358ecba402162082282"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "This is a draft selection focused on Byzantine history and mosaics:\n\n- {{poi:museum_of_byzantine_culture}} is a strong introduction, with galleries that help you recognize mosaics, icons, marble carving, and changes in Byzantine visual culture {{cite:museum_of_byzantine_culture#practical-tips}}.\n- {{poi:hagia_sophia}} is a highlight for exceptional Byzantine mosaics, including the Ascension of Christ in the dome and the Virgin and Child in the apse {{fact:hagia_sophia#history}} {{cite:hagia_sophia#history}}.\n- {{poi:acheiropoietos}} offers one of the city’s oldest surviving early Christian basilicas, with a long history of Byzantine worship {{fact:acheiropoietos#history}} {{cite:acheiropoietos#history}}.\n- {{poi:vlatadon_monastery}} adds a Byzantine monastery setting in the upper city and remains an active Orthodox religious community {{fact:vlatadon_monastery#history}} {{cite:vlatadon_monastery#history}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 4674,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 335,
+      "reasoning_tokens": 103,
+      "latency_ms": 4056.825375002518
+    }
+  },
+  "parsed_output": "This is a draft selection focused on Byzantine history and mosaics:\n\n- {{poi:museum_of_byzantine_culture}} is a strong introduction, with galleries that help you recognize mosaics, icons, marble carving, and changes in Byzantine visual culture {{cite:museum_of_byzantine_culture#practical-tips}}.\n- {{poi:hagia_sophia}} is a highlight for exceptional Byzantine mosaics, including the Ascension of Christ in the dome and the Virgin and Child in the apse {{fact:hagia_sophia#history}} {{cite:hagia_sophia#history}}.\n- {{poi:acheiropoietos}} offers one of the city’s oldest surviving early Christian basilicas, with a long history of Byzantine worship {{fact:acheiropoietos#history}} {{cite:acheiropoietos#history}}.\n- {{poi:vlatadon_monastery}} adds a Byzantine monastery setting in the upper city and remains an active Orthodox religious community {{fact:vlatadon_monastery#history}} {{cite:vlatadon_monastery#history}}."
+}

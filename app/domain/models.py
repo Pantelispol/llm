@@ -24,6 +24,8 @@ class Intent(StrEnum):
     EDIT_PLAN = "edit_plan"
     FEASIBILITY_CHECK = "feasibility_check"
     WEATHER_QUESTION = "weather_question"
+    OPENING_HOURS_QUESTION = "opening_hours_question"
+    PRICE_QUESTION = "price_question"
     SAFETY = "safety"
     UNSUPPORTED_LIVE_INFO = "unsupported_live_info"
     OUT_OF_SCOPE = "out_of_scope"
@@ -358,3 +360,84 @@ class ValidationResult(DomainModel):
         if self.is_valid == has_errors:
             raise ValueError("is_valid must be false exactly when error violations exist")
         return self
+
+
+class EvidenceKind(StrEnum):
+    RAG = "rag"
+    CATALOG = "catalog"
+    HOURS = "hours"
+    WEATHER = "weather"
+    TRAVEL = "travel"
+
+
+OPERATIONAL_EVIDENCE_KINDS = frozenset(
+    {EvidenceKind.CATALOG, EvidenceKind.HOURS, EvidenceKind.WEATHER, EvidenceKind.TRAVEL}
+)
+
+
+class AnswerLanguage(StrEnum):
+    EN = "en"
+    EL = "el"
+
+
+class NarrationDisclosure(StrEnum):
+    APPROXIMATE_TRAVEL = "approximate_travel"
+    UNVERIFIED_HOURS = "unverified_hours"
+    WEATHER_UNAVAILABLE = "weather_unavailable"
+    DRAFT_CONTENT = "draft_content"
+
+
+class EvidenceItem(DomainModel):
+    """One citable unit of material a tool actually returned during this route."""
+
+    evidence_id: str = Field(min_length=1)
+    kind: EvidenceKind
+    poi_id: str | None = None
+    text: str = Field(min_length=1)
+    source: str = ""
+    is_untrusted: bool = False
+    admission_eur: float | None = Field(default=None, ge=0)
+    continuously_open: bool = False
+
+    @model_validator(mode="after")
+    def only_retrieved_text_can_be_untrusted(self) -> Self:
+        if self.is_untrusted and self.kind != EvidenceKind.RAG:
+            raise ValueError("only retrieved documents may be marked untrusted")
+        return self
+
+
+class NarrationBundle(DomainModel):
+    """The only material narration may use for one request."""
+
+    request_id: str = Field(min_length=1)
+    timezone: str = "Europe/Athens"
+    language: AnswerLanguage = AnswerLanguage.EN
+    user_question: str = ""
+    plan: Itinerary | None = None
+    validation: ValidationResult | None = None
+    catalog_poi_ids: list[str] = Field(default_factory=list)
+    evidence: list[EvidenceItem] = Field(default_factory=list)
+    disclosures: list[NarrationDisclosure] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def narration_never_receives_an_invalid_plan(self) -> Self:
+        if self.plan is not None and (self.validation is None or not self.validation.is_valid):
+            raise ValueError("narration requires a validated plan")
+        ids = [item.evidence_id for item in self.evidence]
+        if len(ids) != len(set(ids)):
+            raise ValueError("evidence ids must be unique within one request")
+        return self
+
+    @property
+    def registry(self) -> dict[str, EvidenceItem]:
+        return {item.evidence_id: item for item in self.evidence}
+
+    @property
+    def allowed_poi_ids(self) -> set[str]:
+        allowed = set(self.catalog_poi_ids)
+        allowed.update(item.poi_id for item in self.evidence if item.poi_id)
+        if self.plan is not None:
+            allowed.update(
+                activity.poi_id for activity in self.plan.activities if activity.poi_id
+            )
+        return allowed

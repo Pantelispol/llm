@@ -1,0 +1,75 @@
+schema_version: 1
+cases:
+  - id: english_create_plan
+    kind: replay
+    live_record: true
+    user_turn: Plan a five-hour history visit tomorrow.
+    trip_state: {}
+    expected_intent: create_plan
+
+  - id: greek_tourism_qa
+    kind: replay
+    live_record: true
+    user_turn: Πες μου για τη Ροτόντα.
+    trip_state: {}
+    expected_intent: tourism_qa
+
+  - id: followup_edit_with_state
+    kind: replay
+    live_record: true
+    user_turn: No museum—replace the second stop with something outdoors.
+    trip_state:
+      time_window:
+        start: "2026-09-21T10:00:00+03:00"
+        end: "2026-09-21T15:00:00+03:00"
+      itinerary:
+        window:
+          start: "2026-09-21T10:00:00+03:00"
+          end: "2026-09-21T15:00:00+03:00"
+        activities:
+          - poi_id: white_tower
+            start: "2026-09-21T10:00:00+03:00"
+            end: "2026-09-21T11:00:00+03:00"
+            visit_minutes: 60
+            exposure: indoor
+          - poi_id: archaeological_museum
+            start: "2026-09-21T11:15:00+03:00"
+            end: "2026-09-21T12:45:00+03:00"
+            visit_minutes: 90
+            travel_from_previous_minutes: 10
+            buffer_before_minutes: 5
+            exposure: indoor
+        total_travel_minutes: 10
+      itinerary_version: 1
+    expected_intent: edit_plan
+
+  - id: opening_hours
+    kind: replay
+    live_record: true
+    user_turn: What are the White Tower opening hours?
+    trip_state: {}
+    expected_intent: opening_hours_question
+
+  - id: price
+    kind: replay
+    live_record: true
+    user_turn: How much does admission to the Archaeological Museum cost?
+    trip_state: {}
+    expected_intent: price_question
+
+  - id: malformed_output
+    kind: replay
+    live_record: false
+    synthetic_fixture: malformed_twice
+    user_turn: Tell me about Atlantis Palace.
+    trip_state: {}
+    expected_intent: out_of_scope
+    expected_fallback: true
+
+  - id: provider_timeout
+    kind: provider_failure
+    live_record: false
+    user_turn: What is the weather tomorrow?
+    trip_state: {}
+    expected_intent: weather_question
+    expected_fallback: true

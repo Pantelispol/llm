@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_heat_replan_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "50ab5b619560008d32fa2dbfff23c352dc1faa695796e84f340e80295acd86d8"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "1. {{time:1:start}}–{{time:1:end}}: visit {{poi:acheiropoietos}}.\n2. {{time:2:start}}–{{time:2:end}}: spend time at {{poi:aristotelous_square}}, followed by an indoor break until {{time:3:end}}.\n3. {{time:4:start}}–{{time:4:end}}: visit {{poi:hagia_sophia}}.\n4. {{time:5:start}}–{{time:5:end}}: explore {{poi:modiano_market}}, followed by an indoor break until {{time:6:end}}.\n5. {{time:7:start}}–{{time:7:end}}: have your meal at {{poi:kapani_market}}.\n6. {{time:8:start}}–{{time:8:end}}: finish at {{poi:hagios_demetrios}}.\n\n{{fact:catalog:acheiropoietos:hours}} {{cite:catalog:acheiropoietos:hours}}.\n{{fact:catalog:aristotelous_square:hours}} {{cite:catalog:aristotelous_square:hours}}.\n{{fact:catalog:hagia_sophia:hours}} {{cite:catalog:hagia_sophia:hours}}.\n{{fact:catalog:modiano_market:hours}} {{cite:catalog:modiano_market:hours}}.\n{{fact:catalog:kapani_market:hours}} {{cite:catalog:kapani_market:hours}}.\n{{fact:catalog:hagios_demetrios:hours}} {{cite:catalog:hagios_demetrios:hours}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5586,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 561,
+      "reasoning_tokens": 213,
+      "latency_ms": 4989.074541997979
+    }
+  },
+  "parsed_output": "1. {{time:1:start}}–{{time:1:end}}: visit {{poi:acheiropoietos}}.\n2. {{time:2:start}}–{{time:2:end}}: spend time at {{poi:aristotelous_square}}, followed by an indoor break until {{time:3:end}}.\n3. {{time:4:start}}–{{time:4:end}}: visit {{poi:hagia_sophia}}.\n4. {{time:5:start}}–{{time:5:end}}: explore {{poi:modiano_market}}, followed by an indoor break until {{time:6:end}}.\n5. {{time:7:start}}–{{time:7:end}}: have your meal at {{poi:kapani_market}}.\n6. {{time:8:start}}–{{time:8:end}}: finish at {{poi:hagios_demetrios}}.\n\n{{fact:catalog:acheiropoietos:hours}} {{cite:catalog:acheiropoietos:hours}}.\n{{fact:catalog:aristotelous_square:hours}} {{cite:catalog:aristotelous_square:hours}}.\n{{fact:catalog:hagia_sophia:hours}} {{cite:catalog:hagia_sophia:hours}}.\n{{fact:catalog:modiano_market:hours}} {{cite:catalog:modiano_market:hours}}.\n{{fact:catalog:kapani_market:hours}} {{cite:catalog:kapani_market:hours}}.\n{{fact:catalog:hagios_demetrios:hours}} {{cite:catalog:hagios_demetrios:hours}}."
+}

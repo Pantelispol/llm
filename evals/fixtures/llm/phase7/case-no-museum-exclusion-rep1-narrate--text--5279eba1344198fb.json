@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_no_museum_exclusion_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "afd33eb0645e996e248e26bc145dbf3a49aa16ef64baf318c6df9c089a4255ce"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "1. {{time:1:start}}–{{time:1:end}} at {{poi:hagios_demetrios}}.\n2. {{time:2:start}}–{{time:2:end}} at {{poi:rotunda}}.\n3. {{time:3:start}}–{{time:3:end}} at {{poi:acheiropoietos}}.\n4. {{time:4:start}}–{{time:4:end}} at {{poi:arch_of_galerius}}.\n5. {{time:5:start}}–{{time:5:end}} at {{poi:hagia_sophia}}.\n6. {{time:6:start}}–{{time:6:end}} for a meal at {{poi:modiano_market}}.\n\nThis is a museum-free route through churches, a monument, and an indoor market. {{fact:catalog:acheiropoietos:hours}} {{cite:catalog:acheiropoietos:hours}}.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5438,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 451,
+      "reasoning_tokens": 244,
+      "latency_ms": 4728.929624994635
+    }
+  },
+  "parsed_output": "1. {{time:1:start}}–{{time:1:end}} at {{poi:hagios_demetrios}}.\n2. {{time:2:start}}–{{time:2:end}} at {{poi:rotunda}}.\n3. {{time:3:start}}–{{time:3:end}} at {{poi:acheiropoietos}}.\n4. {{time:4:start}}–{{time:4:end}} at {{poi:arch_of_galerius}}.\n5. {{time:5:start}}–{{time:5:end}} at {{poi:hagia_sophia}}.\n6. {{time:6:start}}–{{time:6:end}} for a meal at {{poi:modiano_market}}.\n\nThis is a museum-free route through churches, a monument, and an indoor market. {{fact:catalog:acheiropoietos:hours}} {{cite:catalog:acheiropoietos:hours}}."
+}

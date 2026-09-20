@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_personalised_recommendation_rep1_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "50d921b87d011397a525b9fd21a156cd009c97f431cfa1154666e31d188d8da7"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "1. {{poi:museum_of_byzantine_culture}} is the best starting point for understanding Byzantine visual culture, including mosaics, icons, marble carving, and changing artistic styles {{cite:museum_of_byzantine_culture#practical-tips}}.\n2. {{poi:hagia_sophia}} is a major Byzantine church, especially notable for its exceptional mosaics and domed design {{cite:hagia_sophia#history}}.\n3. {{poi:acheiropoietos}} offers an early Christian basilica with a long history of Byzantine worship {{cite:acheiropoietos#history}}.\n4. {{poi:vlatadon_monastery}} adds a Byzantine monastic setting in the upper city, with links to the surrounding religious landscape and fortifications {{cite:vlatadon_monastery#history}}.\n\nThis is draft content.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 4633,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 384,
+      "reasoning_tokens": 201,
+      "latency_ms": 4259.9340839951765
+    }
+  },
+  "parsed_output": "1. {{poi:museum_of_byzantine_culture}} is the best starting point for understanding Byzantine visual culture, including mosaics, icons, marble carving, and changing artistic styles {{cite:museum_of_byzantine_culture#practical-tips}}.\n2. {{poi:hagia_sophia}} is a major Byzantine church, especially notable for its exceptional mosaics and domed design {{cite:hagia_sophia#history}}.\n3. {{poi:acheiropoietos}} offers an early Christian basilica with a long history of Byzantine worship {{cite:acheiropoietos#history}}.\n4. {{poi:vlatadon_monastery}} adds a Byzantine monastic setting in the upper city, with links to the surrounding religious landscape and fortifications {{cite:vlatadon_monastery#history}}.\n\nThis is draft content."
+}

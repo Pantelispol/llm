@@ -1,0 +1,194 @@
+# Frozen checkpoint 6d narration cases.
+#
+# Plans were produced once by the deterministic planner and frozen here; the
+# eval rebuilds each itinerary from these activities and re-runs the real
+# validator, so a case that stopped being feasible fails loudly instead of
+# narrating quietly. Evidence is never written by hand: RAG items are real
+# chunks from data/content, and operational items are materialized from the
+# catalog and the opening-hours engine at eval time.
+schema_version: 1
+plan_date: 2026-09-22
+cases:
+  - id: simple_plan
+    kind: plan
+    user_question: Plan a five-hour history morning for me.
+    weather_fixture: clear_day
+    travel: precomputed
+    interests: [history]
+    window:
+      start: "09:00"
+      end: "14:00"
+    total_travel_minutes: 79
+    activities:
+      - poi_id: rotunda
+        start: "09:21"
+        visit_minutes: 35
+        travel_from_previous_minutes: 16
+        buffer_before_minutes: 5
+      - poi_id: white_tower
+        start: "10:12"
+        visit_minutes: 60
+        travel_from_previous_minutes: 11
+        buffer_before_minutes: 5
+      - poi_id: heptapyrgio
+        start: "11:51"
+        visit_minutes: 60
+        travel_from_previous_minutes: 34
+        buffer_before_minutes: 5
+      - poi_id: tsinari_ano_poli
+        kind: meal
+        start: "13:14"
+        visit_minutes: 45
+        travel_from_previous_minutes: 18
+        buffer_before_minutes: 5
+    evidence:
+      - kind: rag
+        chunk_id: rotunda#history
+      - kind: rag
+        chunk_id: white_tower#history
+      - kind: hours
+        poi_id: rotunda
+      - kind: hours
+        poi_id: white_tower
+    disclosures: [draft_content]
+
+  - id: weather_disclosure_plan
+    kind: plan
+    user_question: What can I do between mid-morning and early afternoon?
+    weather_fixture: none
+    weather_unavailable_reason: forecast provider returned no data
+    travel: precomputed
+    interests: [history]
+    window:
+      start: "10:00"
+      end: "14:00"
+    total_travel_minutes: 45
+    activities:
+      - poi_id: rotunda
+        start: "10:21"
+        visit_minutes: 35
+        travel_from_previous_minutes: 16
+        buffer_before_minutes: 5
+      - poi_id: white_tower
+        start: "11:12"
+        visit_minutes: 60
+        travel_from_previous_minutes: 11
+        buffer_before_minutes: 5
+      - poi_id: hagia_sophia
+        start: "12:28"
+        visit_minutes: 35
+        travel_from_previous_minutes: 11
+        buffer_before_minutes: 5
+      - poi_id: modiano_market
+        kind: meal
+        start: "13:15"
+        visit_minutes: 45
+        travel_from_previous_minutes: 7
+        buffer_before_minutes: 5
+    evidence:
+      - kind: rag
+        chunk_id: rotunda#what-to-see
+      - kind: hours
+        poi_id: rotunda
+      - kind: weather
+        unavailable: true
+    disclosures: [weather_unavailable, draft_content]
+
+  - id: approximate_travel_plan
+    kind: plan
+    user_question: Give me a history day and tell me how reliable the walking times are.
+    weather_fixture: clear_day
+    travel: approximate
+    interests: [history]
+    window:
+      start: "09:00"
+      end: "14:00"
+    total_travel_minutes: 70
+    activities:
+      - poi_id: hagios_demetrios
+        start: "09:21"
+        visit_minutes: 45
+        travel_from_previous_minutes: 16
+        buffer_before_minutes: 5
+      - poi_id: white_tower
+        start: "10:35"
+        visit_minutes: 60
+        travel_from_previous_minutes: 24
+        buffer_before_minutes: 5
+      - poi_id: rotunda
+        start: "11:53"
+        visit_minutes: 35
+        travel_from_previous_minutes: 13
+        buffer_before_minutes: 5
+      - poi_id: arch_of_galerius
+        start: "12:35"
+        visit_minutes: 20
+        travel_from_previous_minutes: 2
+        buffer_before_minutes: 5
+      - poi_id: kapani_market
+        kind: meal
+        start: "13:15"
+        visit_minutes: 45
+        travel_from_previous_minutes: 15
+        buffer_before_minutes: 5
+    evidence:
+      - kind: rag
+        chunk_id: hagios_demetrios#history
+      - kind: hours
+        poi_id: hagios_demetrios
+      - kind: travel
+        approximate: true
+    disclosures: [approximate_travel, draft_content]
+
+  - id: operational_catalog_answer
+    kind: operational
+    user_question: When is the archaeological museum open and what does a ticket cost?
+    weather_fixture: clear_day
+    travel: precomputed
+    catalog_poi_ids: [archaeological_museum]
+    evidence:
+      - kind: hours
+        poi_id: archaeological_museum
+      - kind: catalog
+        poi_id: archaeological_museum
+        field: admission
+    disclosures: []
+
+  - id: greek_poi_names_plan
+    kind: plan
+    user_question: Πες μου ένα πρωινό πρόγραμμα με βυζαντινές εκκλησίες.
+    weather_fixture: clear_day
+    travel: precomputed
+    interests: [religious]
+    window:
+      start: "09:00"
+      end: "13:00"
+    total_travel_minutes: 25
+    activities:
+      - poi_id: hagios_demetrios
+        start: "09:18"
+        visit_minutes: 45
+        travel_from_previous_minutes: 13
+        buffer_before_minutes: 5
+      - poi_id: acheiropoietos
+        start: "10:16"
+        visit_minutes: 35
+        travel_from_previous_minutes: 8
+        buffer_before_minutes: 5
+      - poi_id: hagia_sophia
+        start: "11:00"
+        visit_minutes: 35
+        travel_from_previous_minutes: 4
+        buffer_before_minutes: 5
+    evidence:
+      - kind: rag
+        chunk_id: hagios_demetrios#history
+      - kind: rag
+        chunk_id: hagia_sophia#history
+      - kind: hours
+        poi_id: hagios_demetrios
+      - kind: hours
+        poi_id: acheiropoietos
+      - kind: hours
+        poi_id: hagia_sophia
+    disclosures: [draft_content]

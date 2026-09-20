@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "call_name": "case_unsupported_events_rep2_narrate",
+    "prompt_version": "narrate.v2",
+    "model_id": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "output_format": "text",
+    "stable_prefix_sha256": "8ec21565fe3bb861094caeae46e1b185f00c791bad9d495dd68fefe10beeef23",
+    "dynamic_input_sha256": "00853fa6c68bc1e58952fc1aa57d40b4fdb64eacef993f8d8b518edb09784132"
+  },
+  "response": {
+    "status": "completed",
+    "model_id": "gpt-5.6-luna",
+    "output_text": "I don’t have any concert listings in the available information for tonight in Thessaloniki. The supplied schedule covers sightseeing and a meal, not live music events.",
+    "usage": {
+      "model_id": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "input_tokens": 5487,
+      "cached_input_tokens": 3685,
+      "cache_write_tokens": 0,
+      "output_tokens": 36,
+      "reasoning_tokens": 0,
+      "latency_ms": 1514.853624998068
+    }
+  },
+  "parsed_output": "I don’t have any concert listings in the available information for tonight in Thessaloniki. The supplied schedule covers sightseeing and a meal, not live music events."
+}
